@@ -15,6 +15,7 @@
 	var lint = require("./build/util/lint_runner.js");
 	var nodeunit = require("./build/util/nodeunit_runner.js");
 	var karma = require("./build/util/karma_runner.js");
+	var version = require("./build/util/version_checker.js");
 
 	desc("Lint and test");
 	task("default", ["lint", "test"], function() {
@@ -27,7 +28,7 @@
 	}, {async: true});
 
 	desc("Lint everything");
-	task("lint", [], function () {
+	task("lint", ["nodeVersion"], function () {
 		var passed = lint.validateFileList(nodeFilesToLint(), nodeLintOptions(), {});
 		passed = lint.validateFileList(browserFilesToLint(), browserLintOptions(), {}) && passed;
 		if (!passed) fail("Lint failed");
@@ -45,6 +46,13 @@
 	task("testClient", function() {
 		karma.runTests(TESTED_BROWSERS, complete, fail);
 	}, {async: true});
+
+//	desc("Ensure installed version of Node is same as deployed version");
+	task("nodeVersion", [], function() {
+		var deployedVersion = "v" + require("./package.json").engines.node;
+		var installedVersion = process.version;
+		version.check("Node", !process.env.loose, deployedVersion, installedVersion, fail);
+	});
 
 	function nodeFilesToTest() {
 		var testFiles = new jake.FileList();
