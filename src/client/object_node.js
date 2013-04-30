@@ -31,6 +31,10 @@ jdls.debug = function(object, message) {
 		return functionName(this._prototype.constructor);
 	};
 
+	ObjectNode.prototype.title = function title() {
+		return this.name() + " {" + this.type() + "}";
+	};
+
 	function objectName(fallbackName, object) {
 		if (typeof object === "function") return functionName(object) + "()";
 		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);

@@ -87,5 +87,10 @@
 			});
 		});
 
+		it("title is just name + type", function() {
+			var node = newNode("name", {});
+			expect(node.title()).to.equal("name {Object}");
+		});
+
 	});
 }());
