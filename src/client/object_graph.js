@@ -11,6 +11,7 @@ window.jdls = window.jdls || {};
 		this._nodes = [];
 		this._edges = [];
 		this._showBuiltins = !!options.builtins;
+		this._showAllFunctions = !!options.allFunctions;
 		traverse(this, new jdls.ObjectNode(name, root));
 	};
 
@@ -27,8 +28,8 @@ window.jdls = window.jdls || {};
 
 		addNode(self, node);
 		node.forEachSubNode(function(subnode, id) {
-			if (!self._showBuiltins && isBuiltin(subnode)) return;
-			if (isOrdinaryFunction(subnode)) return;
+			if (isBuiltin(subnode) && !self._showBuiltins) return;
+			if (isOrdinaryFunction(subnode) && !self._showAllFunctions) return;
 
 			subnode = dedupe(self, subnode);
 			addEdge(self, node, subnode, id);

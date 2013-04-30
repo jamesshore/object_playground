@@ -143,6 +143,16 @@
 				MyClass.prototype = null;
 				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
 			});
+
+			it("can be turned off", function() {
+				function aFunction() {}
+				var object = { a: aFunction };
+				expect(nodes(object, { allFunctions: true })).to.eql([
+					object,
+					aFunction,
+					aFunction.prototype
+				]);
+			});
 		});
 	});
 

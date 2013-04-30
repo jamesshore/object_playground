@@ -64,8 +64,6 @@
           k: seven
       };
 
-      INPUT = Object;
-
 
       var context = {};
       var playground = "this.stuff = INPUT";
@@ -74,7 +72,7 @@
       (new Function(playground)).call(context);
 //      eval.call(context, playground);
 
-      var objectGraph = new jdls.ObjectGraph("this", context, { builtins: true });
+      var objectGraph = new jdls.ObjectGraph("this", context);
 //      objectGraph = new ObjectGraph("input", objectGraph, true);
 
       var header =
