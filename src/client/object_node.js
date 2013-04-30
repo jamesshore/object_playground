@@ -50,7 +50,7 @@ jdls.debug = function(object, message) {
 
 	function objectType(object) {
 		var prototype = Object.getPrototypeOf(object);
-		if (prototype === null) return "<null>";
+		if (prototype === null) return "<root>";
 		if (prototype.constructor === undefined || prototype.constructor === null) return "<anon>";
 		return functionName(prototype.constructor);
 	}
