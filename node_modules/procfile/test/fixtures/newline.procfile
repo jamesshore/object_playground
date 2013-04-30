@@ -1,0 +1,2 @@
+web: node myapp.js -p 80 --some-option
+worker: node myworker.js --other-option

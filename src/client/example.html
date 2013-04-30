@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Testing Example</title>
+
+    <script src="example.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        .example-required {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <!-- Note: This page is for manual demonstration of the example code. It's not tested like real production code should be. -->
+
+    <p><label for="textField">Example field: </label><input id="textField" type="text" /></p>
+
+    <p><input type="submit" value="Validate" onclick="example.validateTextField(document.getElementById('textField'));"/></p>
+
+</body>
+</html>

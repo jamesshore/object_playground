@@ -1,0 +1,160 @@
+// Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+/*global desc, task, jake, fail, complete */
+
+var build_command = require("./build/util/build_command.js");
+var sh = require("./build/util/sh.js");
+
+(function() {
+	"use strict";
+
+	desc("Quick reference");
+	task("default", function() {
+		console.log(
+			"Integration quick reference:\n" +
+			"   1. Confirm good build\n" +
+			"   2. 'pull' (and confirm good build)\n" +
+			"   3. 'push[<workstation_name>]'\n" +
+			"   4. On integration machine: 'promote[<workstation_name>]'\n" +
+			"\n" +
+			"Start over if someone else integrates after you 'pull' and before you finish.\n" +
+			"For full usage instructions, run 'usage' target.\n"
+		);
+	});
+
+	desc("Usage instructions");
+	task("usage", function() {
+		console.log(
+			"Usage:\n" +
+			"For instructions on setting up your repository, run the 'init' target.\n" +
+			"\n" +
+			"To reset your repository to known-good state:\n" +
+			"   1. Run 'reset' target with 'y' parameter. (WARNING: deletes ALL changes\n" +
+			"       on the machine since the last successful integration, INCLUDING commits.)\n" +
+			"\n" +
+			"To integrate your changes:\n" +
+			"   1. Confirm the code builds clean.\n" +
+			"   2. Commit your changes.\n" +
+			"   3. Run `ci pull` to merge the latest known-good code into your local copy.\n" +
+			"      ==> If there's a merge conflict, fix it and commit.\n" +
+			"   4. Confirm the merged code builds clean.\n" +
+			"      ==> If it doesn't, fix the problem and start over.\n" +
+			"   5. Confirm that the integration machine is available and no one has\n" +
+			"      integrated since you pulled.\n" +
+			"      ==> If they have, start over when they're done integrating.\n" +
+			"   6. Run `ci push` to copy your code to the integration machine.\n" +
+			"   7. Run `ci promote` on the integration machine to build the code and merge it\n" +
+			"      into the integration branch.\n" +
+			"      ==> If the build fails, fix the problem on your machine and start over.\n"
+		);
+	});
+
+	desc("Instructions for setting up repository");
+	task("init", function() {
+		console.log(
+			"To set up your Git repository for continuous integration:\n" +
+			"1. Choose an unused development workstation to use as the integration machine.\n" +
+			"2. Merge all your unintegrated code into a single repository and get it to\n" +
+			"   build clean. This will be your master integration repository.\n" +
+			"3. Copy your master integration repository to the integration machine.\n" +
+			"4. Make sure the repository HEAD points to your integrated, known-good code.\n" +
+			"5. Create an integration branch by running 'git checkout -b integration'.\n" +
+			"   (This will also switch you to that branch.)\n" +
+			"6. Create a branch for each development workstation by running\n" +
+			"   'git branch <workstation_name>' for each one.\n" +
+			"7. Clone the integration machine's repository to each development machine by\n" +
+			"   running 'git clone <integration_repository_url>' on each dev machine.\n" +
+			"8. Switch each development workstation to use its own branch by running\n" +
+			"   'git checkout <workstation_name>' on each one.\n" +
+			"9. That's it!\n"
+		);
+	});
+
+	desc("Reset repository to last known-good integration. DESTRUCTIVE.");
+	task("reset", function(confirm) {
+		if (confirm !== "y") {
+			console.log(
+				"WARNING: This command will erase all your un-integrated work.\n" +
+				"To confirm, run using 'reset[y]'\n"
+			);
+			fail("Reset not confirmed");
+		}
+
+		run([
+			"git clean -fdx",                           // Remove extraneous files
+			"git fetch origin",                         // Get latest from integration machine
+			"git reset --hard origin/integration"       // Sync with latest position of integration branch
+		], complete);
+	}, {async: true});
+
+	desc("Get latest known-good code and merge it into current branch.");
+	task("pull", ["status"], function() {
+		run([
+			"git pull origin integration"
+		], complete);
+	}, {async: true});
+
+	desc("Push commits to integration machine for validation.");
+	task("push", ["status"], function(branch) {
+		if (!branch) {
+			console.log(
+				"This command will push your code to the integration machine. Pass your\n" +
+				"branch name as a parameter (e.g., 'push[workstation_name]').\n"
+			);
+			fail("No branch provided");
+		}
+		run([
+			"git push origin " + branch
+		], complete);
+	}, {async: true});
+
+	desc("Merge code into integration branch. INTEGRATION BOX ONLY.");
+	task("promote", ["status"], function(branch) {
+		if (!branch) {
+			console.log(
+				"This command will build your code and merge it into the integration\n" +
+				"branch. Pass your branch name as a parameter ('promote[workstation_name]').\n" +
+				"CAREFUL: This command must only be run on the master integration machine.\n"
+			);
+			fail("No branch provided");
+		}
+
+		function checkoutAndBuild(successCallback, failureCallback) {
+			sh.runMany([
+				"git checkout " + branch,
+				"git merge integration --ff-only",   // make sure integration branch has already been merged
+				build_command.get()
+			], successCallback, failureCallback);
+		}
+		function afterSuccessfulBuild() {
+			run([
+				"git checkout integration",
+				"git merge " + branch + " --no-ff --log"
+			], complete);
+		}
+		function afterFailedBuild() {
+			run([
+				"git checkout integration"
+			], function() {
+				fail("Integration failed. Integration machine reset to known-good state.");
+				complete();
+			});
+		}
+
+		checkoutAndBuild(afterSuccessfulBuild, afterFailedBuild);
+	}, {async:true});
+
+	// Ensure there aren't any files that need to be checked in or ignored
+	task("status", function() {
+		run(["git status --porcelain"], function(stdout) {
+			if (stdout[0]) fail("Working directory contains files to commit or ignore.");
+			complete();
+		});
+	}, {async:true});
+
+	function run(commands, callback, errorMessage) {
+		errorMessage = errorMessage || "shell command exited with error code";
+		sh.runMany(commands, callback, function() {
+			fail(errorMessage);
+		});
+	}
+}());
