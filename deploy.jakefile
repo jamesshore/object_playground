@@ -27,7 +27,7 @@ var smoketest = require("./src/__smoketest_runner.js");
 		deploy(DEPLOY_LATEST, INTEGRATION_BRANCH, complete);
 	}, {async: true});
 
-	desc("Deploy git HEAD to production (use for manually fixing release)")
+	desc("Deploy git HEAD to production (use to manually fix release)")
 	task("head", ["build", "git"], function() {
 		deploy(DEPLOY_HEAD, GIT_HEAD, complete);
 	}, {async: true});

@@ -8,7 +8,7 @@ This repository contains build and test automation for JavaScript projects. It's
 * Automated build (using Jake) with:
 	* Linting (using JSHint)
 	* Node.js tests (using NodeUnit)
-	* Cross-browser tests (using Testacular, Mocha, and expect.js)
+	* Cross-browser tests (using Karma, Mocha, and expect.js)
 * Example code:
 	* Server-side integration test
 	* Development smoke test
