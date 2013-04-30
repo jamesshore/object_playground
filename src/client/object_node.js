@@ -17,8 +17,14 @@ jdls.debug = function(object, message) {
 	"use strict";
 
 	var ObjectNode = jdls.ObjectNode = function ObjectNode(name, value) {
-		this._name = name;
+		this._name = determineName();
 		this._object = value;
+
+		function determineName() {
+			if (typeof value === "function") return functionName(value) + "()";
+			if (value.hasOwnProperty("constructor")) return functionName(value.constructor);
+			return name;
+		}
 	};
 
 	ObjectNode.prototype.name = function name() {
@@ -26,16 +32,19 @@ jdls.debug = function(object, message) {
 	};
 
 	ObjectNode.prototype.type = function type() {
-		var constructor = this._object.constructor;
-		var name = constructor.name;
-
-		if (name === undefined) name = ieConstructorNameWorkaround(constructor);
-		if (name === "") name = "<anon>";
-		return name;
+		return functionName(this._object.constructor);
 	};
 
+	function functionName(func) {
+		var name = func.name;
+
+		if (name === undefined) name = ieFunctionNameWorkaround(func);
+		if (name === "") name = "<anon>";
+		return name;
+	}
+
 	// This workaround based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
-	function ieConstructorNameWorkaround(constructor) {
+	function ieFunctionNameWorkaround(constructor) {
 		var funcNameRegex = /function\s+(.{1,})\s*\(/;
 		var results = (funcNameRegex).exec((constructor).toString());
 		return (results && results.length > 1) ? results[1] : "";
