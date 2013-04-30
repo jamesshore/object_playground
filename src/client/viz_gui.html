@@ -76,58 +76,7 @@
       var objectGraph = new jdls.ObjectGraph("this", context);
 //      objectGraph = new jdls.ObjectGraph("input", objectGraph);
 
-      var header =
-          'digraph g {' +
-          '  graph [' +
-          '    rankdir = "LR"' +
-          '  ];' +
-          '  node [' +
-          '    fontsize = "16"' +
-          '    shape = "ellipse"' +
-          '  ];' +
-          '  edge [' +
-          '  ];'
-      ;
-      var nodes = '';
-      var edges = '';
-      var footer = '}';
-
-      objectGraph.nodes().forEach(function(node) {
-          nodes += jdls.viz.details.nodeToViz(node);
-      });
-      objectGraph.edges().forEach(function(edge) {
-          edges += jdls.viz.details.edgeToViz(edge);
-      });
-
-      return header + nodes + edges + footer;
-  }
-
-  function createVizNode(node) {
-      var result = '"' + node.id() + '" [\n' +
-        'label = "<title>' + escapeViz(node.title());
-      var row = 1;
-      node.forEachField(function(name, value, id) {
-          result += '| <' + id + '> ' + escapeViz(name) + ": " + escapeViz(value);
-          row++;
-      });
-      result += '"\nshape = "record"];';
-      return result;
-
-  }
-
-  function createVizEdge(from, to, fromId) {
-      var result = '"' + from.id() + '":' + fromId + ' -> "' + to.id() + '":title [];'
-      return result;
-  }
-
-  function escapeViz(name) {
-      return name.
-        replace("{", "\\{", "g").
-        replace("}", "\\}", "g").
-        replace("<", "\\<", "g").
-        replace(">", "\\>", "g").
-        replace('"', '\\"', "g")
-      ;
+      return jdls.viz.details.graphToViz(objectGraph);
   }
   function example(id, format) {
     var result;
