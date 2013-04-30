@@ -27,18 +27,32 @@ jdls.debug = function(object, message) {
 	};
 
 	ObjectNode.prototype.type = function type() {
-		if (this._prototype === null) return "<null>";
-		return functionName(this._prototype.constructor);
+		return objectType(this._value);
 	};
 
 	ObjectNode.prototype.title = function title() {
 		return this.name() + " {" + this.type() + "}";
 	};
 
+	ObjectNode.prototype.forEachField = function forEachField(fn) {
+		var self = this;
+		getProperties(this._value).forEach(function(name) {
+			fn(name, describeField(self._value[name]));
+		});
+		fn("<prototype>", describeField(this._prototype));
+	};
+
 	function objectName(fallbackName, object) {
 		if (typeof object === "function") return functionName(object) + "()";
 		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);
 		return fallbackName;
+	}
+
+	function objectType(object) {
+		var prototype = Object.getPrototypeOf(object);
+		if (prototype === null) return "<null>";
+		if (prototype.constructor === undefined || prototype.constructor === null) return "<anon>";
+		return functionName(prototype.constructor);
 	}
 
 	function functionName(func) {
@@ -49,11 +63,26 @@ jdls.debug = function(object, message) {
 		return name;
 	}
 
+	var describeField = jdls.describeField = function describeField(value) {
+		if (value === null) return "null";
+
+		switch (typeof value) {
+			case "string": return '"' + value + '"';
+			case "function": return functionName(value) + "()";
+			case "object": return objectName("{" + objectType(value) + "}", value);
+			default: return "" + value;
+		}
+	};
+
 	function ieFunctionNameWorkaround(constructor) {
 		// This workaround based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
 		var funcNameRegex = /function\s+(.{1,})\s*\(/;
 		var results = (funcNameRegex).exec((constructor).toString());
 		return (results && results.length > 1) ? results[1] : "";
+	}
+
+	function getProperties(object) {
+		return Object.getOwnPropertyNames(object);
 	}
 
 	// can't use object.hasOwnProperty() because it doesn't work when object doesn't inherit from Object
