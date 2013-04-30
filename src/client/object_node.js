@@ -53,6 +53,7 @@ window.jdls = window.jdls || {};
 	};
 
 	function objectName(fallbackName, object) {
+		if (object === Function.prototype) return "Function";
 		if (typeof object === "function") return functionName(object) + "()";
 		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);
 		return fallbackName;
@@ -75,11 +76,13 @@ window.jdls = window.jdls || {};
 
 	function describeField(value) {
 		if (value === null) return "null";
+		if (value === Function.prototype) return "Function";
 
 		switch (typeof value) {
 			case "string": return '"' + value + '"';
-			case "function": return functionName(value) + "()";
-			case "object": return objectName("{" + objectType(value) + "}", value);
+			case "function":
+			case "object":
+				return objectName("{" + objectType(value) + "}", value);
 			default: return "" + value;
 		}
 	}
@@ -99,7 +102,15 @@ window.jdls = window.jdls || {};
 	}
 
 	function getProperties(object) {
-		return Object.getOwnPropertyNames(object);
+		var names = Object.getOwnPropertyNames(object);
+		if (typeof object === "function") names = filterOutRestrictedFunctionProperties();
+		return names;
+
+		function filterOutRestrictedFunctionProperties() {
+			return names.filter(function(name) {
+				return name !== "caller" && name !== "callee" && name !== "arguments";
+			});
+		}
 	}
 
 	// can't use object.hasOwnProperty() because it doesn't work when object doesn't inherit from Object

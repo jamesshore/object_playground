@@ -39,6 +39,11 @@
 				expect(node.name()).to.equal("<anon>()");
 			});
 
+			it("handles 'Function' special case", function() {
+				var node = newNode("name", Function.prototype);
+				expect(node.name()).to.equal("Function");
+			});
+
 			it("uses constructor name when present", function() {
 				var object = {
 					constructor: function TheConstructor() {}
@@ -189,6 +194,10 @@
 
 			it("converts objects to their types when they don't have a name", function() {
 				expect(conversionOf({})).to.equal("{Object}");
+			});
+
+			it("handles 'Function' special case", function() {
+				expect(conversionOf(Function.prototype)).to.equal("Function");
 			});
 
 			it("converts the prototype in the same way as other fields", function() {

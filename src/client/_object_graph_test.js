@@ -17,11 +17,39 @@
 
 			it("ignores built-in objects", function() {
 				var object = {
-					a: Object,
-					b: Array,
-					c: Function
+					a: Object.prototype,
+					b: Array.prototype,
+					c: Function.prototype
 				};
 				expect(nodes(object)).to.eql([object]);
+			});
+
+			it("ignores functions with no unusual properties", function() {
+				var object = {
+					a: function ignoredFunction() {}
+				};
+				expect(nodes(object)).to.eql([object]);
+			});
+
+			it("does not ignore functions that are constructors", function() {
+				function MyClass() {}
+				MyClass.prototype.a = 1;
+				var object = new MyClass();
+				expect(nodes(object)).to.eql([object, MyClass.prototype, MyClass]);
+			});
+
+			it("does not crash when examining functions with undefined prototype property", function() {
+				function MyClass() {}
+				var object = new MyClass();
+				MyClass.prototype = undefined;
+				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
+			});
+
+			it("does not crash when examining functions with null prototype property", function() {
+				function MyClass() {}
+				var object = new MyClass();
+				MyClass.prototype = null;
+				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
 			});
 
 			it("recursively collects nodes", function() {
