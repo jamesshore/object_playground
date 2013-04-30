@@ -97,7 +97,7 @@
       });
       objectGraph.edges().forEach(function(edge) {
 //          console.log(from.id() + " --> " + to.id());
-          edges += createVizEdge(edge.from, edge.to)//, fromIndex);
+          edges += createVizEdge(edge.from, edge.to, edge.fromIndex);
       });
 
       return header + nodes + edges + footer;
@@ -105,7 +105,7 @@
 
   function createVizNode(node) {
       var result = '"' + node.id() + '" [\n' +
-        'label = "<fname>' + escapeViz(node.title());
+        'label = "<title>' + escapeViz(node.title());
       var row = 1;
       node.forEachField(function(name, value, index) {
           result += '| <f' + index + '> ' + escapeViz(name) + ": " + escapeViz(value);
@@ -115,8 +115,8 @@
       return result;
   }
 
-  function createVizEdge(from, to, fromIndex) {
-      var result = '"' + from.id() + '":f' + fromIndex + ' -> "' + to.id() + '":fname [];'
+  function createVizEdge(from, to, fromId) {
+      var result = '"' + from.id() + '":' + fromId + ' -> "' + to.id() + '":title [];'
       return result;
   }
 

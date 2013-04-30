@@ -23,11 +23,11 @@ window.jdls = window.jdls || {};
 		if (hasNode(self, node)) return;
 
 		addNode(self, node);
-		node.forEachSubNode(function(subnode) {
+		node.forEachSubNode(function(subnode, id) {
 			if (isBuiltin(subnode)) return;
 
 			subnode = dedupe(self, subnode);
-			addEdge(self, node, subnode);
+			addEdge(self, node, subnode, id);
 			traverse(self, subnode);
 		});
 	}
@@ -52,10 +52,11 @@ window.jdls = window.jdls || {};
 		self._nodes.push(node);
 	}
 
-	function addEdge(self, from, to) {
+	function addEdge(self, from, to, fromField) {
 		self._edges.push({
 			from: from,
-			to: to
+			to: to,
+			fromField: fromField
 		});
 	}
 

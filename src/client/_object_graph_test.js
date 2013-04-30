@@ -97,6 +97,15 @@
 				expect(edges[1].from).to.equal(edges[0].to);
 			});
 
+			it("includes ID for origin node's field", function() {
+				var a = { name: "a" };
+				var b = { name: "b",
+					a: a
+				};
+				var edges = newGraph("name", b).edges();
+				expect(edges[0].fromField).to.equal("f1");
+			});
+
 		});
 
 	});
