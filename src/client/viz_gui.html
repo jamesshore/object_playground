@@ -105,9 +105,9 @@
 
   function createVizNode(node) {
       var result = '"' + node.id() + '" [\n' +
-        'label = "<fname>' + escapeViz(node.describe());
+        'label = "<fname>' + escapeViz(node.title());
       var row = 1;
-      node.forEachProperty(function(name, value, index) {
+      node.forEachField(function(name, value, index) {
           result += '| <f' + index + '> ' + escapeViz(name) + ": " + escapeViz(value);
           row++;
       });

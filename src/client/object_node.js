@@ -14,7 +14,7 @@ window.jdls = window.jdls || {};
 	};
 
 	ObjectNode.prototype.id = function id() {
-		return this._id;
+		return "node" + this._id;
 	};
 
 	ObjectNode.prototype.name = function name() {
