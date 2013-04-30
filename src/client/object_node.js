@@ -17,14 +17,9 @@ jdls.debug = function(object, message) {
 	"use strict";
 
 	var ObjectNode = jdls.ObjectNode = function ObjectNode(name, value) {
-		this._name = determineName();
+		this._name = objectName(name, value);
 		this._object = value;
-
-		function determineName() {
-			if (typeof value === "function") return functionName(value) + "()";
-			if (value.hasOwnProperty("constructor")) return functionName(value.constructor);
-			return name;
-		}
+		this._prototype = Object.getPrototypeOf(value);
 	};
 
 	ObjectNode.prototype.name = function name() {
@@ -32,8 +27,15 @@ jdls.debug = function(object, message) {
 	};
 
 	ObjectNode.prototype.type = function type() {
-		return functionName(this._object.constructor);
+		if (this._prototype === null) return "<null>";
+		return functionName(this._prototype.constructor);
 	};
+
+	function objectName(fallbackName, object) {
+		if (typeof object === "function") return functionName(object) + "()";
+		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);
+		return fallbackName;
+	}
 
 	function functionName(func) {
 		var name = func.name;
@@ -41,6 +43,11 @@ jdls.debug = function(object, message) {
 		if (name === undefined) name = ieFunctionNameWorkaround(func);
 		if (name === "") name = "<anon>";
 		return name;
+	}
+
+	function hasOwnProperty(object, propertyName) {
+		// object.hasOwnProperty() won't work if object doesn't inherit from Object
+		return Object.prototype.hasOwnProperty.call(object, propertyName);
 	}
 
 	// This workaround based on code by Jason Bunting et al, http://stackoverflow.com/a/332429

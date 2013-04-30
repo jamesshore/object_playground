@@ -18,6 +18,11 @@
 				expect(node.name()).to.equal("name");
 			});
 
+			it("doesn't crash when object has no prototype", function() {
+				var node = newNode("name", Object.create(null));
+				expect(node.name()).to.equal("name");
+			});
+
 			it("uses function name for functions", function() {
 				var node = newNode("name", function aFunction() {});
 				expect(node.name()).to.equal("aFunction()");
@@ -47,29 +52,38 @@
 		});
 
 		describe("type", function() {
-			it("is based on constructor name", function() {
-				var object = {
+			it("is based on prototype's constructor name", function() {
+				var proto = {
 					constructor: function TheConstructor() {}
 				};
+
+				var object = Object.create(proto);
+				object.constructor = function NotThisOne() {};
+
 				var node = newNode("name", object);
 				expect(node.type()).to.equal("TheConstructor");
 			});
 
-			it("works even when constructor is inherited", function() {
-				var proto = {
+			it("works even when prototype's constructor is inherited", function() {
+				var grandfather = {
 					constructor: function TheConstructor() {}
 				};
-				var object = Object.create(proto);
-				var node = newNode("name", object);
+				var proto = Object.create(grandfather);
+				var node = newNode("name", Object.create(proto));
 				expect(node.type()).to.equal("TheConstructor");
 			});
 
 			it("is anonymous when constructor has no name", function() {
-				var object = {
+				var proto = {
 					constructor: function() {}
 				};
-				var node = newNode("name", object);
+				var node = newNode("name", Object.create(proto));
 				expect(node.type()).to.equal("<anon>");
+			});
+
+			it("is null when object has no prototype", function() {
+				var node = newNode("name", Object.create(null));
+				expect(node.type()).to.equal("<null>");
 			});
 		});
 
