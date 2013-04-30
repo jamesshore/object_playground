@@ -97,7 +97,7 @@
       });
       objectGraph.edges().forEach(function(edge) {
 //          console.log(from.id() + " --> " + to.id());
-          edges += createVizEdge(edge.from, edge.to, edge.fromIndex);
+          edges += createVizEdge(edge.from, edge.to, edge.fromField);
       });
 
       return header + nodes + edges + footer;
@@ -107,8 +107,8 @@
       var result = '"' + node.id() + '" [\n' +
         'label = "<title>' + escapeViz(node.title());
       var row = 1;
-      node.forEachField(function(name, value, index) {
-          result += '| <f' + index + '> ' + escapeViz(name) + ": " + escapeViz(value);
+      node.forEachField(function(name, value, id) {
+          result += '| <' + id + '> ' + escapeViz(name) + ": " + escapeViz(value);
           row++;
       });
       result += '"\nshape = "record"];';
