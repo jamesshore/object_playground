@@ -9,9 +9,6 @@
 			return new jdls.ObjectNode(name, object);
 		}
 
-		beforeEach(function() {
-		});
-
 		describe("name", function() {
 			it("is based on provided name for most objects", function() {
 				var node = newNode("name", {});

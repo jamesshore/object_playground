@@ -2,17 +2,6 @@
 
 window.jdls = window.jdls || {};
 
-//TODO: deleteme
-jdls.debug = function(object, message) {
-	"use strict";
-	message = message ? " " + message : "";
-	dump("Debugging" + message + ":");
-	Object.getOwnPropertyNames(object).forEach(function(property) {
-		if (property === "caller" || property === "callee" || property === "arguments") return;
-		dump("  " + property + ": " + object[property] + " (" + typeof object[property] + ")");
-	});
-};
-
 (function() {
 	"use strict";
 
@@ -28,6 +17,10 @@ jdls.debug = function(object, message) {
 
 	ObjectNode.prototype.type = function type() {
 		return objectType(this._value);
+	};
+
+	ObjectNode.prototype.value = function value() {
+		return this._value;
 	};
 
 	ObjectNode.prototype.title = function title() {
