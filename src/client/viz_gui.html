@@ -92,18 +92,11 @@
       var edges = '';
       var footer = '}';
 
-      var deleteme = objectGraph.nodes()[0];
-      console.log("CORRECT: " + createVizNode(deleteme));
-      console.log("INCORRECT: " + jdls.viz.details.nodeToViz(deleteme));
-
       objectGraph.nodes().forEach(function(node) {
-//          console.log(node.id() + ": " + node.describe());
-//          nodes += createVizNode(node);
           nodes += jdls.viz.details.nodeToViz(node);
       });
       objectGraph.edges().forEach(function(edge) {
-//          console.log(from.id() + " --> " + to.id());
-          edges += createVizEdge(edge.from, edge.to, edge.fromField);
+          edges += jdls.viz.details.edgeToViz(edge);
       });
 
       return header + nodes + edges + footer;

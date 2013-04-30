@@ -45,6 +45,46 @@
 			);
 		});
 
+		it("converts entire graph", function() {
+			var fromNode = graph.nodes()[0];
+			var toNode = graph.nodes()[1];
+			var edge = graph.edges()[0];
+
+			expect(details.graphToViz(graph)).to.equal(
+				'digraph g {\n' +
+				'  graph [\n' +
+				'    rankdir = "LR"\n' +
+				'  ];\n' +
+				'  node [\n' +
+				'    fontsize = "16"\n' +
+				'    shape = "ellipse"\n' +
+				'  ];\n' +
+				'  edge [];\n' +
+				details.nodeToViz(fromNode) +
+				details.nodeToViz(toNode) +
+				details.edgeToViz(edge) +
+				'}\n'
+			);
+
+
+//			var header =
+//					'digraph g {' +
+//						'  graph [' +
+//						'    rankdir = "LR"' +
+//						'  ];' +
+//						'  node [' +
+//						'    fontsize = "16"' +
+//						'    shape = "ellipse"' +
+//						'  ];' +
+//						'  edge [' +
+//						'  ];'
+//				;
+//			var nodes = '';
+//			var edges = '';
+//			var footer = '}';
+
+		});
+
 	});
 
 }());
