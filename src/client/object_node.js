@@ -42,6 +42,21 @@ jdls.debug = function(object, message) {
 		fn("<prototype>", describeField(this._prototype));
 	};
 
+	ObjectNode.prototype.forEachSubNode = function forEachSubNode(fn) {
+		var self = this;
+
+		getProperties(this._value).forEach(function(name) {
+			subnode(name, self._value[name]);
+		});
+		subnode("<prototype>", this._prototype);
+
+		function subnode(name, value) {
+			if (typeof value !== "function" && typeof value !== "object") return;
+			if (value === null) return;
+			fn(new ObjectNode(self._name + "." + name, value));
+		}
+	};
+
 	function objectName(fallbackName, object) {
 		if (typeof object === "function") return functionName(object) + "()";
 		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);

@@ -180,5 +180,61 @@
 			});
 		});
 
+		describe("sub-nodes", function() {
+			function subNodes(object) {
+				var result = [];
+				var node = newNode("name", object);
+				node.forEachSubNode(function(subnode) {
+					result.push(subnode.name());
+				});
+				return result;
+			}
+
+			it("provides each function and object, and the prototype", function() {
+				var proto = {
+					constructor: function MyClass() {}
+				};
+				var object = Object.create(proto);
+				object.a = function aFunction() {};
+				object.b = Array.prototype;
+
+				expect(subNodes(object)).to.eql([
+					"aFunction()",
+					"Array",
+					"MyClass"
+				]);
+			});
+
+			it("skips null, undefined, and primitives", function() {
+				var object = {
+					a: true,
+					b: "string",
+					c: 10,
+					d: undefined,
+					e: null
+				};
+				expect(subNodes(object)).to.eql([
+					"Object"
+				]);
+			});
+
+			it("skips prototype if it's null", function() {
+				expect(subNodes(Object.create(null))).to.eql([]);
+			});
+
+			it("provides fallback name based on property name", function() {
+				var proto = Object.create(null);
+				var object = Object.create(proto);
+				object.a = {
+					b: {}
+				};
+				expect(subNodes(object)).to.eql([
+					"name.a",
+					"name.<prototype>"
+				]);
+			});
+
+		});
+
 	});
 }());
