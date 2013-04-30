@@ -22,7 +22,7 @@
 		console.log("\n\nOK");
 	});
 
-	desc("Start Testacular server -- run this first");
+	desc("Start Karma server -- run this first");
 	task("karma", function() {
 		karma.serve(complete, fail);
 	}, {async: true});
