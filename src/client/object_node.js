@@ -42,6 +42,10 @@ window.jdls = window.jdls || {};
 		});
 	};
 
+	ObjectNode.prototype.equals = function equals(node) {
+		return this._value === node._value;
+	};
+
 	function objectName(fallbackName, object) {
 		if (typeof object === "function") return functionName(object) + "()";
 		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);

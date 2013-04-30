@@ -111,6 +111,21 @@
 			expect(node.title()).to.equal("name {Object}");
 		});
 
+		describe("equals", function() {
+			it("is equal when objects have same identity, regardless of name", function() {
+				var object = {};
+				var node1 = newNode("name", object);
+				var node2 = newNode("different name", object);
+				expect(node1.equals(node2)).to.be(true);
+			});
+
+			it("is not equal when objects have different identify, even if they have same contents", function() {
+				var node1 = newNode("name", {});
+				var node2 = newNode("name", {});
+				expect(node1.equals(node2)).to.be(false);
+			});
+		});
+
 		describe("fields", function() {
 			function fields(object) {
 				var result = [];
