@@ -15,10 +15,20 @@ window.jdls = window.jdls || {};
 	};
 
 	function traverse(self, node) {
+		if (hasNode(self, node)) return;
+
 		addNode(self, node);
 		node.forEachSubNode(function(subnode) {
 			if (!isBuiltin(subnode)) traverse(self, subnode);
 		});
+	}
+
+	function hasNode(self, node) {
+		var matchingNodes = self._nodes.filter(function(element) {
+			return element.equals(node);
+		});
+		if (matchingNodes.length > 1) throw new Error("Node [" + node.title() + "] was stored multiple times; that should be impossible");
+		return matchingNodes.length === 1;
 	}
 
 	function addNode(self, node) {
@@ -26,7 +36,6 @@ window.jdls = window.jdls || {};
 	}
 
 	function isBuiltin(node) {
-		dump(node.name());
 		return node.name() === "Object" ||
 			node.name() === "Array" ||
 			node.type() === "Function";
