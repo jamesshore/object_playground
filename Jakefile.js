@@ -4,8 +4,8 @@
 	"use strict";
 
 	var TESTED_BROWSERS = [
-		"IE 8.0 (Windows)",
 		"IE 9.0 (Windows)",
+		"IE 10.0 (Windows)",
 		"Firefox 20.0 (Mac)",
 		"Chrome 26.0 (Mac)",
 		"Safari 6.0 (Mac)",
@@ -30,7 +30,7 @@
 	desc("Lint everything");
 	task("lint", ["nodeVersion"], function () {
 		var passed = lint.validateFileList(nodeFilesToLint(), nodeLintOptions(), {});
-		passed = lint.validateFileList(browserFilesToLint(), browserLintOptions(), {}) && passed;
+		passed = lint.validateFileList(browserFilesToLint(), browserLintOptions(), browserLintGlobals()) && passed;
 		if (!passed) fail("Lint failed");
 	});
 
@@ -78,7 +78,7 @@
 		return files.toArray();
 	}
 
-	function globalLintOptions() {
+	function sharedLintOptions() {
 		return {
 			bitwise:true,
 			curly:false,
@@ -98,15 +98,29 @@
 	}
 
 	function nodeLintOptions() {
-		var options = globalLintOptions();
+		var options = sharedLintOptions();
 		options.node = true;
 		return options;
 	}
 
 	function browserLintOptions() {
-		var options = globalLintOptions();
+		var options = sharedLintOptions();
 		options.browser = true;
 		return options;
+	}
+
+	function browserLintGlobals() {
+		return {
+			jdls: true,
+
+			mocha: false,
+			describe: false,
+			it: false,
+			expect: false,
+			dump: false,
+			beforeEach: false,
+			afterEach: false
+		};
 	}
 
 }());
