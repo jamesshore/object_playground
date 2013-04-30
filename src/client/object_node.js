@@ -41,10 +41,10 @@ window.jdls = window.jdls || {};
 
 	ObjectNode.prototype.forEachSubNode = function forEachSubNode(fn) {
 		var self = this;
-		forEach(this._value, function(name, value) {
+		forEach(this._value, function(name, value, id) {
 			if (typeof value !== "function" && typeof value !== "object") return;
 			if (value === null) return;
-			fn(new ObjectNode(self._name + "." + name, value));
+			fn(new ObjectNode(self._name + "." + name, value), id);
 		});
 	};
 

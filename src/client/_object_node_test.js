@@ -255,6 +255,18 @@
 				]);
 			});
 
+			it("provides id that matches field id", function() {
+				var object = {
+					a: 1,
+					b: {}
+				};
+				var indexes = [];
+				newNode("name", object).forEachSubNode(function(subnode, index) {
+					indexes.push(index);
+				});
+				expect(indexes).to.eql(["f1", "proto"]);
+			});
+
 		});
 
 	});
