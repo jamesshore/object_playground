@@ -5,9 +5,12 @@ window.jdls = window.jdls || {};
 (function() {
 	"use strict";
 
-	var ObjectGraph = jdls.ObjectGraph = function ObjectGraph(name, root) {
+	var ObjectGraph = jdls.ObjectGraph = function ObjectGraph(name, root, options) {
+		options = options || {};
+
 		this._nodes = [];
 		this._edges = [];
+		this._showBuiltins = !!options.builtins;
 		traverse(this, new jdls.ObjectNode(name, root));
 	};
 
@@ -24,7 +27,7 @@ window.jdls = window.jdls || {};
 
 		addNode(self, node);
 		node.forEachSubNode(function(subnode, id) {
-			if (isBuiltin(subnode)) return;
+			if (!self._showBuiltins && isBuiltin(subnode)) return;
 			if (isOrdinaryFunction(subnode)) return;
 
 			subnode = dedupe(self, subnode);

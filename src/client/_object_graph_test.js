@@ -3,55 +3,18 @@
 	"use strict";
 
 	describe("ObjectGraph", function() {
-		function newGraph(name, object) {
-			return new jdls.ObjectGraph(name, object);
+		function newGraph(name, object, options) {
+			return new jdls.ObjectGraph(name, object, options);
+		}
+
+		function nodes(object, options) {
+			var graph = newGraph("name", object, options);
+			return graph.nodes().map(function(element) {
+				return element.value();
+			});
 		}
 
 		describe("node collection", function() {
-			function nodes(object) {
-				var graph = newGraph("name", object);
-				return graph.nodes().map(function(element) {
-					return element.value();
-				});
-			}
-
-			it("ignores built-in objects", function() {
-				var object = {
-					a: Object.prototype,
-					b: Array.prototype,
-					c: Function.prototype
-				};
-				expect(nodes(object)).to.eql([object]);
-			});
-
-			it("ignores functions with no unusual properties", function() {
-				var object = {
-					a: function ignoredFunction() {}
-				};
-				expect(nodes(object)).to.eql([object]);
-			});
-
-			it("does not ignore functions that are constructors", function() {
-				function MyClass() {}
-				MyClass.prototype.a = 1;
-				var object = new MyClass();
-				expect(nodes(object)).to.eql([object, MyClass.prototype, MyClass]);
-			});
-
-			it("does not crash when examining functions with undefined prototype property", function() {
-				function MyClass() {}
-				var object = new MyClass();
-				MyClass.prototype = undefined;
-				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
-			});
-
-			it("does not crash when examining functions with null prototype property", function() {
-				function MyClass() {}
-				var object = new MyClass();
-				MyClass.prototype = null;
-				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
-			});
-
 			it("recursively collects nodes", function() {
 				var a = { name: "a" };
 				var b = { name: "b",
@@ -133,9 +96,54 @@
 				var edges = newGraph("name", b).edges();
 				expect(edges[0].fromField).to.equal("f1");
 			});
-
 		});
 
+		describe("built-in object filtering", function() {
+			it("ignores built-in objects", function() {
+				var object = {
+					a: Object.prototype,
+					b: Array.prototype,
+					c: Function.prototype
+				};
+				expect(nodes(object)).to.eql([object]);
+			});
+
+			it("can be turned off", function() {
+				expect(nodes(Object, { builtins: true })).to.eql([
+					Object, Object.prototype, Function.prototype, Function
+				]);
+			});
+		});
+
+		describe("function filtering", function() {
+			it("ignores functions with no unusual properties", function() {
+				var object = {
+					a: function ignoredFunction() {}
+				};
+				expect(nodes(object)).to.eql([object]);
+			});
+
+			it("does not ignore functions that are constructors", function() {
+				function MyClass() {}
+				MyClass.prototype.a = 1;
+				var object = new MyClass();
+				expect(nodes(object)).to.eql([object, MyClass.prototype, MyClass]);
+			});
+
+			it("does not crash when examining functions with undefined prototype property", function() {
+				function MyClass() {}
+				var object = new MyClass();
+				MyClass.prototype = undefined;
+				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
+			});
+
+			it("does not crash when examining functions with null prototype property", function() {
+				function MyClass() {}
+				var object = new MyClass();
+				MyClass.prototype = null;
+				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
+			});
+		});
 	});
 
 }());
