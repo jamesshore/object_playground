@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <!--<script type="text/javascript">-->
+        <!--window.require = function() {};-->
+    <!--</script>-->
+
+    <script type="text/javascript" src="object_node.js"></script>
+    <script type="text/javascript" src="object_graph.js"></script>
+</head>
+<body>
+
+<script src="viz/viz.js"></script>
+<script>
+
+  function inspect(s) {
+    return "<pre>" + s.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>"
+  }
+
+  function src(id) {
+      function Five(prefix) {
+          this.myFive = prefix + "" + 5;
+      }
+      Five.prototype.sayFive = function() {
+          console.log("sayFive: " + this.myFive);
+      };
+
+      function Six(prefix) {
+          Five.call(this, prefix);
+          this.mySix = 6 + "" + prefix;
+      }
+      Six.prototype = new Five("xxx");
+      Six.prototype.constructor = Six;
+      Six.prototype.sayFive = function() {
+          Five.prototype.sayFive.call(this);
+          console.log("sayFive child!");
+      }
+      Six.prototype.saySix = function() {
+          console.log("saySix: " + this.mySix);
+      };
+
+      function create(parent) {
+          function F() {}
+          F.prototype = parent;
+          return new F();
+      }
+
+      var sevenParent = { "seven": 7 }
+      var seven = create(sevenParent);
+
+      INPUT = {
+          a: 1,
+          b: "two",
+          c: function three() {},
+          d: { four: 4 },
+          e: null,
+          f: undefined,
+          g: NaN,
+          h: new Five("A"),
+          i: new Six("B"),
+          i2: new Six("C"),
+          j: [7, 8, 9],
+          k: seven
+      };
+
+
+      var context = {};
+      var playground = "this.stuff = INPUT";
+
+//      playground = "with (this) { " + playground + " }";
+      (new Function(playground)).call(context);
+//      eval.call(context, playground);
+
+      var objectGraph = new jdls.ObjectGraph("this", context);
+//      objectGraph = new ObjectGraph("input", objectGraph, true);
+
+      var header =
+          'digraph g {' +
+          '  graph [' +
+          '    rankdir = "LR"' +
+          '  ];' +
+          '  node [' +
+          '    fontsize = "16"' +
+          '    shape = "ellipse"' +
+          '  ];' +
+          '  edge [' +
+          '  ];'
+      ;
+      var nodes = '';
+      var edges = '';
+      var footer = '}';
+
+      objectGraph.nodes().forEach(function(node) {
+//          console.log(node.id() + ": " + node.describe());
+          nodes += createVizNode(node);
+      });
+      objectGraph.edges().forEach(function(edge) {
+//          console.log(from.id() + " --> " + to.id());
+          edges += createVizEdge(edge.from, edge.to)//, fromIndex);
+      });
+
+      return header + nodes + edges + footer;
+  }
+
+  function createVizNode(node) {
+      var result = '"' + node.id() + '" [\n' +
+        'label = "<fname>' + escapeViz(node.describe());
+      var row = 1;
+      node.forEachProperty(function(name, value, index) {
+          result += '| <f' + index + '> ' + escapeViz(name) + ": " + escapeViz(value);
+          row++;
+      });
+      result += '"\nshape = "record"];';
+      return result;
+  }
+
+  function createVizEdge(from, to, fromIndex) {
+      var result = '"' + from.id() + '":f' + fromIndex + ' -> "' + to.id() + '":fname [];'
+      return result;
+  }
+
+  function escapeViz(name) {
+      return name.
+        replace("{", "\\{", "g").
+        replace("}", "\\}", "g").
+        replace("<", "\\<", "g").
+        replace(">", "\\>", "g").
+        replace('"', '\\"', "g")
+      ;
+  }
+  function example(id, format) {
+    var result;
+    try {
+      result = Viz(src(id), format);
+      if (format === "svg")
+        return result;
+      else
+        return inspect(result);
+    } catch(e) {
+      return inspect(e.toString());
+    }
+  }
+
+  document.body.innerHTML += example("data", "svg");
+
+</script>
+
+</body>
+</html>

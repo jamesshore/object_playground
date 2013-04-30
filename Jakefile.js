@@ -74,7 +74,7 @@
 
 	function browserFilesToLint() {
 		var files = new jake.FileList();
-		files.include("src/client/**/*.js");
+		files.include("src/client/*.js");
 		return files.toArray();
 	}
 
