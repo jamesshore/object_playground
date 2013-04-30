@@ -18,7 +18,7 @@ jdls.debug = function(object, message) {
 
 	var ObjectNode = jdls.ObjectNode = function ObjectNode(name, value) {
 		this._name = objectName(name, value);
-		this._object = value;
+		this._value = value;
 		this._prototype = Object.getPrototypeOf(value);
 	};
 
@@ -49,16 +49,16 @@ jdls.debug = function(object, message) {
 		return name;
 	}
 
-	function hasOwnProperty(object, propertyName) {
-		// object.hasOwnProperty() won't work if object doesn't inherit from Object
-		return Object.prototype.hasOwnProperty.call(object, propertyName);
-	}
-
-	// This workaround based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
 	function ieFunctionNameWorkaround(constructor) {
+		// This workaround based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
 		var funcNameRegex = /function\s+(.{1,})\s*\(/;
 		var results = (funcNameRegex).exec((constructor).toString());
 		return (results && results.length > 1) ? results[1] : "";
+	}
+
+	// can't use object.hasOwnProperty() because it doesn't work when object doesn't inherit from Object
+	function hasOwnProperty(object, propertyName) {
+		return Object.prototype.hasOwnProperty.call(object, propertyName);
 	}
 
 }());
