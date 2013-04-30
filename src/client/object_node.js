@@ -5,10 +5,16 @@ window.jdls = window.jdls || {};
 (function() {
 	"use strict";
 
+	var uniqueId = 0;
+
 	var ObjectNode = jdls.ObjectNode = function ObjectNode(name, value) {
+		this._id = uniqueId++;
 		this._name = objectName(name, value);
 		this._value = value;
-		this._prototype = Object.getPrototypeOf(value);
+	};
+
+	ObjectNode.prototype.id = function id() {
+		return this._id;
 	};
 
 	ObjectNode.prototype.name = function name() {

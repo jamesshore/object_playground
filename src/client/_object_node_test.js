@@ -9,6 +9,15 @@
 			return new jdls.ObjectNode(name, object);
 		}
 
+		describe("id", function() {
+			it("is unique for each node object regardless of contents", function() {
+				var object = {};
+				var node1 = newNode("name", object);
+				var node2 = newNode("name", object);
+				expect(node1.id()).to.not.equal(node2.id());
+			});
+		});
+
 		describe("name", function() {
 			it("is based on provided name for most objects", function() {
 				var node = newNode("name", {});
