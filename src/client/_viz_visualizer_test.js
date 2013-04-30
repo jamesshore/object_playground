@@ -16,6 +16,15 @@
 			details = jdls.viz.details;
 		});
 
+		it("escapes strings", function() {
+			var esc = details.escape;
+			expect(esc("<>")).to.equal("\\<\\>");
+			expect(esc("{}")).to.equal("\\{\\}");
+			expect(esc("|")).to.equal("\\|");
+			expect(esc('"')).to.equal('\\"');
+			expect(esc("\\")).to.equal("\\\\");
+		});
+
 		it("converts nodes", function() {
 			var node = new jdls.ObjectNode("name", { a: 1 });
 
@@ -26,17 +35,6 @@
 				'  | <proto> \\<prototype\\>: Object"\n' +
 				'shape = "record"];\n'
 			);
-
-//			var result = '"' + node.id() + '" [\n' +
-//				'label = "<title>' + escapeViz(node.title());
-//			var row = 1;
-//			node.forEachField(function(name, value, id) {
-//				result += '| <' + id + '> ' + escapeViz(name) + ": " + escapeViz(value);
-//				row++;
-//			});
-//			result += '"\nshape = "record"];';
-//			return result;
-
 		});
 
 //		describe("node conversion", function() {

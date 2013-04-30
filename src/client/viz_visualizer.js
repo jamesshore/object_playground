@@ -17,16 +17,6 @@ window.jdls = window.jdls || {};
 
 		return header + labelLine + shape + footer;
 
-//		var result = '"' + node.id() + '" [\n' +
-//			'label = "<title>' + escapeViz(node.title());
-//		var row = 1;
-//		node.forEachField(function(name, value, id) {
-//			result += '| <' + id + '> ' + escapeViz(name) + ": " + escapeViz(value);
-//			row++;
-//		});
-//		result += '"\nshape = "record"];';
-//		return result;
-
 		function label() {
 			var title = '<title>' + escape(node.title());
 			return 'label = "' + title + fields() + '"';
@@ -39,18 +29,18 @@ window.jdls = window.jdls || {};
 			});
 			return result;
 		}
-
 	};
 
-	function escape(name) {
-     return name.
-       replace("{", "\\{", "g").
-       replace("}", "\\}", "g").
-       replace("<", "\\<", "g").
-       replace(">", "\\>", "g").
-       replace('"', '\\"', "g")
-     ;
- }
+	var escape = details.escape = function escape(name) {
+		return name.
+			replace('\\', '\\\\', "g").
+			replace("{", "\\{", "g").
+			replace("}", "\\}", "g").
+			replace("<", "\\<", "g").
+			replace(">", "\\>", "g").
+			replace('|', '\\|', "g").
+			replace('"', '\\"', "g");
+	};
 
 
 }());
