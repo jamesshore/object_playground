@@ -35,11 +35,15 @@
 			);
 		});
 
-//		describe("node conversion", function() {
-//			it("")
-//
-//
-//		});
+		it("converts edges", function() {
+			var edge = graph.edges()[0];
+			var fromId = graph.nodes()[0].id();
+			var toId = graph.nodes()[1].id();
+
+			expect(details.edgeToViz(edge)).to.equal(
+				'"' + fromId + '":f0 -> "' + toId + '":title [];'
+			);
+		});
 
 	});
 

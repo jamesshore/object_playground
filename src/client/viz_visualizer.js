@@ -31,6 +31,10 @@ window.jdls = window.jdls || {};
 		}
 	};
 
+	details.edgeToViz = function edgeToViz(edge) {
+		return '"' + edge.from.id() + '":' + edge.fromField + ' -> "' + edge.to.id() + '":title [];';
+	};
+
 	var escape = details.escape = function escape(name) {
 		return name.
 			replace('\\', '\\\\', "g").
