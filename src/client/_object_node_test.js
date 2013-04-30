@@ -139,8 +139,8 @@
 			function fields(object) {
 				var result = [];
 				var node = newNode("name", object);
-				node.forEachField(function(name, value) {
-					result.push({ name: name, value: value });
+				node.forEachField(function(name, value, id) {
+					result.push({ name: name, value: value, id: id });
 				});
 				return result;
 			}
@@ -157,10 +157,10 @@
 					c: 3
 				};
 				expect(fields(object)).to.eql([
-					{ name: "a", value: "1" },
-					{ name: "b", value: "2" },
-					{ name: "c", value: "3" },
-					{ name: "<prototype>", value: "Object" }
+					{ name: "a", value: "1", id: "f0" },
+					{ name: "b", value: "2", id: "f1" },
+					{ name: "c", value: "3", id: "f2" },
+					{ name: "<prototype>", value: "Object", id: "proto" }
 				]);
 			});
 
@@ -196,7 +196,7 @@
 					constructor: function MyClass() {}
 				};
 				expect(fields(Object.create(proto))).to.eql([
-					{ name: "<prototype>", value: "MyClass" }
+					{ name: "<prototype>", value: "MyClass", id: "proto" }
 				]);
 			});
 		});

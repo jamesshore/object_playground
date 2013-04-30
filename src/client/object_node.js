@@ -34,8 +34,8 @@ window.jdls = window.jdls || {};
 	};
 
 	ObjectNode.prototype.forEachField = function forEachField(fn) {
-		forEach(this._value, function(name, value) {
-			fn(name, describeField(value));
+		forEach(this._value, function(name, value, id) {
+			fn(name, describeField(value), id);
 		});
 	};
 
@@ -92,10 +92,10 @@ window.jdls = window.jdls || {};
 	}
 
 	function forEach(object, fn) {
-		getProperties(object).forEach(function(name) {
-			fn(name, object[name]);
+		getProperties(object).forEach(function(name, index) {
+			fn(name, object[name], "f" + index);
 		});
-		fn("<prototype>", Object.getPrototypeOf(object));
+		fn("<prototype>", Object.getPrototypeOf(object), "proto");
 	}
 
 	function getProperties(object) {
