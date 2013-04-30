@@ -8,6 +8,7 @@
 
     <script type="text/javascript" src="object_node.js"></script>
     <script type="text/javascript" src="object_graph.js"></script>
+    <script type="text/javascript" src="viz_visualizer.js"></script>
 </head>
 <body>
 
@@ -91,9 +92,14 @@
       var edges = '';
       var footer = '}';
 
+      var deleteme = objectGraph.nodes()[0];
+      console.log("CORRECT: " + createVizNode(deleteme));
+      console.log("INCORRECT: " + jdls.viz.details.nodeToViz(deleteme));
+
       objectGraph.nodes().forEach(function(node) {
 //          console.log(node.id() + ": " + node.describe());
-          nodes += createVizNode(node);
+//          nodes += createVizNode(node);
+          nodes += jdls.viz.details.nodeToViz(node);
       });
       objectGraph.edges().forEach(function(edge) {
 //          console.log(from.id() + " --> " + to.id());
@@ -113,6 +119,7 @@
       });
       result += '"\nshape = "record"];';
       return result;
+
   }
 
   function createVizEdge(from, to, fromId) {

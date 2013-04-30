@@ -30,9 +30,7 @@
 
 			expect(details.nodeToViz(node)).to.equal(
 				'"' + node.id() + '" [\n' +
-				'label = "<title>name \\{Object\\}\n' +
-				'  | <f0> a: 1\n' +
-				'  | <proto> \\<prototype\\>: Object"\n' +
+				'label = "<title>name \\{Object\\}| <f0> a: 1| <proto> \\<prototype\\>: Object"\n' +
 				'shape = "record"];\n'
 			);
 		});

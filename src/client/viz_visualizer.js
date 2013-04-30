@@ -25,7 +25,7 @@ window.jdls = window.jdls || {};
 		function fields() {
 			var result = "";
 			node.forEachField(function(name, value, id) {
-				result += '\n  | <' + id + '> ' + escape(name) + ': ' + escape(value);
+				result += '| <' + id + '> ' + escape(name) + ': ' + escape(value);
 			});
 			return result;
 		}
