@@ -3,12 +3,13 @@
 (function () {
 	"use strict";
 
-	var REQUIRED_BROWSERS = [
-//		"IE 8.0",
-//		"IE 9.0",
-//		"Firefox 17.0",
-//		"Chrome 23.0",
-//		"Safari 6.0"
+	var TESTED_BROWSERS = [
+		"IE 8.0 (Windows)",
+		"IE 9.0 (Windows)",
+		"Firefox 20.0 (Mac)",
+		"Chrome 26.0 (Mac)",
+		"Safari 6.0 (Mac)",
+		"Safari 6.0 (iOS)"
 	];
 
 	var lint = require("./build/util/lint_runner.js");
@@ -42,7 +43,7 @@
 
 	desc("Test browser code");
 	task("testClient", function() {
-		karma.runTests(REQUIRED_BROWSERS, complete, fail);
+		karma.runTests(TESTED_BROWSERS, complete, fail);
 	}, {async: true});
 
 	function nodeFilesToTest() {
