@@ -36,6 +36,12 @@ window.jdls = window.jdls || {};
 		}
 	};
 
+	details.vizToSvg = function vizToSvg(vizCode) {
+		/*jshint newcap:false */
+		/*global Viz */
+		return Viz(vizCode, "svg");
+	};
+
 	details.nodeToViz = function nodeToViz(node) {
 		var header = '"' + node.id() + '" [';
 		var labelLine = '\n' + label();

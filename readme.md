@@ -18,6 +18,23 @@ This repository contains build and test automation for JavaScript projects. It's
 This code was developed for the "Lessons Learned 8: Automatopia" episode of James Shore's *Let's Code: Test-Driven JavaScript* screencast. For details, the video, and a transcript, see [letscodejavascript.com](http://www.letscodejavascript.com).
 
 
+Browser Support
+---------------
+
+This program has been tested against the browsers listed at the top of `Jakefile.js`. At the time of this writing, the following browsers are known to work. Other modern browsers are likely to work as well.
+
+* Chrome 26
+* Firefox 20
+* IE 10
+* Safari 6.0 (Mac)
+* Safari 6.0 (iOS)
+
+The following browsers are known to *not* work:
+
+* IE 8: Does not support SVG
+* IE 9: Lacks the Int32Array type used by Viz.js. A polyfill was attempted, but resulted in an "out of memory" error.
+
+
 Building and Testing
 --------------------
 

@@ -2,17 +2,17 @@
 <html>
 <head>
     <title></title>
-    <!--<script type="text/javascript">-->
-        <!--window.require = function() {};-->
-    <!--</script>-->
+
+    <script type="text/javascript" src="shims/typedarray.js"></script>    <!-- Int32Array support for IE9 -->
+    <script type="text/javascript" src="viz/viz.js"></script>
 
     <script type="text/javascript" src="object_node.js"></script>
     <script type="text/javascript" src="object_graph.js"></script>
     <script type="text/javascript" src="viz_visualizer.js"></script>
+
 </head>
 <body>
 
-<script src="viz/viz.js"></script>
 <script>
 
   function inspect(s) {

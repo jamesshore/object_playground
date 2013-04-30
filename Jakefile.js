@@ -4,7 +4,8 @@
 	"use strict";
 
 	var TESTED_BROWSERS = [
-		"IE 9.0 (Windows)",
+		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
+		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
 		"IE 10.0 (Windows)",
 		"Firefox 20.0 (Mac)",
 		"Chrome 26.0 (Mac)",
