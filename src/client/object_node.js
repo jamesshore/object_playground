@@ -35,26 +35,18 @@ jdls.debug = function(object, message) {
 	};
 
 	ObjectNode.prototype.forEachField = function forEachField(fn) {
-		var self = this;
-		getProperties(this._value).forEach(function(name) {
-			fn(name, describeField(self._value[name]));
+		forEach(this._value, function(name, value) {
+			fn(name, describeField(value));
 		});
-		fn("<prototype>", describeField(this._prototype));
 	};
 
 	ObjectNode.prototype.forEachSubNode = function forEachSubNode(fn) {
 		var self = this;
-
-		getProperties(this._value).forEach(function(name) {
-			subnode(name, self._value[name]);
-		});
-		subnode("<prototype>", this._prototype);
-
-		function subnode(name, value) {
+		forEach(this._value, function(name, value) {
 			if (typeof value !== "function" && typeof value !== "object") return;
 			if (value === null) return;
 			fn(new ObjectNode(self._name + "." + name, value));
-		}
+		});
 	};
 
 	function objectName(fallbackName, object) {
@@ -78,7 +70,7 @@ jdls.debug = function(object, message) {
 		return name;
 	}
 
-	var describeField = jdls.describeField = function describeField(value) {
+	function describeField(value) {
 		if (value === null) return "null";
 
 		switch (typeof value) {
@@ -87,13 +79,20 @@ jdls.debug = function(object, message) {
 			case "object": return objectName("{" + objectType(value) + "}", value);
 			default: return "" + value;
 		}
-	};
+	}
 
 	function ieFunctionNameWorkaround(constructor) {
-		// This workaround based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
+		// This workaround is based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
 		var funcNameRegex = /function\s+(.{1,})\s*\(/;
 		var results = (funcNameRegex).exec((constructor).toString());
 		return (results && results.length > 1) ? results[1] : "";
+	}
+
+	function forEach(object, fn) {
+		getProperties(object).forEach(function(name) {
+			fn(name, object[name]);
+		});
+		fn("<prototype>", Object.getPrototypeOf(object));
 	}
 
 	function getProperties(object) {
