@@ -2,8 +2,10 @@
 
 window.jdls = window.jdls || {};
 
+// Functions related to user-entered code.
 (function() {
 	"use strict";
+
 
 	var exports = window.jdls.usercode = {};
 	var samples = exports.samples = {};

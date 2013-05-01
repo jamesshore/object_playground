@@ -2,6 +2,7 @@
 
 window.jdls = window.jdls || {};
 
+// Functions for turning an object graph into SVG.
 (function() {
 	"use strict";
 

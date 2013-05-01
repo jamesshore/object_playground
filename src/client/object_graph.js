@@ -2,6 +2,7 @@
 
 window.jdls = window.jdls || {};
 
+// Instances catalog all objects reachable from a root object.
 (function() {
 	"use strict";
 

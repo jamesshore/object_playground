@@ -2,6 +2,7 @@
 
 window.jdls = window.jdls || {};
 
+// Each instance is a single object in the object graph.
 (function() {
 	"use strict";
 
