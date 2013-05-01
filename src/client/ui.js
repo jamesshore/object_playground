@@ -7,17 +7,20 @@ window.jdls = window.jdls || {};
 	"use strict";
 
 	var exports = window.jdls.ui = {};
+	var samples;
 	var userCode;
 	var evaluate;
 	var graph;
 
-	exports.initialize = function initialize(userCodeTextArea, evaluateButton, graphDiv) {
+	exports.initialize = function initialize(samplesList, userCodeTextArea, evaluateButton, graphDiv) {
+		samples = samplesList;
 		userCode = userCodeTextArea;
 		evaluate = evaluateButton;
 		graph = graphDiv;
 
-		populateUserCode(jdls.usercode.samples.DEFAULT);
-		renderUserCode();
+		populateSampleButtons();
+		replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
+
 		addEventHandlers();
 	};
 
@@ -27,8 +30,24 @@ window.jdls = window.jdls || {};
 		});
 	}
 
-	function populateUserCode(sample) {
+	function populateSampleButtons() {
+		Object.getOwnPropertyNames(jdls.usercode.samples).forEach(function(name) {
+			var sample = jdls.usercode.samples[name];
+			var button = document.createElement("li");
+			button.innerHTML = "<input type='submit' value='" + sample.name + "'></input>";
+
+			//TODO: untested
+			button.addEventListener("click", function() {
+				replaceUserCode(sample);
+			});
+
+			samples.appendChild(button);
+		});
+	}
+
+	function replaceUserCode(sample) {
 		userCode.value = sample.code;
+		renderUserCode();
 	}
 
 	function renderUserCode() {

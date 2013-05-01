@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<ul id="samples"></ul>
+<p></p>
 <textarea id="usercode" cols="80" rows="10"></textarea>
 <p></p>
 <input type="button" id="evaluate" value="Evaluate"></input>
@@ -21,11 +23,12 @@
 
 <script>
   window.addEventListener("load", function() {
+      var samples = document.getElementById("samples");
       var usercode = document.getElementById("usercode");
-      var evalButton = document.getElementById("evaluate");
+      var evaluate = document.getElementById("evaluate");
       var graph = document.getElementById("graph");
 
-      jdls.ui.initialize(usercode, evalButton, graph);
+      jdls.ui.initialize(samples, usercode, evaluate, graph);
   });
 </script>
 

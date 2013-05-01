@@ -34,6 +34,6 @@ window.jdls = window.jdls || {};
 		'this.deeper = jdls.usercode.evaluate(jdls.usercode.samples.inception.code);'
 	};
 
-	samples.DEFAULT = samples.classical;
+	exports.DEFAULT_SAMPLE = samples.classical;
 
 }());
