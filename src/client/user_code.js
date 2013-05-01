@@ -18,7 +18,7 @@ window.jdls = window.jdls || {};
 	samples.classical = { name: "Classical Classes", code:
 		'function MyClass() {}\n' +
 		'MyClass.prototype.method = function aMethod() {};\n' +
-		'this.instance = new MyClass();\n'
+		'this.instance = new MyClass();'
 	};
 
 	samples.inception = { name: "Inception!", code:
@@ -26,5 +26,10 @@ window.jdls = window.jdls || {};
 		'  inner: {}\n' +
 		'};\n' +
 		'this.graph = new jdls.ObjectGraph("root", object);'
+	};
+
+	samples.deeper = { name: "We Must Go Deeper", code:
+		'this.jdls = jdls;\n' +
+		'this.deeper = jdls.usercode.evaluate(jdls.usercode.samples.inception.code);'
 	};
 }());

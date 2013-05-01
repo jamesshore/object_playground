@@ -81,7 +81,7 @@ window.jdls = window.jdls || {};
 			replace(/>/g, "\\>").
 			replace(/\|/g, '\\|').
 			replace(/\"/g, '\\"').
-			replace(/\n/g, ' ').
+			replace(/\n/g, '\\n').
 			replace(/\t/g, ' ');
 	};
 

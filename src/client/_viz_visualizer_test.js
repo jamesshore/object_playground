@@ -23,7 +23,7 @@
 			expect(esc("||")).to.equal("\\|\\|");
 			expect(esc('""')).to.equal('\\"\\"');
 			expect(esc("\\\\")).to.equal("\\\\\\\\");
-			expect(esc("\n\n")).to.equal("  ");
+			expect(esc("\n\n")).to.equal("\\n\\n");
 			expect(esc("\t\t")).to.equal("  ");
 		});
 
