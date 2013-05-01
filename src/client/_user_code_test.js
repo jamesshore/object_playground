@@ -26,23 +26,15 @@
 			});
 		});
 
-		describe("samples: ", function() {
-			var context;
-
-			function sample(theSample) {
-				return evaluate(theSample.code);
+		describe("sample", function() {
+			function check(sample) {
+				expect(function() {
+					evaluate(sample.code);
+				}).to.not.throwException();
 			}
 
-			beforeEach(function() {
-				context = {};
-			});
-
-			it("classical", function() {
-				function MyClass() {}
-				MyClass.prototype.method = function aMethod() {};
-				context.instance = new MyClass();
-
-				expect(sample(samples.classical)).to.eql(context);
+			it("classical compiles", function() {
+				check(samples.classical);
 			});
 		});
 
