@@ -8,6 +8,10 @@ window.jdls = window.jdls || {};
 	var exports = window.jdls.viz = {};
 	var details = exports.details = {};
 
+	exports.render = function render(rootName, object) {
+		return details.vizToSvg(details.graphToViz(new jdls.ObjectGraph(rootName, object)));
+	};
+
 	details.graphToViz = function graphToViz(graph) {
 		var header =
 			'digraph g {\n' +

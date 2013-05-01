@@ -19,7 +19,7 @@
     return "<pre>" + s.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>"
   }
 
-  function src(id) {
+  function render(id) {
       function Five(prefix) {
           this.myFive = prefix + "" + 5;
       }
@@ -73,19 +73,13 @@
       (new Function(playground)).call(context);
 //      eval.call(context, playground);
 
-      var objectGraph = new jdls.ObjectGraph("this", context);
-//      objectGraph = new jdls.ObjectGraph("input", objectGraph);
-
-      return jdls.viz.details.graphToViz(objectGraph);
+      throw new Error("test");
+      return jdls.viz.render("this", context);
   }
+
   function example(id, format) {
-    var result;
     try {
-      result = Viz(src(id), format);
-      if (format === "svg")
-        return result;
-      else
-        return inspect(result);
+      return render();
     } catch(e) {
       return inspect(e.toString());
     }
