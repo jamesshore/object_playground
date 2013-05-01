@@ -14,7 +14,6 @@
 	];
 
 	var lint = require("./build/util/lint_runner.js");
-	var nodeunit = require("./build/util/nodeunit_runner.js");
 	var karma = require("./build/util/karma_runner.js");
 	var version = require("./build/util/version_checker.js");
 
@@ -35,16 +34,8 @@
 		if (!passed) fail("Lint failed");
 	});
 
-	desc("Test everything");
-	task("test", ["testServer", "testClient"]);
-
-	desc("Test node.js code");
-	task("testServer", function() {
-		nodeunit.runTests(nodeFilesToTest(), complete, fail);
-	}, {async: true});
-
 	desc("Test browser code");
-	task("testClient", function() {
+	task("test", function() {
 		karma.runTests(TESTED_BROWSERS, complete, fail);
 	}, {async: true});
 
@@ -55,19 +46,8 @@
 		version.check("Node", !process.env.loose, deployedVersion, installedVersion, fail);
 	});
 
-	function nodeFilesToTest() {
-		var testFiles = new jake.FileList();
-		testFiles.include("src/_*_test.js");
-		testFiles.include("src/server/**/_*_test.js");
-		testFiles.exclude("node_modules");
-		var tests = testFiles.toArray();
-		return tests;
-	}
-
 	function nodeFilesToLint() {
 		var files = new jake.FileList();
-		files.include("src/*.js");
-		files.include("src/server/**/*.js");
 		files.include("build/util/**/*.js");
 		files.include("Jakefile.js");
 		return files.toArray();
@@ -75,7 +55,7 @@
 
 	function browserFilesToLint() {
 		var files = new jake.FileList();
-		files.include("src/client/*.js");
+		files.include("src/*.js");
 		return files.toArray();
 	}
 

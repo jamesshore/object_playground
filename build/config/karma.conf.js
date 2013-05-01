@@ -11,8 +11,8 @@ files = [
   MOCHA,
   MOCHA_ADAPTER,
   'node_modules/expect.js/expect.js',
-	'src/client/viz/viz.js',
-  'src/client/*.js'
+	'src/viz/viz.js',
+  'src/*.js'
 ];
 
 
