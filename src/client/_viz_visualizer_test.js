@@ -23,6 +23,8 @@
 			expect(esc("||")).to.equal("\\|\\|");
 			expect(esc('""')).to.equal('\\"\\"');
 			expect(esc("\\\\")).to.equal("\\\\\\\\");
+			expect(esc("\n\n")).to.equal("  ");
+			expect(esc("\t\t")).to.equal("  ");
 		});
 
 		it("converts nodes", function() {
