@@ -123,25 +123,31 @@
 				expect(nodes(object)).to.eql([object]);
 			});
 
-			it("does not ignore functions that are constructors", function() {
+			it("does not ignore functions that are used as constructors", function() {
 				function MyClass() {}
 				MyClass.prototype.a = 1;
 				var object = new MyClass();
 				expect(nodes(object)).to.eql([object, MyClass.prototype, MyClass]);
 			});
 
+			it("does not ignore functions that are artificially set as constructors", function() {
+				function MyClass() {}
+				var object = { constructor: MyClass };
+				expect(nodes(object)).to.eql([object, MyClass, MyClass.prototype]);
+			});
+
 			it("does not crash when examining functions with undefined prototype property", function() {
 				function MyClass() {}
 				var object = new MyClass();
 				MyClass.prototype = undefined;
-				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
+				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object), MyClass]);
 			});
 
 			it("does not crash when examining functions with null prototype property", function() {
 				function MyClass() {}
 				var object = new MyClass();
 				MyClass.prototype = null;
-				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object)]);
+				expect(nodes(object)).to.eql([object, Object.getPrototypeOf(object), MyClass]);
 			});
 
 			it("can be turned off", function() {

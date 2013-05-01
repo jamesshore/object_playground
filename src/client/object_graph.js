@@ -28,9 +28,9 @@ window.jdls = window.jdls || {};
 		if (hasNode(self, node)) return;
 
 		addNode(self, node);
-		node.forEachSubNode(function(subnode, id) {
+		node.forEachSubNode(function(subnode, id, name) {
 			if (isBuiltin(subnode) && !self._showBuiltins) return;
-			if (isOrdinaryFunction(subnode) && !self._showAllFunctions) return;
+			if (isOrdinaryFunction(subnode, name) && !self._showAllFunctions) return;
 
 			subnode = dedupe(self, subnode);
 			addEdge(self, node, subnode, id);
@@ -72,10 +72,11 @@ window.jdls = window.jdls || {};
 			node.name() === "Function";
 	}
 
-	function isOrdinaryFunction(node) {
+	function isOrdinaryFunction(node, propertyName) {
 		var func = node.value();
 
 		if (typeof func !== "function") return false;
+		if (propertyName === "constructor") return false;
 		if (hasUnusualProperties(func, ["length", "name", "caller", "arguments", "prototype"])) return false;
 		if (hasUnusualProperties(func.prototype, ["constructor"])) return false;
 		return true;
