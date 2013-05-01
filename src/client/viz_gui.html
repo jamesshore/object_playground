@@ -25,24 +25,14 @@
     return "<pre>" + s.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>"
   }
 
-  function render(src) {
-      function MyClass() {}
-  				MyClass.prototype.method = function aMethod() {};
-  				var instance = new MyClass();
-
-
-      return jdls.viz.render("this", jdls.usercode.evaluate(src));
-  }
-
   function draw(src, element) {
     var markup;
     try {
-      markup = render(src);
+      markup = jdls.viz.render("this", jdls.usercode.evaluate(src));
     } catch(e) {
       markup = inspect(e.toString());
     }
     element.innerHTML = markup;
-      console.log(markup);
   }
 
   window.addEventListener("load", function() {
@@ -53,8 +43,8 @@
       draw(usercode.value, graph);
 
       evalButton.addEventListener("click", function(event) {
-          draw(usercode.value, graph);
           event.preventDefault();
+          draw(usercode.value, graph);
       });
   });
 

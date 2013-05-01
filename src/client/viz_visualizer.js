@@ -83,46 +83,4 @@ window.jdls = window.jdls || {};
 			replace(/\"/g, '\\"');
 	};
 
-
 }());
-
-
-
-
-
-/*
-digraph g {
-digraph g {
-  graph [
-  graph [
-    rankdir = "LR"
-    rankdir = "LR"
-  ];
-  ];
-  node [
-  node [
-    fontsize = "16"
-    fontsize = "16"
-    shape = "ellipse"
-    shape = "ellipse"
-  ];
-  ];
-  edge [];
-  edge [];
-"node163" [
-"node163" [
-label = "<title>name \{Object\}| <f0> a: \{Object\}| <proto> \<prototype\>: Object"
-label = "<title>name \{Object\}| <f0> a: \{Object\}| <proto> \<prototype\>: Object"
-shape = "record"];
-shape = "record"];
-"node164" [
-"node164" [
-label = "<title>name.a \{Object\}| <f0> b: \"b\"| <proto> \<prototype\>: Object"
-label = "<title>name.a \{Object\}| <f0> b: \"b\"| <proto> \<prototype\>: Object"
-shape = "record"];
-shape = "record"];
-"node163":f0 -> "node164":title [];}
-"node163":f0 -> "node164":title [];}
-
-
-*/
