@@ -48,7 +48,7 @@ window.jdls = window.jdls || {};
 		forEach(this._value, function(name, value, id) {
 			if (typeof value !== "function" && typeof value !== "object") return;
 			if (value === null) return;
-			fn(new ObjectNode(self._name + "." + name, value), id);
+			fn(new ObjectNode(self._name + "." + name, value), id, name);
 		});
 	};
 

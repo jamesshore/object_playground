@@ -264,16 +264,19 @@
 				]);
 			});
 
-			it("provides id that matches field id", function() {
+			it("provides id and name that matches field id and name", function() {
 				var object = {
 					a: 1,
 					b: {}
 				};
 				var indexes = [];
-				newNode("name", object).forEachSubNode(function(subnode, index) {
-					indexes.push(index);
+				newNode("name", object).forEachSubNode(function(subnode, index, name) {
+					indexes.push({ index: index, name: name });
 				});
-				expect(indexes).to.eql(["f1", "proto"]);
+				expect(indexes).to.eql([
+					{ index: "f1", name: "b" },
+					{ index: "proto", name: "<prototype>" }
+				]);
 			});
 
 		});
