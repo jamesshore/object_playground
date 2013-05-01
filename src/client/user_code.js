@@ -6,7 +6,6 @@ window.jdls = window.jdls || {};
 (function() {
 	"use strict";
 
-
 	var exports = window.jdls.usercode = {};
 	var samples = exports.samples = {};
 
@@ -34,4 +33,7 @@ window.jdls = window.jdls || {};
 		'this.jdls = jdls;\n' +
 		'this.deeper = jdls.usercode.evaluate(jdls.usercode.samples.inception.code);'
 	};
+
+	samples.DEFAULT = samples.classical;
+
 }());

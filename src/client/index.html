@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script type="text/javascript" src="viz/viz.js"></script>
+
+    <script type="text/javascript" src="object_node.js"></script>
+    <script type="text/javascript" src="object_graph.js"></script>
+    <script type="text/javascript" src="viz_visualizer.js"></script>
+    <script type="text/javascript" src="user_code.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
+</head>
+<body>
+
+<textarea id="usercode" cols="80" rows="10"></textarea>
+<p></p>
+<input type="button" id="evaluate" value="Evaluate"></input>
+<p></p>
+<div id="graph"></div>
+
+<script>
+  window.addEventListener("load", function() {
+      var usercode = document.getElementById("usercode");
+      var evalButton = document.getElementById("evaluate");
+      var graph = document.getElementById("graph");
+
+      jdls.ui.initialize(usercode);
+  });
+</script>
+
+</body>
+</html>
