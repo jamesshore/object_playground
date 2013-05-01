@@ -20,7 +20,7 @@ window.jdls = window.jdls || {};
 			'    rankdir = "LR"\n' +
 			'  ];\n' +
 			'  node [\n' +
-			'    fontsize = "16"\n' +
+			'    fontsize = "12"\n' +
 			'    shape = "ellipse"\n' +
 			'  ];\n' +
 			'  edge [];\n';
