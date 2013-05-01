@@ -7,17 +7,32 @@ window.jdls = window.jdls || {};
 	"use strict";
 
 	var exports = window.jdls.ui = {};
-
 	var userCode;
+	var evaluate;
+	var graph;
 
-	exports.initialize = function initialize(userCodeTextArea) {
+	exports.initialize = function initialize(userCodeTextArea, evaluateButton, graphDiv) {
 		userCode = userCodeTextArea;
+		evaluate = evaluateButton;
+		graph = graphDiv;
 
 		populateUserCode(jdls.usercode.samples.DEFAULT);
+		renderUserCode();
+		addEventHandlers();
 	};
+
+	function addEventHandlers() {
+		evaluate.addEventListener("click", function() {
+			renderUserCode();
+		});
+	}
 
 	function populateUserCode(sample) {
 		userCode.value = sample.code;
+	}
+
+	function renderUserCode() {
+		graph.innerHTML = jdls.viz.render("this", jdls.usercode.evaluate(userCode.value));
 	}
 
 }());

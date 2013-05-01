@@ -9,6 +9,9 @@ window.jdls = window.jdls || {};
 	var uniqueId = 0;
 
 	var ObjectNode = jdls.ObjectNode = function ObjectNode(name, value) {
+		if (typeof value !== "object" && typeof value !== "function") throw new Error("Invalid ObjectNode value: expected function or object, but was " + typeof value);
+		if (value === null) throw new Error("Invalid ObjectNode value: expected function or object, but was null");
+
 		this._id = uniqueId++;
 		this._name = objectName(name, value);
 		this._value = value;
