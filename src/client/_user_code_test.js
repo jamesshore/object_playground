@@ -4,9 +4,11 @@
 
 	describe("user code", function() {
 		var evaluate;
+		var samples;
 
 		beforeEach(function() {
 			evaluate = jdls.usercode.evaluate;
+			samples = jdls.usercode.samples;
 		});
 
 		it("evaluates to an object", function() {
@@ -21,6 +23,26 @@
 					a: 1,
 					b: 2
 				}
+			});
+		});
+
+		describe("samples: ", function() {
+			var context;
+
+			function sample(theSample) {
+				return evaluate(theSample.code);
+			}
+
+			beforeEach(function() {
+				context = {};
+			});
+
+			it("classical", function() {
+				function MyClass() {}
+				MyClass.prototype.method = function aMethod() {};
+				context.instance = new MyClass();
+
+				expect(sample(samples.classical)).to.eql(context);
 			});
 		});
 

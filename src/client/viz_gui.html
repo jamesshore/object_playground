@@ -73,8 +73,12 @@
       (new Function(playground)).call(context);
 //      eval.call(context, playground);
 
-      throw new Error("test");
-      return jdls.viz.render("this", context);
+      function MyClass() {}
+  				MyClass.prototype.method = function aMethod() {};
+  				var instance = new MyClass();
+
+
+      return jdls.viz.render("this", {instance: instance});
   }
 
   function example(id, format) {

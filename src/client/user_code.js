@@ -6,11 +6,18 @@ window.jdls = window.jdls || {};
 	"use strict";
 
 	var exports = window.jdls.usercode = {};
+	var samples = exports.samples = {};
 
 	exports.evaluate = function evaluate(code) {
 		/*jshint evil:true, newcap: false */
 		var context = {};
 		Function(code).call(context);
 		return context;
+	};
+
+	samples.classical = { name: "Classical Classes", code: "" +
+		"function MyClass() {}\n" +
+		"MyClass.prototype.method = function aMethod() {};\n" +
+		"this.instance = new MyClass();\n"
 	};
 }());
