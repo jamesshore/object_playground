@@ -28,13 +28,16 @@
 
 		describe("sample", function() {
 			function check(sample) {
-				expect(function() {
-					evaluate(sample.code);
-				}).to.not.throwException();
+				evaluate(sample.code);
+				// check fails if evaluate() throws exception
 			}
 
 			it("classical compiles", function() {
 				check(samples.classical);
+			});
+
+			it("inception compiles", function() {
+				check(samples.inception);
 			});
 		});
 

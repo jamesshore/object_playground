@@ -15,9 +15,16 @@ window.jdls = window.jdls || {};
 		return context;
 	};
 
-	samples.classical = { name: "Classical Classes", code: "" +
-		"function MyClass() {}\n" +
-		"MyClass.prototype.method = function aMethod() {};\n" +
-		"this.instance = new MyClass();\n"
+	samples.classical = { name: "Classical Classes", code:
+		'function MyClass() {}\n' +
+		'MyClass.prototype.method = function aMethod() {};\n' +
+		'this.instance = new MyClass();\n'
+	};
+
+	samples.inception = { name: "Inception!", code:
+		'var object = {\n' +
+		'  inner: {}\n' +
+		'};\n' +
+		'this.graph = new jdls.ObjectGraph("root", object);'
 	};
 }());
