@@ -16,13 +16,13 @@
 			details = jdls.viz.details;
 		});
 
-		it("escapes strings", function() {
+		it("escapes strings (multiple times)", function() {
 			var esc = details.escape;
-			expect(esc("<>")).to.equal("\\<\\>");
-			expect(esc("{}")).to.equal("\\{\\}");
-			expect(esc("|")).to.equal("\\|");
-			expect(esc('"')).to.equal('\\"');
-			expect(esc("\\")).to.equal("\\\\");
+			expect(esc("<<>>")).to.equal("\\<\\<\\>\\>");
+			expect(esc("{{}}")).to.equal("\\{\\{\\}\\}");
+			expect(esc("||")).to.equal("\\|\\|");
+			expect(esc('""')).to.equal('\\"\\"');
+			expect(esc("\\\\")).to.equal("\\\\\\\\");
 		});
 
 		it("converts nodes", function() {

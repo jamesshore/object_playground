@@ -74,13 +74,13 @@ window.jdls = window.jdls || {};
 
 	var escape = details.escape = function escape(name) {
 		return name.
-			replace('\\', '\\\\', "g").
-			replace("{", "\\{", "g").
-			replace("}", "\\}", "g").
-			replace("<", "\\<", "g").
-			replace(">", "\\>", "g").
-			replace('|', '\\|', "g").
-			replace('"', '\\"', "g");
+			replace(/\\/g, '\\\\').
+			replace(/\{/g, "\\{").
+			replace(/\}/g, "\\}").
+			replace(/</g, "\\<").
+			replace(/>/g, "\\>").
+			replace(/\|/g, '\\|').
+			replace(/\"/g, '\\"');
 	};
 
 
