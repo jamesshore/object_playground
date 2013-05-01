@@ -32,7 +32,16 @@ window.jdls = window.jdls || {};
 	}
 
 	function renderUserCode() {
-		graph.innerHTML = jdls.viz.render("this", jdls.usercode.evaluate(userCode.value));
+		try {
+			graph.innerHTML = jdls.viz.render("this", jdls.usercode.evaluate(userCode.value));
+		}
+		catch(err) {
+			graph.innerHTML = inspect(err.toString());
+		}
 	}
+
+	function inspect(string) {
+   return "<pre>" + string.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>";
+ }
 
 }());

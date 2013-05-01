@@ -50,9 +50,11 @@
 				expect(graph.innerHTML).to.contain("a: 1");
 			});
 
-//			it("displays exception when bad code entered", function() {
-//
-//			})
+			it("displays exception when bad code entered", function() {
+				userCode.value = "asdf";
+				evaluate.click();
+				expect(graph.innerHTML).to.contain("<pre>ReferenceError");
+			});
 		});
 
 		function click(element) {
