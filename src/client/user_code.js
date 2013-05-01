@@ -23,10 +23,8 @@ window.jdls = window.jdls || {};
 	};
 
 	samples.inception = { name: "Inception!", code:
-		'var object = {\n' +
-		'  inner: {}\n' +
-		'};\n' +
-		'this.graph = new jdls.ObjectGraph("root", object);'
+		samples.classical.code + "\n" +
+		'this.instance = new jdls.ObjectGraph("root", this.instance);'
 	};
 
 	samples.deeper = { name: "We Must Go Deeper", code:
