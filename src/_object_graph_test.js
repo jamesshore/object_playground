@@ -14,6 +14,13 @@
 			});
 		}
 
+		function edges(object) {
+			var graph = newGraph("name", object);
+			return graph.edges().map(function(element) {
+				return [element.from.value(), element.to.value()];
+			});
+		}
+
 		describe("node collection", function() {
 			it("recursively collects nodes", function() {
 				var a = { name: "a" };
@@ -55,13 +62,6 @@
 		});
 
 		describe("edge collection", function() {
-			function edges(object) {
-				var graph = newGraph("name", object);
-				return graph.edges().map(function(element) {
-					return [element.from.value(), element.to.value()];
-				});
-			}
-
 			it("recursively collects edges", function() {
 				var a = { name: "a" };
 				var b = { name: "b",
@@ -116,24 +116,83 @@
 		});
 
 		describe("function filtering", function() {
-			it("ignores functions with no unusual properties", function() {
+			it("filters out 'ordinary' function nodes", function() {
 				var object = {
 					a: function ignoredFunction() {}
 				};
 				expect(nodes(object)).to.eql([object]);
 			});
+//
+//			it("filters out edges linking filtered nodes", function() {
+//				var object = {
+//					a: function ignoredFunction() {}
+//				};
+//				expect(edges(object)).to.eql([]);
+//			});
 
-			it("does not ignore functions that are used as constructors", function() {
+			it("filters out 'ordinary' functions with no prototype", function() {
+				function ignoredFunction() {}
+				var object = {
+					a: ignoredFunction
+				};
+				ignoredFunction.prototype = undefined;
+				expect(nodes(object)).to.eql([object]);
+			});
+
+			it("shows functions with additional properties", function() {
+				function notIgnored() {}
+				notIgnored.additionalProperty = "foo";
+				var object = {
+					a: notIgnored
+				};
+				expect(nodes(object)).to.eql([object, notIgnored, notIgnored.prototype]);
+			});
+
+			it("shows functions whose prototypes have additional properties", function() {
+				function notIgnored() {}
+				notIgnored.prototype.additionalProperty = "foo";
+				var object = {
+					a: notIgnored
+				};
+				expect(nodes(object)).to.eql([object, notIgnored, notIgnored.prototype]);
+			});
+
+			it("shows functions that are used as constructors", function() {
 				function MyClass() {}
 				MyClass.prototype.a = 1;
 				var object = new MyClass();
 				expect(nodes(object)).to.eql([object, MyClass.prototype, MyClass]);
 			});
 
-			it("does not ignore functions that are artificially set as constructors", function() {
+			it("shows functions that are artificially set as constructors", function() {
 				function MyClass() {}
 				var object = { constructor: MyClass };
 				expect(nodes(object)).to.eql([object, MyClass, MyClass.prototype]);
+			});
+
+			it("shows all links to constructor functions, even when link isn't constructor reference", function() {
+				function MyClass() {}
+				var object = new MyClass();
+				var container = [ object, MyClass ];
+
+				expect(edges(container)).to.eql([
+					[container, object],
+					[object, MyClass.prototype],
+					[MyClass.prototype, MyClass],
+					[MyClass, MyClass.prototype],
+					[container, MyClass]
+				]);
+
+				// Need to handle case of container = [ MyClass, object ];
+			});
+
+			it("shows functions whose prototype does not point back to itself", function() {
+				var object = {};
+				function MyClass() {}
+				MyClass.prototype = object;
+
+				var container = [ object, MyClass ];
+				expect(nodes(container)).to.eql([container, object, MyClass]);
 			});
 
 			it("does not crash when examining functions with undefined prototype property", function() {

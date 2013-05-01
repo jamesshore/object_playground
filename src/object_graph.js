@@ -30,10 +30,10 @@ window.jdls = window.jdls || {};
 		addNode(self, node);
 		node.forEachSubNode(function(subnode, id, name) {
 			if (isBuiltin(subnode) && !self._showBuiltins) return;
-			if (isOrdinaryFunction(subnode, name) && !self._showAllFunctions) return;
 
 			subnode = dedupe(self, subnode);
 			addEdge(self, node, subnode, id);
+			if (isOrdinaryFunction(subnode, name) && !self._showAllFunctions) return;
 			traverse(self, subnode);
 		});
 	}
@@ -74,11 +74,12 @@ window.jdls = window.jdls || {};
 
 	function isOrdinaryFunction(node, propertyName) {
 		var func = node.value();
-
 		if (typeof func !== "function") return false;
+
 		if (propertyName === "constructor") return false;
 		if (hasUnusualProperties(func, ["length", "name", "caller", "arguments", "prototype"])) return false;
 		if (hasUnusualProperties(func.prototype, ["constructor"])) return false;
+		if (func.prototype && func.prototype.constructor !== func) return false;
 		return true;
 
 		function hasUnusualProperties(obj, normalProperties) {

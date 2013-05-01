@@ -9,8 +9,8 @@ window.jdls = window.jdls || {};
 	var exports = window.jdls.viz = {};
 	var details = exports.details = {};
 
-	exports.render = function render(rootName, object) {
-		return details.vizToSvg(details.graphToViz(new jdls.ObjectGraph(rootName, object)));
+	exports.render = function render(rootName, object, options) {
+		return details.vizToSvg(details.graphToViz(new jdls.ObjectGraph(rootName, object, options)));
 	};
 
 	details.graphToViz = function graphToViz(graph) {
