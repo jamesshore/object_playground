@@ -21,7 +21,7 @@
 
 	desc("Lint and test");
 	task("default", ["lint", "test"], function() {
-		console.log("\n\nOK");
+		console.log("\n\nBUILD OK");
 	});
 
 	desc("Start Karma server -- run this first");

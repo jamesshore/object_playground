@@ -9,22 +9,6 @@ var sh = require("./build/util/sh.js");
 
 	task("default", ["promote"]);
 
-	desc("Reset repository to last known-good integration. DESTRUCTIVE.");
-	task("reset", function(confirm) {
-		if (confirm !== "y") {
-			console.log(
-				"WARNING: This command will erase all your un-integrated work.\n" +
-				"To confirm, run using 'reset[y]'\n"
-			);
-			fail("Reset not confirmed");
-		}
-
-		run([
-			"git clean -fdx",                    // Remove extraneous files
-			"git reset --hard integration"       // Sync with latest position of integration branch
-		], complete);
-	}, {async: true});
-
 	desc("Merge code into integration branch.");
 	task("promote", ["status"], function() {
 		checkoutAndBuild(afterSuccessfulBuild, afterFailedBuild);
@@ -39,7 +23,8 @@ var sh = require("./build/util/sh.js");
 		function afterSuccessfulBuild() {
 			run([
 				"git checkout integration",
-				"git merge " + branch + " --no-ff --log"
+				"git merge master --no-ff --log",
+				"git checkout master"
 			], complete);
 		}
 		function afterFailedBuild() {

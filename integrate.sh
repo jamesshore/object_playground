@@ -1,1 +1,1 @@
-./jake.sh -f ci.jakefile $*
+./jake.sh -f integrate.jakefile $*
