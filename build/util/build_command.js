@@ -16,6 +16,6 @@
 
 	module.exports.integrate = function() {
 		return os.platform() === "win32" ? WINDOWS_INTEGRATE_COMMAND : UNIX_INTEGRATE_COMMAND;
-	}
+	};
 
 }());
