@@ -9,14 +9,13 @@ var sh = require("./build/util/sh.js");
 
 	task("default", ["promote"]);
 
-	desc("Merge code into integration branch.");
+	desc("Merge master branch into integration branch.");
 	task("promote", ["status"], function() {
 		checkoutAndBuild(afterSuccessfulBuild, afterFailedBuild);
 
 		function checkoutAndBuild(successCallback, failureCallback) {
 			sh.runMany([
 				"git checkout master",
-				"git merge integration --ff-only",   // make sure integration branch has already been merged
 				build_command()
 			], successCallback, failureCallback);
 		}
