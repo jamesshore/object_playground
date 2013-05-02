@@ -64,7 +64,8 @@ Deploying
 Before deploying for the first time:
 
 1. Install rsync or make sure it's available on path
-2. Modify `PRODUCTION_URL` at top of `deploy.jakefile` to match deployment directory
+2. Modify `PRODUCTION_HOST` at top of `deploy.jakefile` to match production host (using `username@host` format)
+3. Modify `PRODUCTION_DIR` at top of `deploy.jakefile` to be the directory on the host where your public web content goes
 
 To deploy:
 
