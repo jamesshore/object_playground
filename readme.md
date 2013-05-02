@@ -78,6 +78,6 @@ To deploy:
 
 In case of a bad deployment:
 
-1. Choose a previous, good commit to deploy. `gitk -all` and the `deploy` tags may be helpful here.
+1. Choose a previous, good commit to deploy. `gitk --all` and the `deploy` tags may be helpful here.
 2. Check out the commit: `git checkout <commit_id>`
 3. Run `./deploy.sh head` (Unix/Mac) or `deploy head` (Windows) to deploy the commit. As above, the script will tag the git repository if the deploy succeeds.
