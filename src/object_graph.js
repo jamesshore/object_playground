@@ -104,11 +104,12 @@ window.jdls = window.jdls || {};
 		var func = node.value();
 		if (typeof func !== "function") return false;
 
-		if (propertyName === "constructor") return false;
-		if (hasUnusualProperties(func, ["length", "name", "caller", "arguments", "prototype"])) return false;
-		if (hasUnusualProperties(func.prototype, ["constructor"])) return false;
-		if (func.prototype && func.prototype.constructor !== func) return false;
-		return true;
+		var constructor = propertyName === "constructor";
+		var standardFunction = !hasUnusualProperties(func, ["length", "name", "caller", "arguments", "prototype"]);
+		var standardPrototype = !hasUnusualProperties(func.prototype, ["constructor"]);
+		var selfReferencingPrototype = !func.prototype || func.prototype.constructor === func;
+
+		return !constructor && standardFunction && standardPrototype && selfReferencingPrototype;
 
 		function hasUnusualProperties(obj, normalProperties) {
 			if (obj === undefined || obj === null) return false;
