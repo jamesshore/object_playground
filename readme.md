@@ -43,6 +43,11 @@ To build (and test):
 Note: At the time of this writing, the source code has not been confirmed to build on Windows.
 
 
+To test manually:
+
+1. Open `src/index.html` in a browser.
+
+
 Development and Integration
 ---------------------------
 
