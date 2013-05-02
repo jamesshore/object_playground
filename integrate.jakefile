@@ -39,7 +39,8 @@ var sh = require("./build/util/sh.js");
 		function afterSuccessfulBuild() {
 			run([
 				"git checkout integration",
-				"git merge " + branch + " --no-ff --log"
+				"git merge master --no-ff --log",
+				"git checkout master"
 			], complete);
 		}
 		function afterFailedBuild() {
