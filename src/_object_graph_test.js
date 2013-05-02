@@ -122,13 +122,13 @@
 				};
 				expect(nodes(object)).to.eql([object]);
 			});
-//
-//			it("filters out edges linking filtered nodes", function() {
-//				var object = {
-//					a: function ignoredFunction() {}
-//				};
-//				expect(edges(object)).to.eql([]);
-//			});
+
+			it("filters out edges linking filtered nodes", function() {
+				var object = {
+					a: function ignoredFunction() {}
+				};
+				expect(edges(object)).to.eql([]);
+			});
 
 			it("filters out 'ordinary' functions with no prototype", function() {
 				function ignoredFunction() {}

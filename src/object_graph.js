@@ -13,7 +13,12 @@ window.jdls = window.jdls || {};
 		this._edges = [];
 		this._showBuiltins = !!options.builtins;
 		this._showAllFunctions = !!options.allFunctions;
+
+		// This algorithm is O(n^2) because hasNode is O(n). :-(
+		// It will be much faster when we can replace this._nodes with Set, which should be O(1).
+		// (Set is a new data type coming in a future version of JavaScript.)
 		traverse(this, new jdls.ObjectNode(name, root));
+		removePartialEdges(this);
 	};
 
 	ObjectGraph.prototype.nodes = function nodes() {
@@ -35,6 +40,17 @@ window.jdls = window.jdls || {};
 			addEdge(self, node, subnode, id);
 			if (isOrdinaryFunction(subnode, name) && !self._showAllFunctions) return;
 			traverse(self, subnode);
+		});
+	}
+
+	function removePartialEdges(self) {
+		// When traversing, we add edges for some subnodes that are not traversed. This is necessary
+		// because the decision of which subnode to traverse is context-dependent, so sometimes we'll
+		// decide to filter out a subnode that's later included. We add an edge regardless so it will be present
+		// if the node is later included. If the node never was included, we filter it out here.
+		self._edges = self._edges.filter(function(element) {
+			return hasNode(self, element.to);
+			// It's not possible for the 'from' node to be missing due to the way the traversal algorithm works.
 		});
 	}
 
