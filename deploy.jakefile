@@ -6,7 +6,7 @@ var PRODUCTION_URL = "http://tdjs-ll8.herokuapp.com";
 var INTEGRATION_BRANCH = "integration";
 var GIT_HEAD = "HEAD";
 
-var DEPLOY_LATEST = "echo 'DEPLOY GOES HERE'";
+var DEPLOY_LATEST = "false";
 var DEPLOY_HEAD = "echo 'DEPLOY GOES HERE'";
 
 var sh = require("./build/util/sh.js");
