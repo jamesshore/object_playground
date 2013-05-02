@@ -38,7 +38,7 @@ var build_command = require("./build/util/build_command.js");
 
 	// Run integrate script
 	task("integrate", function() {
-		run(build_command.integrate(), complete, "Cannot build until integration succeeds.");
+		run(build_command.integrate(), complete, "Cannot deploy until integration succeeds.");
 	}, {async: true});
 
 	// Make sure build is clean
