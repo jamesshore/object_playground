@@ -9,7 +9,7 @@ This repository contains the source code for Object Playground.
 Browser Support
 ---------------
 
-This program has been tested against the browsers listed at the top of `Jakefile.js`. At the time of this writing, the following browsers are known to work. Other modern browsers are likely to work as well.
+Object Playground has been tested against the browsers listed at the top of `Jakefile.js`. At the time of this writing, the following browsers are known to work. Other modern browsers are likely to work as well.
 
 * Chrome 26
 * Firefox 20
@@ -19,8 +19,8 @@ This program has been tested against the browsers listed at the top of `Jakefile
 
 The following browsers are known to *not* work:
 
-* IE 8: Does not support SVG
 * IE 9: Lacks the Int32Array type used by Viz.js. A polyfill was attempted, but resulted in an "out of memory" error.
+* IE 8: Does not support SVG, lacks Int32Array type.
 
 
 Building and Testing
