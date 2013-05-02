@@ -33,15 +33,16 @@ window.jdls = window.jdls || {};
 	function populateSampleButtons() {
 		Object.getOwnPropertyNames(jdls.usercode.samples).forEach(function(name) {
 			var sample = jdls.usercode.samples[name];
-			var button = document.createElement("li");
-			button.innerHTML = "<input type='submit' value='" + sample.name + "'></input>";
+			var li = document.createElement("li");
+			li.innerHTML = "<input type='submit' value='" + sample.name + "'></input>";
+			var button = li.firstChild;
 
 			//TODO: untested
 			button.addEventListener("click", function() {
 				replaceUserCode(sample);
 			});
 
-			samples.appendChild(button);
+			samples.appendChild(li);
 		});
 	}
 
