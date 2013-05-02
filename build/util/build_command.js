@@ -7,7 +7,7 @@
 
 	var os = require("os");
 
-	exports.get = function() {
+	module.exports = function() {
 		return os.platform() === "win32" ? WINDOWS_BUILD_COMMAND : UNIX_BUILD_COMMAND;
 	};
 

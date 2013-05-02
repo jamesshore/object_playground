@@ -29,49 +29,33 @@ Building and Testing
 Before building for the first time:
 
 1. Install [Node.js](http://nodejs.org/download/). (Note: The included version of Jake may not work with Node.js v0.10.x.)
-2. Download and unzip [the source code](https://github.com/jamesshore/object_playground/archive/master.zip) into a convenient directory.
+2. Download the source code by cloning the git repository: `git clone https://github.com/jamesshore/object_playground`.
 3. All commands must run from the root of the source tree: `cd <directory>`.
 4. To cause the build to fail unless certain browsers are tested, edit `TESTED_BROWSERS` at the top of `Jakefile.js`.
+
+
 
 To build (and test):
 
 1. Run `./jake.sh karma` (Unix/Mac) or `jake karma` (Windows) to start the Karma server.
-2. Point the browsers you want to test against at `http://localhost:8080`.
-3. Run `./jake.sh` (Unix/Mac) or `jake` (Windows) every time you want to build and test. Use the 'loose=true' option to relax the Node.js and browser version requirements.
+2. Point the browsers you want to test against at the URL `http://localhost:8080`.
+3. Run `./jake.sh` (Unix/Mac) or `jake` (Windows) every time you want to build and test. Use the `loose=true` option to relax the Node.js and browser version requirements.
 
 Note: At the time of this writing, the source code has not been confirmed to build on Windows.
 
 
-Integration
------------
+Development and Integration
+-------------
 
-This repository contains an "integration" branch which is guaranteed to build and pass all tests.
+This repository contains two branches:
 
-This repository is set up for single-user integration.
-
-To set up continuous integration for a team of developers:
-
-1. Choose a machine to be the integration machine.
-2. Follow the steps for "Building and Testing" on the integration machine.
-3. Run `git init`, `git add .`, and `git commit -a -m "Initial Commit"` to initialize the git repository.
-4. Run `git checkout -b integration` to create an integration branch.
-
-To set up each development workstation:
-
-1. Choose an easy-to-type name for the development workstation, such as `dev1`. Put a label on the machine with this name so you don't forget it--you'll use it when you integrate.
-2. *On the integration machine*, run `git branch <name>` create a branch for the development workstation.
-3. Clone the integration machine's repository to the development workstation. (The steps here depend on your network configuration. Talk to your local Git expert.)
-4. *On the development workstation,* run `git checkout <name>` to switch to the development branch.
-5. Now you can build and test as described above.
+* `master` is for development.
+* `integration` is guaranteed to build and pass all tests.
 
 To integrate:
 
-1. On the development workstation, get to a clean build and commit your code.
-2. Run `./ci.sh pull` (Unix/Mac) or `ci pull` (Windows) to integrate the latest changes from the integration machine.
-3. Run the build to make sure the integration didn't break anything.
-4. Run `./ci.sh push[<name>]` (Unix/Mac) or `ci push[<name>]` (Windows) to push your changes to your workstation's branch on the integration machine.
-5. *On the integration machine,* run `./ci.sh promote[<name>]` (Unix/Mac) or `ci promote[<name>]` (Windows) to double-check your build and merge it into the known-good integration branch.
-6. Start over on your development machine if anything breaks or if someone else integrates before you're done.
+1. Get to a clean build and commit your code to the master branch.
+2. Run `./integrate` (Unix/Mac) or `integrate` (Windows) to test the master branch and merge it into the integration branch.
 
 
 Deploying to Heroku

@@ -1,0 +1,64 @@
+// Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+/*global desc, task, jake, fail, complete */
+
+var build_command = require("./build/util/build_command.js");
+var sh = require("./build/util/sh.js");
+
+(function() {
+	"use strict";
+
+	task("default", ["promote"]);
+
+	desc("Reset repository to last known-good integration. DESTRUCTIVE.");
+	task("reset", function(confirm) {
+		if (confirm !== "y") {
+			console.log(
+				"WARNING: This command will erase all your un-integrated work.\n" +
+				"To confirm, run using 'reset[y]'\n"
+			);
+			fail("Reset not confirmed");
+		}
+
+		run([
+			"git clean -fdx",                    // Remove extraneous files
+			"git reset --hard integration"       // Sync with latest position of integration branch
+		], complete);
+	}, {async: true});
+
+	desc("Merge code into integration branch.");
+	task("promote", ["status"], function() {
+		checkoutAndBuild(afterSuccessfulBuild, afterFailedBuild);
+
+		function checkoutAndBuild(successCallback, failureCallback) {
+			sh.runMany([
+				"git checkout master",
+				"git merge integration --ff-only",   // make sure integration branch has already been merged
+				build_command()
+			], successCallback, failureCallback);
+		}
+		function afterSuccessfulBuild() {
+			run([
+				"git checkout integration",
+				"git merge " + branch + " --no-ff --log"
+			], complete);
+		}
+		function afterFailedBuild() {
+			fail("Integration failed.");
+		}
+	});
+
+	// Ensure there aren't any files that need to be checked in or ignored
+	task("status", function() {
+		run(["git status --porcelain"], function(stdout) {
+			if (stdout[0]) fail("Working directory contains files to commit or ignore.");
+			complete();
+		});
+	}, {async:true});
+
+	function run(commands, callback, errorMessage) {
+		errorMessage = errorMessage || "shell command exited with error code";
+		sh.runMany(commands, callback, function() {
+			fail(errorMessage);
+		});
+	}
+}());
