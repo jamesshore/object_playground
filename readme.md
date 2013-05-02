@@ -44,7 +44,7 @@ Note: At the time of this writing, the source code has not been confirmed to bui
 
 
 Development and Integration
--------------
+---------------------------
 
 This repository contains two branches:
 
@@ -58,25 +58,20 @@ To integrate:
 2. Run `./integrate` (Unix/Mac) or `integrate` (Windows) to test the master branch and merge it into the integration branch.
 
 
-Deploying to Heroku
--------------------
+Deploying
+---------
 
 Before deploying for the first time:
 
-1. Follow the steps for "Continuous Integration" first.
-3. Sign up for a [Heroku account](https://api.heroku.com/signup).
-2. *On the integration machine,* install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
-4. Create a Heroku application: `heroku create <app_name>`.
-5. Change `PRODUCTION_URL` at the top of `deploy.jakefile` to `http://<app_name>.herokuapp.com`.
-6. Update `package.json` to match your installed versions of Node and npm. (Use `node --version` and `npm --version` to get the version numbers.)
+1. Install rsync or make sure it's available on path
+2. Modify `PRODUCTION_URL` at top of `deploy.jakefile` to match deployment directory
 
 To deploy:
 
-1. *On the integration machine,* run `./deploy.sh latest` (Unix/Mac) or `deploy latest` (Windows) to deploy the integration branch to Heroku. The script will tag your git repository with `deploy-<timestamp>` if the deploy succeeds and passes the smoke tests.
+1. Run `./deploy.sh latest` (Unix/Mac) or `deploy latest` (Windows) to integrate the master branch and deploy it. The script will tag your git repository with `deploy-<date>-<timestamp>` if the deploy succeeds.
 
 In case of a bad deployment:
 
-1. *On the integration machine,* run `./deploy.sh rollback` (Unix/Mac) or `deploy rollback` (Windows) to do a band-aid rollback to the previous Heroku deployment. This rollback won't "stick", so you'll need to deploy new code soon.
-2. If you aren't able to deploy new code right away, choose a previous, good commit to deploy. `gitk` and the `deploy-<timestamp>` tags may be helpful here.
-3. Check out the commit: `git checkout <commit_id>`
-4. Run `./deploy.sh head` (Unix/Mac) or `deploy head` (Windows) to deploy the commit to Heroku. As above, the script will tag the git repository with `deploy-<timestamp>` if the deploy succeeds and passes the smoke tests.
+1. Choose a previous, good commit to deploy. `gitk -all` and the `deploy` tags may be helpful here.
+2. Check out the commit: `git checkout <commit_id>`
+3. Run `./deploy.sh head` (Unix/Mac) or `deploy head` (Windows) to deploy the commit. As above, the script will tag the git repository if the deploy succeeds.
