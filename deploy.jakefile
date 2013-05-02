@@ -6,8 +6,7 @@ var PRODUCTION_URL = "http://tdjs-ll8.herokuapp.com";
 var INTEGRATION_BRANCH = "integration";
 var GIT_HEAD = "HEAD";
 
-var DEPLOY_LATEST = "false";
-var DEPLOY_HEAD = "echo 'DEPLOY GOES HERE'";
+var DEPLOY_COMMAND = "false";
 
 var sh = require("./build/util/sh.js");
 var build_command = require("./build/util/build_command.js");
@@ -20,13 +19,13 @@ var build_command = require("./build/util/build_command.js");
 	});
 
 	desc("Integrate and deploy to production");
-	task("latest", ["git"], function() {
-		deploy(DEPLOY_LATEST, INTEGRATION_BRANCH, complete);
+	task("latest", ["integrate"], function() {
+		deploy(INTEGRATION_BRANCH, complete);
 	}, {async: true});
 
 	desc("Deploy git HEAD to production (use to manually fix release)")
 	task("head", ["build", "git"], function() {
-		deploy(DEPLOY_HEAD, GIT_HEAD, complete);
+		deploy(GIT_HEAD, complete);
 	}, {async: true});
 
 	// Ensure that Git status is clean
@@ -37,13 +36,18 @@ var build_command = require("./build/util/build_command.js");
 		});
 	}, {async: true});
 
+	// Run integrate script
+	task("integrate", function() {
+		run(build_command.integrate(), complete, "Cannot build until integration succeeds.");
+	}, {async: true});
+
 	// Make sure build is clean
 	task("build", function() {
 		run(build_command(), complete, "Cannot deploy until build passes.");
 	}, {async: true});
 
-	function deploy(deployCommand, commitToTag, complete) {
-		sh.run(deployCommand, onSuccess, onFailure);
+	function deploy(commitToTag, complete) {
+		sh.run(DEPLOY_COMMAND, onSuccess, onFailure);
 
 		function onSuccess() {
 			tagCommit();
