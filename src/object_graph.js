@@ -49,8 +49,17 @@ window.jdls = window.jdls || {};
 		// decide to filter out a subnode that's later included. We add an edge regardless so it will be present
 		// if the node is later included. If the node never was included, we filter it out here.
 		self._edges = self._edges.filter(function(element) {
-			return hasNode(self, element.to);
-			// It's not possible for the 'from' node to be missing due to the way the traversal algorithm works.
+			// We're going to figure out if the 'to' node is present, and if it is, we'll use the one that's in
+			// _nodes rather than the one stored in the edge. That's because the edge may refer to a node that
+			// was filtered out, if the edge found before the node was known to be interesting.
+			// Note: It's not possible for the 'from' node to be missing due to the way the traversal algorithm works.
+			// Note 2: This is a more complicated way of saying "hasNode(); deDupe();". It's a bit faster.
+			var node = findNode(self, element.to);
+			if (node !== undefined) {
+				element.to = node;
+				return true;
+			}
+			return false;
 		});
 	}
 

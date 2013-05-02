@@ -182,8 +182,20 @@
 					[MyClass, MyClass.prototype],
 					[container, MyClass]
 				]);
+			});
 
-				// Need to handle case of container = [ MyClass, object ];
+			it("shows all links to constructor functions, even when link is found before function is known to be constructor", function() {
+				function MyClass() {}
+				var object = new MyClass();
+				var container = [ MyClass, object ];
+
+				expect(edges(container)).to.eql([
+					[container, MyClass],
+					[container, object],
+					[object, MyClass.prototype],
+					[MyClass.prototype, MyClass],
+					[MyClass, MyClass.prototype]
+				]);
 			});
 
 			it("shows functions whose prototype does not point back to itself", function() {
