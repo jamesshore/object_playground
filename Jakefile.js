@@ -13,6 +13,8 @@
 		"Safari 6.0 (iOS)"
 	];
 
+	var NODE_VERSION = "v0.8.23";
+
 	var lint = require("./build/util/lint_runner.js");
 	var karma = require("./build/util/karma_runner.js");
 	var version = require("./build/util/version_checker.js");
@@ -39,11 +41,10 @@
 		karma.runTests(TESTED_BROWSERS, complete, fail);
 	}, {async: true});
 
-//	desc("Ensure installed version of Node is same as deployed version");
+//	desc("Ensure installed version of Node is same as known-good version");
 	task("nodeVersion", [], function() {
-		var deployedVersion = "v" + require("./package.json").engines.node;
 		var installedVersion = process.version;
-		version.check("Node", !process.env.loose, deployedVersion, installedVersion, fail);
+		version.check("Node", !process.env.loose, NODE_VERSION, installedVersion, fail);
 	});
 
 	function nodeFilesToLint() {

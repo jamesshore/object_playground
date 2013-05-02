@@ -1,21 +1,9 @@
-Automatopia
+Object Playground
 =============
 
-This repository contains build and test automation for JavaScript projects. It's intended as a starting point for your own JavaScript projects. It includes:
+Object Playground is a tool for visualizing and experimenting with JavaScript object relationships. It's [online at objectplayground.com](http://www.objectplayground.com). Object Playground is a project from [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com), a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.
 
-* Automated continuous integration (using Git)
-* Automated deployment (to Heroku)
-* Automated build (using Jake) with:
-	* Linting (using JSHint)
-	* Node.js tests (using NodeUnit)
-	* Cross-browser tests (using Karma, Mocha, and expect.js)
-* Example code:
-	* Server-side integration test
-	* Development smoke test
-	* Release smoke test
-	* Client-side DOM test
-
-This code was developed for the "Lessons Learned 8: Automatopia" episode of James Shore's *Let's Code: Test-Driven JavaScript* screencast. For details, the video, and a transcript, see [letscodejavascript.com](http://www.letscodejavascript.com).
+This repository contains the source code for Object Playground.
 
 
 Browser Support
@@ -41,19 +29,25 @@ Building and Testing
 Before building for the first time:
 
 1. Install [Node.js](http://nodejs.org/download/). (Note: The included version of Jake may not work with Node.js v0.10.x.)
-2. Download and unzip [the source code](https://github.com/jamesshore/automatopia/archive/master.zip) into a convenient directory.
+2. Download and unzip [the source code](https://github.com/jamesshore/object_playground/archive/master.zip) into a convenient directory.
 3. All commands must run from the root of the source tree: `cd <directory>`.
-4. To cause the build to fail unless certain browsers are tested, edit `REQUIRED_BROWSERS` at the top of `Jakefile.js`.
+4. To cause the build to fail unless certain browsers are tested, edit `TESTED_BROWSERS` at the top of `Jakefile.js`.
 
 To build (and test):
 
 1. Run `./jake.sh karma` (Unix/Mac) or `jake karma` (Windows) to start the Karma server.
-2. Start Safari or any other browsers you want to test against and point each one at `http://localhost:8080`.
-3. Run `./jake.sh` (Unix/Mac) or `jake` (Windows) every time you want to build and test.
+2. Point the browsers you want to test against at `http://localhost:8080`.
+3. Run `./jake.sh` (Unix/Mac) or `jake` (Windows) every time you want to build and test. Use the 'loose=true' option to relax the Node.js and browser version requirements.
+
+Note: At the time of this writing, the source code has not been confirmed to build on Windows.
 
 
-Continuous Integration
-----------------------
+Integration
+-----------
+
+This repository contains an "integration" branch which is guaranteed to build and pass all tests.
+
+This repository is set up for single-user integration.
 
 To set up continuous integration for a team of developers:
 

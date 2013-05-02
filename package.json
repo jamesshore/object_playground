@@ -1,9 +1,0 @@
-{
-	"name": "unneeded",
-	"version": "0.0.0",
-	"private": true,
-	"engines": {
-		"node": "0.8.23",
-		"npm": "1.2.18"
-	}
-}
