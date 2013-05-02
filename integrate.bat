@@ -1,1 +1,1 @@
-call jake -f ci.jakefile %*
+call jake -f integrate.jakefile %*

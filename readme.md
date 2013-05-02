@@ -34,7 +34,6 @@ Before building for the first time:
 4. To cause the build to fail unless certain browsers are tested, edit `TESTED_BROWSERS` at the top of `Jakefile.js`.
 
 
-
 To build (and test):
 
 1. Run `./jake.sh karma` (Unix/Mac) or `jake karma` (Windows) to start the Karma server.
@@ -51,6 +50,7 @@ This repository contains two branches:
 
 * `master` is for development.
 * `integration` is guaranteed to build and pass all tests.
+
 
 To integrate:
 
