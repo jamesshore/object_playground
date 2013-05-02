@@ -7,7 +7,7 @@ var PRODUCTION_DIR = "/home/public";
 var INTEGRATION_BRANCH = "integration";
 var GIT_HEAD = "HEAD";
 
-var DEPLOY_COMMAND = "rsync src/* " + PRODUCTION_HOST + ":" + PRODUCTION_DIR + "/";
+var DEPLOY_COMMAND = "rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded --human-readable --progress --exclude=.DS_Store --include=.* src/* " + PRODUCTION_HOST + ":" + PRODUCTION_DIR + "/";
 
 var sh = require("./build/util/sh.js");
 var build_command = require("./build/util/build_command.js");
@@ -19,7 +19,7 @@ var build_command = require("./build/util/build_command.js");
 		console.log("This Jakefile deploys the application. Use -T option to see targets.\n");
 	});
 
-	desc("Integrate and deploy to production");
+	desc("Integrate master branch and deploy to production");
 	task("latest", ["integrate"], function() {
 		deploy(INTEGRATION_BRANCH, complete);
 	}, {async: true});
