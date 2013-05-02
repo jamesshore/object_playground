@@ -16,10 +16,26 @@ window.jdls = window.jdls || {};
 		return context;
 	};
 
-	samples.classical = { name: "Classical Classes", code:
+	samples.classical = { name: "Classical Class", code:
 		'function MyClass() {}\n' +
-		'MyClass.prototype.method = function aMethod() {};\n' +
+		'MyClass.prototype.method = function method() {};\n' +
 		'this.instance = new MyClass();'
+	};
+
+	samples.inheritance = { name: "Classical Inheritance", code:
+		'function Parent() {}\n' +
+		'Parent.prototype.method = function method() {};\n' +
+		'\n' +
+		'function Child() {\n' +
+		'  Parent.call(this);\n' +
+		'}\n' +
+		'Child.prototype = new Parent();\n' +
+		'Child.prototype.constructor = Child;\n' +
+		'Child.prototype.method = function method() {\n' +
+		'  Parent.prototype.method.call(this);\n' +
+		'};\n' +
+		'\n' +
+		'this.instance = new Child();'
 	};
 
 	samples.inception = { name: "Inception!", code:
