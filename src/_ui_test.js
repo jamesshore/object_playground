@@ -5,6 +5,8 @@
 	describe("UI", function() {
 		var samples;
 		var userCode;
+		var showBuiltins;
+		var showAllFunctions;
 		var evaluate;
 		var graph;
 
@@ -13,14 +15,25 @@
 				"<ul id='samples'></ul>" +
 				"<textarea id='userCode'></textarea>" +
 				"<input id='evaluate' type='submit'>" +
+				"<input id='builtins' type='checkbox'>" +
+				"<input id='functions' type='checkbox'>" +
 				"<div id='graph'></div>";
 
 			samples = document.getElementById("samples");
 			userCode = document.getElementById("userCode");
 			evaluate = document.getElementById("evaluate");
+			showBuiltins = document.getElementById("builtins");
+			showAllFunctions = document.getElementById("functions");
 			graph = document.getElementById("graph");
 
-			jdls.ui.initialize(samples, userCode, evaluate, graph);
+			jdls.ui.initialize({
+				samplesList: samples,
+				userCodeTextArea: userCode,
+				evaluateButton: evaluate,
+				showBuiltinsCheckbox: showBuiltins,
+				showAllFunctionsCheckbox: showAllFunctions,
+				graphDiv: graph
+			});
 		});
 
 		afterEach(function() {
@@ -53,6 +66,22 @@
 			});
 		});
 
+		describe("options", function() {
+			it("respects 'show builtins' checkbox", function() {
+				userCode.value = "this.a = [];";
+				showBuiltins.checked = true;
+				evaluate.click();
+				expect(graph.innerHTML).to.contain("Array {Object}");
+			});
+
+			it("respects 'show all functions' checkbox", function() {
+				userCode.value = "this.a = function a() {};";
+				showAllFunctions.checked = true;
+				evaluate.click();
+				expect(graph.innerHTML).to.contain("a() {Function}");
+			});
+		});
+
 		describe("interactivity", function() {
 			it("re-draws graph when button clicked", function() {
 				userCode.value = "this.a = 1;";
@@ -66,12 +95,6 @@
 				expect(graph.innerHTML).to.contain("<pre>ReferenceError");
 			});
 		});
-
-		function click(element) {
-			var event = document.createEvent("MouseEvent");
-			event.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-			element.dispatchEvent(event);
-		}
 
 	});
 

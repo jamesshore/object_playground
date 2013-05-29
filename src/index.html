@@ -28,21 +28,26 @@
 
 <ul id="samples"></ul>
 <textarea id="usercode" cols="80" rows="10"></textarea>
-<br>
-<input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Change the code and press this button!</strong>
+<br><label><input id="builtins" type="checkbox"> Show built-in objects</label>
+<br><label><input id="functions" type="checkbox"> Show all functions</label>
+<br><input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Change the code and press this button!</strong>
 <p>
 <div id="graph"></div>
 
 <!-- Object Playground -->
 <script>
-  window.addEventListener("load", function() {
-      var samples = document.getElementById("samples");
-      var usercode = document.getElementById("usercode");
-      var evaluate = document.getElementById("evaluate");
-      var graph = document.getElementById("graph");
+    window.addEventListener("load", function() {
+        var elements = {
+            samplesList: document.getElementById("samples"),
+            userCodeTextArea: document.getElementById("usercode"),
+            evaluateButton: document.getElementById("evaluate"),
+            showBuiltinsCheckbox: document.getElementById("builtins"),
+            showAllFunctionsCheckbox: document.getElementById("functions"),
+            graphDiv: document.getElementById("graph")
+        };
 
-      jdls.ui.initialize(samples, usercode, evaluate, graph);
-  });
+        jdls.ui.initialize(elements);
+    });
 </script>
 
 <!-- Google Analytics -->
