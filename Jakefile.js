@@ -8,7 +8,7 @@
 		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
 		"IE 10.0 (Windows)",
 		"Firefox 20.0 (Mac)",
-		"Chrome 26.0 (Mac)",
+		"Chrome 27.0 (Mac)",
 		"Safari 6.0 (Mac)",
 		"Safari 6.0 (iOS)"
 	];
