@@ -60,7 +60,7 @@ This repository contains two branches:
 To integrate:
 
 1. Get to a clean build and commit your code to the master branch.
-2. Run `./integrate` (Unix/Mac) or `integrate` (Windows) to test the master branch and merge it into the integration branch.
+2. Run `./integrate.sh` (Unix/Mac) or `integrate` (Windows) to test the master branch and merge it into the integration branch.
 
 
 Deploying
@@ -68,7 +68,7 @@ Deploying
 
 Before deploying for the first time:
 
-1. Install rsync or make sure it's available on path
+1. Install rsync or make sure it's available on the path
 2. Modify `PRODUCTION_HOST` at top of `deploy.jakefile` to match production host (using `username@host` format)
 3. Modify `PRODUCTION_DIR` at top of `deploy.jakefile` to be the directory on the host where your public web content goes
 
