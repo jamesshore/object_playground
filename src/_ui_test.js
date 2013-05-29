@@ -31,6 +31,7 @@
 				userCodeTextArea: userCode,
 				evaluateButton: evaluate,
 				showBuiltinsCheckbox: showBuiltins,
+				showAllFunctionsCheckbox: showAllFunctions,
 				graphDiv: graph
 			});
 		});
@@ -71,6 +72,13 @@
 				showBuiltins.checked = true;
 				evaluate.click();
 				expect(graph.innerHTML).to.contain("Array {Object}");
+			});
+
+			it("respects 'show all functions' checkbox", function() {
+				userCode.value = "this.a = function a() {};";
+				showAllFunctions.checked = true;
+				evaluate.click();
+				expect(graph.innerHTML).to.contain("a() {Function}");
 			});
 		});
 

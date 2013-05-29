@@ -11,6 +11,7 @@ window.jdls = window.jdls || {};
 	var userCode;
 	var evaluate;
 	var builtins;
+	var functions;
 	var graph;
 
 	exports.initialize = function initialize(elements) {
@@ -18,6 +19,7 @@ window.jdls = window.jdls || {};
 		userCode = elements.userCodeTextArea;
 		evaluate = elements.evaluateButton;
 		builtins = elements.showBuiltinsCheckbox;
+		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
 		populateSampleButtons();
@@ -58,7 +60,7 @@ window.jdls = window.jdls || {};
 			var objectToRender = jdls.usercode.evaluate(userCode.value);
 			var options = {
 				builtins: builtins.checked,
-				allFunctions: false
+				allFunctions: functions.checked
 			};
 
 			graph.innerHTML = jdls.viz.render("this", objectToRender, options);
