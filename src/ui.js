@@ -10,12 +10,14 @@ window.jdls = window.jdls || {};
 	var samples;
 	var userCode;
 	var evaluate;
+	var builtins;
 	var graph;
 
 	exports.initialize = function initialize(elements) {
 		samples = elements.samplesList;
 		userCode = elements.userCodeTextArea;
 		evaluate = elements.evaluateButton;
+		builtins = elements.showBuiltinsCheckbox;
 		graph = elements.graphDiv;
 
 		populateSampleButtons();
@@ -53,7 +55,13 @@ window.jdls = window.jdls || {};
 
 	function renderUserCode() {
 		try {
-			graph.innerHTML = jdls.viz.render("this", jdls.usercode.evaluate(userCode.value));
+			var objectToRender = jdls.usercode.evaluate(userCode.value);
+			var options = {
+				builtins: builtins.checked,
+				allFunctions: false
+			};
+
+			graph.innerHTML = jdls.viz.render("this", objectToRender, options);
 		}
 		catch(err) {
 			graph.innerHTML = inspect(err.toString());
