@@ -97,12 +97,16 @@ function loadConfig(fp) {
  * or in the home directory. Configuration files are named
  * '.jshintrc'.
  *
+ * @param {sting} file path to the file to be linted
  * @returns {string} a path to the config file
  */
-function findConfig() {
+function findConfig(file) {
 	var name = ".jshintrc";
-	var proj = findFile(name);
-	var home = path.normalize(path.join(process.env.HOME, name));
+	var dir = path.dirname(path.resolve(file));
+	var proj = findFile(name, dir);
+	var home = path.normalize(path.join(process.env.HOME ||
+	                                    process.env.HOMEPATH ||
+	                                    process.env.USERPROFILE, name));
 
 	if (proj) {
 		return proj;
@@ -130,6 +134,10 @@ function loadReporter(fp) {
 	}
 }
 
+// Storage for memoized results from find file
+// Should prevent lots of directory traversal &
+// lookups when liniting an entire project
+var findFileResults = {};
 /**
  * Searches for a file with a specified name starting with
  * 'dir' and going all the way up either until it finds the file
@@ -145,13 +153,19 @@ function findFile(name, dir) {
 	dir = dir || process.cwd();
 
 	var filename = path.normalize(path.join(dir, name));
+	if (findFileResults[filename] !== undefined) {
+		return findFileResults[filename];
+	}
+
 	var parent = path.resolve(dir, "../");
 
 	if (shjs.test("-e", filename)) {
+		findFileResults[filename] = filename;
 		return filename;
 	}
 
 	if (dir === parent) {
+		findFileResults[filename] = null;
 		return null;
 	}
 
@@ -287,6 +301,31 @@ function lint(file, results, config, data) {
 
 var exports = {
 	/**
+	 * Gathers all files that need to be linted
+	 *
+	 * @param {object} post-processed options from 'interpret':
+	 *								   args     - CLI arguments
+	 *								   ignores  - A list of files/dirs to ignore (defaults to .jshintignores)
+	 *								   extensions - A list of non-dot-js extensions to check
+	 */
+	gather: function (opts) {
+		var files = [];
+		var reg = new RegExp("\\.(js" +
+			(opts.extensions === "" ? "" : "|" +
+				opts.extensions.replace(/,/g, "|").replace(/[\. ]/g, "")) + ")$");
+
+		var ignores = !opts.ignores ? loadIgnores() : opts.ignores.map(function (target) {
+			return path.resolve(target);
+		});
+
+		opts.args.forEach(function (target) {
+			collect(target, files, ignores, reg);
+		});
+
+		return files;
+	},
+
+	/**
 	 * Gathers all files that need to be linted, lints them, sends them to
 	 * a reporter and returns the overall result.
 	 *
@@ -300,19 +339,13 @@ var exports = {
 	 * @returns {bool} 'true' if all files passed and 'false' otherwise.
 	 */
 	run: function (opts) {
-		var files = [];
+		var files = exports.gather(opts);
 		var results = [];
 		var data = [];
-		var reg = new RegExp("\\.(js" +
-			(opts.extensions === "" ? "" : "|" +
-				opts.extensions.replace(/,/g, "|").replace(/[\. ]/g, "")) + ")$");
-
-		opts.args.forEach(function (target) {
-			collect(target, files, opts.ignores, reg);
-		});
 
 		files.forEach(function (file) {
-			lint(file, results, opts.config, data);
+			var config = opts.config || loadConfig(findConfig(file));
+			lint(file, results, config, data);
 		});
 
 		(opts.reporter || defReporter)(results, data, { verbose: opts.verbose });
@@ -320,6 +353,14 @@ var exports = {
 		return results.length === 0;
 	},
 
+	/** 
+	 * Helper exposed for testing.
+	 * Used to determine is stdout has any buffered output before exiting the program
+	 */
+	getBufferSize: function () {
+		return process.stdout.bufferSize; 
+	},
+	
 	/**
 	 * Main entrance function. Parses arguments and calls 'run' when
 	 * its done. This function is called from bin/jshint file.
@@ -334,7 +375,11 @@ var exports = {
 		cli.setApp(path.resolve(__dirname + "/../../package.json"));
 
 		var options = cli.parse(OPTIONS);
-		var config = loadConfig(options.config || findConfig());
+		// Use config file if specified
+		var config;
+		if (options.config) {
+			config = loadConfig(options.config);
+		}
 
 		switch (true) {
 		// JSLint reporter
@@ -378,14 +423,13 @@ var exports = {
 			verbose: options.verbose
 		});
 
-		// Avoid stdout cutoff in Node 0.4.x, also supports 0.5.x.
-		// See https://github.com/joyent/node/issues/1669
-
-		function exit() { process.exit(passed ? 0 : 2); }
-
+		// Patch as per https://github.com/visionmedia/mocha/issues/333
+		// fixes issues with piped output on Windows.
+		// Root issue is here https://github.com/joyent/node/issues/3584
+		function exit() { process.exit(passed ? 0 : 2); }    
 		try {
-			if (!process.stdout.flush()) {
-				process.stdout.once("drain", exit);
+			if (exports.getBufferSize()) {
+				process.stdout.once('drain', exit);
 			} else {
 				exit();
 			}

@@ -1,6 +1,7 @@
 JSHint, A Static Code Analysis Tool for JavaScript
 ==================================================
 [![Build Status](https://travis-ci.org/jshint/jshint.png?branch=master)](https://travis-ci.org/jshint/jshint)
+[![NPM version](https://badge.fury.io/js/jshint.png)](http://badge.fury.io/js/jshint)
 
 JSHint is a community-driven tool to detect errors and potential problems in
 JavaScript code and to enforce your team's coding conventions. We made JSHint
@@ -17,22 +18,19 @@ should not alienate their users.
 For general usage and hacking information, visit our website:
 [http://jshint.com/](http://jshint.com/).
 
-JSHint Fundraiser / Bug Bounties
+Bug Bounties
 --------------------------------
 
-We're [running a fundraiser](https://www.bountysource.com/#fundraisers/91-jshint)
-for JSHint! If JSHint helps you in your day-to-day development, please consider
-donating.  All money raised on this page will be used as monetary rewards for
-fixing JSHint bugs and implementing new features. Our hope is to introduce more
-developers to JSHint hacking and boost its development.
+Some bugs are so important to us, we will pay you if you fix them! Go to
+[our page on BountySource](https://www.bountysource.com/#trackers/48759-jshint)
+to see which bugs have bounties behind them.
 
-**Rules**:
+Really want to have something fixed but don't have time? You can add your
+own bounty to any JSHint bug and make it more attractive for potential
+contributors!
 
-1. All funds (aside from fees) will be used only to fund bounties.
-2. If core team ends up fixing bounty bugs, the reward will be donated to the Electronic Frontier Foundation.
-3. Before marking bugs as fixed, all patches must be reviewed by a core team member.
-
-Thanks!
+**Rule:** A bug is considered fixed only after it has been merged into the
+master branch of the main JSHint repository.
 
 Reporting a bug
 ---------------
@@ -83,6 +81,7 @@ Core Team members:
  * [Wolfgang Kluge](http://klugesoftware.de/) ([blog](http://gehirnwindung.de/))
  * [Josh Perez](http://www.goatslacker.com/) ([@goatslacker](http://twitter.com/goatslacker))
  * [Brent Lintner](http://brentlintner.heroku.com/) ([@brentlintner](http://twitter.com/brentlintner))
+ * [Bernard Pratz](http://i.got.nothing.to/blog/) ([@guyzmo](https://twitter.com/guyzmo))
 
 Maintainer: Anton Kovalyov
 
