@@ -163,6 +163,15 @@
 				expect(nodes(object)).to.eql([object, notIgnored, notIgnored.prototype]);
 			});
 
+			it("shows functions (and doesn't crash) when prototype is not an object", function() {
+				function notIgnored() {}
+				notIgnored.prototype = "I'm a string where an object should be!";
+				var object = {
+					a: notIgnored
+				};
+				expect(nodes(object)).to.eql([object, notIgnored]);
+			});
+
 			it("shows functions that are used as constructors", function() {
 				function MyClass() {}
 				MyClass.prototype.a = 1;

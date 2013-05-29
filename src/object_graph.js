@@ -111,10 +111,13 @@ window.jdls = window.jdls || {};
 		var func = node.value();
 		if (typeof func !== "function") return false;
 
+		var prototype = func.prototype;
+		if (prototype && typeof prototype !== "object") return false;
+
 		var constructor = propertyName === "constructor";
 		var standardFunction = !hasUnusualProperties(func, ["length", "name", "caller", "arguments", "prototype"]);
-		var standardPrototype = !hasUnusualProperties(func.prototype, ["constructor"]);
-		var selfReferencingPrototype = !func.prototype || func.prototype.constructor === func;
+		var standardPrototype = !hasUnusualProperties(prototype, ["constructor"]);
+		var selfReferencingPrototype = !prototype || prototype.constructor === func;
 
 		return !constructor && standardFunction && standardPrototype && selfReferencingPrototype;
 
