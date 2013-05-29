@@ -16,6 +16,11 @@ window.jdls = window.jdls || {};
 		return context;
 	};
 
+	samples.simple = { name: "Simple Object", code: '// Try turning on the "Show built-in objects" option and re-evaluating.\n' +
+		'\n' +
+		'this.value = "Hi"\n'
+	};
+
 	samples.classical = { name: "Classical Class", code: 'function MyClass() {}\n' +
 		'MyClass.prototype.method = function method() {};\n' +
 		'this.instance = new MyClass();'

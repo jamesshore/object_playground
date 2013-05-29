@@ -95,19 +95,29 @@ window.jdls = window.jdls || {};
 	}
 
 	function isBuiltin(node) {
-		return node.name() === "Object" ||
-			node.name() === "Array" ||
-			node.name() === "Function";
+		var value = node.value();
+		return value === Object.prototype ||
+			value === Function.prototype ||
+			value === Array.prototype ||
+			value === String.prototype ||
+			value === Boolean.prototype ||
+			value === Number.prototype ||
+			value === Date.prototype ||
+			value === RegExp.prototype ||
+			value === Error.prototype;
 	}
 
 	function isOrdinaryFunction(node, propertyName) {
 		var func = node.value();
 		if (typeof func !== "function") return false;
 
+		var prototype = func.prototype;
+		if (prototype && typeof prototype !== "object") return false;
+
 		var constructor = propertyName === "constructor";
 		var standardFunction = !hasUnusualProperties(func, ["length", "name", "caller", "arguments", "prototype"]);
-		var standardPrototype = !hasUnusualProperties(func.prototype, ["constructor"]);
-		var selfReferencingPrototype = !func.prototype || func.prototype.constructor === func;
+		var standardPrototype = !hasUnusualProperties(prototype, ["constructor"]);
+		var selfReferencingPrototype = !prototype || prototype.constructor === func;
 
 		return !constructor && standardFunction && standardPrototype && selfReferencingPrototype;
 
