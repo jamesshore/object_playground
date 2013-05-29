@@ -95,9 +95,16 @@ window.jdls = window.jdls || {};
 	}
 
 	function isBuiltin(node) {
-		return node.name() === "Object" ||
-			node.name() === "Array" ||
-			node.name() === "Function";
+		var value = node.value();
+		return value === Object.prototype ||
+			value === Function.prototype ||
+			value === Array.prototype ||
+			value === String.prototype ||
+			value === Boolean.prototype ||
+			value === Number.prototype ||
+			value === Date.prototype ||
+			value === RegExp.prototype ||
+			value === Error.prototype;
 	}
 
 	function isOrdinaryFunction(node, propertyName) {

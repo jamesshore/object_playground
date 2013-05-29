@@ -102,8 +102,14 @@
 			it("ignores built-in objects", function() {
 				var object = {
 					a: Object.prototype,
-					b: Array.prototype,
-					c: Function.prototype
+					b: Function.prototype,
+					c: Array.prototype,
+					d: String.prototype,
+					e: Boolean.prototype,
+					f: Number.prototype,
+					g: Date.prototype,
+					h: RegExp.prototype,
+					i: Error.prototype
 				};
 				expect(nodes(object)).to.eql([object]);
 			});
