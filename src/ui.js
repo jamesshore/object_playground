@@ -12,11 +12,11 @@ window.jdls = window.jdls || {};
 	var evaluate;
 	var graph;
 
-	exports.initialize = function initialize(samplesList, userCodeTextArea, evaluateButton, graphDiv) {
-		samples = samplesList;
-		userCode = userCodeTextArea;
-		evaluate = evaluateButton;
-		graph = graphDiv;
+	exports.initialize = function initialize(elements) {
+		samples = elements.samplesList;
+		userCode = elements.userCodeTextArea;
+		evaluate = elements.evaluateButton;
+		graph = elements.graphDiv;
 
 		populateSampleButtons();
 		replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);

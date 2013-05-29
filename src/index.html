@@ -35,14 +35,16 @@
 
 <!-- Object Playground -->
 <script>
-  window.addEventListener("load", function() {
-      var samples = document.getElementById("samples");
-      var usercode = document.getElementById("usercode");
-      var evaluate = document.getElementById("evaluate");
-      var graph = document.getElementById("graph");
+    window.addEventListener("load", function() {
+        var elements = {
+            samplesList: document.getElementById("samples"),
+            userCodeTextArea: document.getElementById("usercode"),
+            evaluateButton: document.getElementById("evaluate"),
+            graphDiv: document.getElementById("graph")
+        };
 
-      jdls.ui.initialize(samples, usercode, evaluate, graph);
-  });
+        jdls.ui.initialize(elements);
+    });
 </script>
 
 <!-- Google Analytics -->

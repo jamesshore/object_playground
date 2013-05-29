@@ -20,7 +20,12 @@
 			evaluate = document.getElementById("evaluate");
 			graph = document.getElementById("graph");
 
-			jdls.ui.initialize(samples, userCode, evaluate, graph);
+			jdls.ui.initialize({
+				samplesList: samples,
+				userCodeTextArea: userCode,
+				evaluateButton: evaluate,
+				graphDiv: graph
+			});
 		});
 
 		afterEach(function() {
