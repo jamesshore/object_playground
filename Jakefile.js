@@ -13,7 +13,7 @@
 		"Safari 6.0 (iOS)"
 	];
 
-	var NODE_VERSION = "v0.8.23";
+	var NODE_VERSION = "v0.10.6";
 
 	var lint = require("./build/util/lint_runner.js");
 	var karma = require("./build/util/karma_runner.js");
