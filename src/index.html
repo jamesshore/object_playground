@@ -5,19 +5,21 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache">
-
     <script type="text/javascript" src="viz/viz.js"></script>
-
     <script type="text/javascript" src="object_node.js"></script>
     <script type="text/javascript" src="object_graph.js"></script>
     <script type="text/javascript" src="viz_visualizer.js"></script>
     <script type="text/javascript" src="user_code.js"></script>
     <script type="text/javascript" src="ui.js"></script>
+	<link rel="stylesheet" href="objectplayground.css" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
+<div id="homebar">
 <h1>Object Playground</h1>
-
+</div>
+<div id="content">    
 <p>A project from <a href="http://www.letscodejavascript.com">Let's Code: Test-Driven JavaScript</a>, a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.</p>
 
 <p><strong>Think this page is ugly? Contribute the style sheet!</strong> <a href="https://github.com/jamesshore/object_playground">GitHub Here.</a>
@@ -30,8 +32,9 @@
 <textarea id="usercode" cols="80" rows="10"></textarea>
 <br><label><input id="builtins" type="checkbox"> Show built-in objects</label>
 <br><label><input id="functions" type="checkbox"> Show all functions</label>
-<br><input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Magic!</strong>
+<br><input type="submit" id="evaluate" value="Evaluate"> &larr;<strong>Magic!</strong>
 <p>
+</div>
 <div id="graph"></div>
 
 <!-- Object Playground -->
