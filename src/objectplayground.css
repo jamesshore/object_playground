@@ -1,0 +1,78 @@
+/****Simple stylesheet made for Object Playground ****/
+
+
+
+/******text*******/
+h1,h2,p,a,label,strong { font-family: 'Open Sans', sans-serif;}
+
+h1 {
+
+	font-size: 45px;
+	color: #f2f2f2;
+	text-shadow: 0px 1px 1px rgb(40, 59, 109);
+}
+
+a {
+    text-decoration: none;
+    color: #526977;
+}
+a:visited {
+    color: #828AE4;
+}
+/******misc******/
+#content {
+    margin-left: 5%;
+    margin-top: 100px;
+    width: 960px;
+}
+#homebar {
+    background: #526977;
+    line-height: 20px;
+    height: 70px;
+	padding: 0 0 10px 3%;
+	top:0;
+	left:0;
+    box-shadow: 0px 3px 3px #888;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    }
+#usercode {
+	margin-top: 10px;
+    width: 703px;
+}
+ul, li {
+    display: inline;
+    list-style-type: none;
+    margin: 0 5px 0 0;
+    padding: 0px;
+}
+#graph {
+	margin-left: 5%;
+	}
+/****** Buttons ******/
+[type~=submit] {
+    padding: 5px 10px 5px 10px;
+    border: 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+[type~=submit]:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+[type~=submit]:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
