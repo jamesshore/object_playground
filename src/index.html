@@ -6,6 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache">
 
+    <link href='themes/tluafed/main.css' rel='stylesheet' type='text/css' />
+
     <script type="text/javascript" src="viz/viz.js"></script>
 
     <script type="text/javascript" src="object_node.js"></script>
@@ -15,24 +17,33 @@
     <script type="text/javascript" src="ui.js"></script>
 </head>
 <body>
+<div id="main">
+  <div id="intro">
+    <h1>Object Playground</h1>
 
-<h1>Object Playground</h1>
+    <p>A project from <a href="http://www.letscodejavascript.com">Let's Code: Test-Driven JavaScript</a>, a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.</p>
 
-<p>A project from <a href="http://www.letscodejavascript.com">Let's Code: Test-Driven JavaScript</a>, a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.</p>
+    <p><strong>Think this page is ugly? Contribute the style sheet!</strong> <a href="https://github.com/jamesshore/object_playground">GitHub Here.</a>
 
-<p><strong>Think this page is ugly? Contribute the style sheet!</strong> <a href="https://github.com/jamesshore/object_playground">GitHub Here.</a>
+    <p><em>Browser Support:</em> Object Playground is confirmed to work on the latest version of Firefox, IE, Safari, and Chrome. It does not work on IE 8 or IE 9.</p>
+  </div>
 
-<p><em>Browser Support:</em> Object Playground is confirmed to work on the latest version of Firefox, IE, Safari, and Chrome. It does not work on IE 8 or IE 9.</p>
+  <div id="settings">
+    <p><strong>Try these buttons!</strong></p>
 
-<p><strong>Try these buttons!</strong></p>
+    <ul id="samples"><!-- This list is automatically populated by the JavaScript code --></ul>
+    <textarea id="usercode" cols="80" rows="10"></textarea>
+   
+    <p>
+      <label><input id="builtins" type="checkbox"> Show built-in objects</label><br>
+      <label><input id="functions" type="checkbox"> Show all functions</label><br>
+      <input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Magic!</strong>
+    </p>
+  </div>
 
-<ul id="samples"><!-- This list is automatically populated by the JavaScript code --></ul>
-<textarea id="usercode" cols="80" rows="10"></textarea>
-<br><label><input id="builtins" type="checkbox"> Show built-in objects</label>
-<br><label><input id="functions" type="checkbox"> Show all functions</label>
-<br><input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Magic!</strong>
-<p>
-<div id="graph"></div>
+
+  <div id="graph"></div>
+</div>
 
 <!-- Object Playground -->
 <script>
