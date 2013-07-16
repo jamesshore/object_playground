@@ -89,7 +89,7 @@ window.jdls = window.jdls || {};
 
 	function describeField(value) {
 		if (value === null) return "null";
-		if (value === Function.prototype) return "Function";
+		if (value === Function.prototype) return "Function.prototype";
 
 		switch (typeof value) {
 			case "string": return '"' + value + '"';

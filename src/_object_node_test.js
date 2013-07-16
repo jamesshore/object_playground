@@ -193,7 +193,7 @@
 			});
 
 			it("handles 'Function' special case", function() {
-				expect(conversionOf(Function.prototype)).to.equal("Function");
+				expect(conversionOf(Function.prototype)).to.equal("Function.prototype");
 			});
 		});
 
