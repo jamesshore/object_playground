@@ -81,7 +81,10 @@
 				'    fontsize = "10"\n' +
 				'    shape = "plaintext"\n' +
 				'  ];\n' +
-				'  edge [];\n' +
+				'  edge [\n' +
+				'    color = "#555555"\n' +
+				'    arrowsize = "0.8"\n' +
+				'  ];\n' +
 				'  \n' +
 				details.nodeToViz(fromNode) +
 				details.nodeToViz(toNode) +

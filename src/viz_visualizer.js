@@ -10,6 +10,9 @@ window.jdls = window.jdls || {};
 	var exports = window.jdls.viz = {};
 	var details = exports.details = {};
 
+	var ARROW_COLOR = "#555555";
+	var ARROW_HEAD_MULTIPLIER = "0.8";
+
 	var TABLE_FONT_POINTS = 10;
 
 	var TITLE_BACKGROUND_COLOR = "#00668F";
@@ -44,7 +47,10 @@ window.jdls = window.jdls || {};
 			'    fontsize = "' + TABLE_FONT_POINTS + '"\n' +
 			'    shape = "plaintext"\n' +   // 'plaintext' is misnamed; it enables HTML-like formatting
 			'  ];\n' +
-			'  edge [];\n' +
+			'  edge [\n' +
+			'    color = "' + ARROW_COLOR + '"\n' +
+			'    arrowsize = "' + ARROW_HEAD_MULTIPLIER + '"\n' +
+			'  ];\n' +
 			'  \n' +
 			nodes() +
 			edges() +
