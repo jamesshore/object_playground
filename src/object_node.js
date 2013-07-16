@@ -66,9 +66,9 @@ window.jdls = window.jdls || {};
 	};
 
 	function objectName(fallbackName, object) {
-		if (object === Function.prototype) return "Function";
+		if (object === Function.prototype) return "Function.prototype";
 		if (typeof object === "function") return functionName(object) + "()";
-		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);
+		if (hasOwnProperty(object, "constructor") && (object.constructor.prototype === object)) return functionName(object.constructor) + ".prototype";
 		return fallbackName;
 	}
 
