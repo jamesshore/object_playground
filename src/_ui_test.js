@@ -84,9 +84,9 @@
 
 		describe("interactivity", function() {
 			it("re-draws graph when button clicked", function() {
-				userCode.value = "this.a = 1;";
+				userCode.value = "this.test_marker = 1;";
 				evaluate.click();
-				expect(graph.innerHTML).to.contain("a: 1");
+				expect(graph.innerHTML).to.contain("test_marker");
 			});
 
 			it("displays exception when bad code entered", function() {

@@ -18,7 +18,8 @@ window.jdls = window.jdls || {};
 
 	var PROPERTY_BACKGROUND_COLOR = "#F0F0F0";
 	var PROPERTY_ALT_BACKGROUND_COLOR = "white";
-	var PROPERTY_FONT_COLOR = "#999999";
+	var PROPERTY_NAME_FONT_COLOR = "#333333";
+	var PROPERTY_VALUE_FONT_COLOR = "#666666";
 
 	var PROTOTYPE_BACKGROUND_COLOR = "#0082B6";
 	var PROTOTYPE_FONT_COLOR = "white";
@@ -82,7 +83,7 @@ window.jdls = window.jdls || {};
 			return node.properties().map(function(property) {
 				var color = oddRow ? PROPERTY_BACKGROUND_COLOR : PROPERTY_ALT_BACKGROUND_COLOR;// "#9ED3E5";
 				oddRow = !oddRow;
-				var result = '      <tr><td port="' + property.id + '" bgcolor="' + color + '"><font color="' + PROPERTY_FONT_COLOR + '">' + escapeHtml(property.name) + ': ' + escapeHtml(property.value) + '</font></td></tr>\n';
+				var result = '      <tr><td port="' + property.id + '" bgcolor="' + color + '" align="left" balign="left">&nbsp;<font color="' + PROPERTY_NAME_FONT_COLOR + '">' + escapeHtml(property.name) + ':</font> <font color="' + PROPERTY_VALUE_FONT_COLOR + '">' + escapeHtml(property.value) + '</font>&nbsp;</td></tr>\n';
 				return result;
 			}).join("");
 		}
