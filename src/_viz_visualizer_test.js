@@ -42,10 +42,10 @@
 
 			expect(details.nodeToViz(node)).to.equal(
 					'  "' + node.id() + '" [label=<\n' +
-					'    <table>\n' +
-					'      <th><td port="title">name {Object}</td></th>\n' +
-					'      <tr><td port="f0">a: 1</td></tr>\n' +
-					'      <tr><td port="proto">&lt;prototype&gt;: Object</td></tr>\n' +
+					'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
+					'      <th><td port="title" bgcolor="#24677F"><font color="white">name {Object}</font></td></th>\n' +
+					'      <tr><td port="f0" bgcolor="#43A9CC">a: 1</td></tr>\n' +
+					'      <tr><td port="proto" bgcolor="#43A9CC">&lt;prototype&gt;: Object</td></tr>\n' +
 					'    </table>\n' +
 					'  >];\n'
 //				'"' + node.id() + '" [\n' +
@@ -75,7 +75,8 @@
 				'    rankdir = "LR"\n' +
 				'  ];\n' +
 				'  node [\n' +
-				'    fontsize = "12"\n' +
+				'    fontname = "Helvetica"\n' +
+				'    fontsize = "10"\n' +
 				'    shape = "plaintext"\n' +
 				'  ];\n' +
 				'  edge [];\n' +

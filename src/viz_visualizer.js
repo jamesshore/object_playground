@@ -26,7 +26,8 @@ window.jdls = window.jdls || {};
 			'    rankdir = "LR"\n' +
 			'  ];\n' +
 			'  node [\n' +
-			'    fontsize = "12"\n' +
+			'    fontname = "Helvetica"\n' +
+			'    fontsize = "10"\n' +
 			'    shape = "plaintext"\n' +   // 'plaintext' is misnamed; it enables HTML-like formatting
 			'  ];\n' +
 			'  edge [];\n' +
@@ -56,8 +57,8 @@ window.jdls = window.jdls || {};
 
 		return '' +
 			'  "' + node.id() + '" [label=<\n' +
-			'    <table>\n' +
-			'      <th><td port="title">' + escapeHtml(node.title()) + '</td></th>\n' +
+			'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
+			'      <th><td port="title" bgcolor="#24677F"><font color="white">' + escapeHtml(node.title()) + '</font></td></th>\n' +
 			fields() +
 			'    </table>\n' +
 			'  >];\n';
@@ -65,7 +66,7 @@ window.jdls = window.jdls || {};
 		function fields() {
 			var result = "";
 			node.forEachField(function(name, value, id) {
-				result += '      <tr><td port="' + id + '">' + escapeHtml(name) + ': ' + escapeHtml(value) + '</td></tr>\n';
+				result += '      <tr><td port="' + id + '" bgcolor="#43A9CC">' + escapeHtml(name) + ': ' + escapeHtml(value) + '</td></tr>\n';
 
 //				result += '| <' + id + '> ' + escape(name) + ': ' + escape(value);
 			});
