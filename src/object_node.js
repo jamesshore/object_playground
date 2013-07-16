@@ -56,12 +56,6 @@ window.jdls = window.jdls || {};
 		};
 	};
 
-	ObjectNode.prototype.forEachField = function forEachField(fn) {
-		forEach(this._value, function(name, value, id) {
-			fn(name, describeField(value), id);
-		});
-	};
-
 	ObjectNode.prototype.forEachSubNode = function forEachSubNode(fn) {
 		var self = this;
 		forEach(this._value, function(name, value, id) {

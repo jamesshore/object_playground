@@ -142,11 +142,9 @@
 
 		describe("fields", function() {
 			function fields(object) {
-				var result = [];
 				var node = newNode("name", object);
-				node.forEachField(function(name, value, id) {
-					result.push({ name: name, value: value, id: id });
-				});
+				var result = node.properties();
+				result.push(node.prototype());
 				return result;
 			}
 
