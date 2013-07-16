@@ -57,7 +57,7 @@ window.jdls = window.jdls || {};
 		return '' +
 			'  "' + node.id() + '" [label=<\n' +
 			'    <table>\n' +
-			'      <th><td>' + escapeHtml(node.title()) + '</td></th>\n' +
+			'      <th><td port="title">' + escapeHtml(node.title()) + '</td></th>\n' +
 			fields() +
 			'    </table>\n' +
 			'  >];\n';

@@ -43,7 +43,7 @@
 			expect(details.nodeToViz(node)).to.equal(
 					'  "' + node.id() + '" [label=<\n' +
 					'    <table>\n' +
-					'      <th><td>name {Object}</td></th>\n' +
+					'      <th><td port="title">name {Object}</td></th>\n' +
 					'      <tr><td port="f0">a: 1</td></tr>\n' +
 					'      <tr><td port="proto">&lt;prototype&gt;: Object</td></tr>\n' +
 					'    </table>\n' +
