@@ -47,7 +47,7 @@
 					'      <tr><td port="f0" bgcolor="#43A9CC">a: 1</td></tr>\n' +
 					'      <tr><td port="f1" bgcolor="white">b: 2</td></tr>\n' +
 					'      <tr><td port="f2" bgcolor="#43A9CC">c: 3</td></tr>\n' +
-					'      <tr><td port="proto" bgcolor="white">&lt;prototype&gt;: Object</td></tr>\n' +
+					'      <tr><td port="proto" bgcolor="#3994B2">&lt;prototype&gt;: Object</td></tr>\n' +
 					'    </table>\n' +
 					'  >];\n'
 //				'"' + node.id() + '" [\n' +

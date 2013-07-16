@@ -60,20 +60,23 @@ window.jdls = window.jdls || {};
 			'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
 			'      <th><td port="title" bgcolor="#24677F"><font color="white">' + escapeHtml(node.title()) + '</font></td></th>\n' +
 			fields() +
+			prototype() +
 			'    </table>\n' +
 			'  >];\n';
 
 		function fields() {
-			var result = "";
 			var oddRow = true;
-			node.forEachField(function(name, value, id) {
+			return node.properties().map(function(property) {
 				var color = oddRow ? "#43A9CC" : "white";
-				result += '      <tr><td port="' + id + '" bgcolor="' + color + '">' + escapeHtml(name) + ': ' + escapeHtml(value) + '</td></tr>\n';
 				oddRow = !oddRow;
+				var result = '      <tr><td port="' + property.id + '" bgcolor="' + color + '">' + escapeHtml(property.name) + ': ' + escapeHtml(property.value) + '</td></tr>\n';
+				return result;
+			}).join("");
+		}
 
-//				result += '| <' + id + '> ' + escape(name) + ': ' + escape(value);
-			});
-			return result;
+		function prototype() {
+			var proto = node.prototype();
+			return '      <tr><td port="' + proto.id + '" bgcolor="#3994B2">' + escapeHtml(proto.name) + ': ' + escapeHtml(proto.value) + '</td></tr>\n';
 		}
 	};
 

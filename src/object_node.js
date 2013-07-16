@@ -37,6 +37,25 @@ window.jdls = window.jdls || {};
 		return this.name() + " {" + this.type() + "}";
 	};
 
+	ObjectNode.prototype.properties = function properties() {
+		var self = this;
+		return getProperties(self._value).map(function(name, index) {
+			return {
+				name: name,
+				value: describeField(self._value[name]),
+				id: "f" + index
+			};
+		});
+	};
+
+	ObjectNode.prototype.prototype = function prototype() {
+		return {
+			name: "<prototype>",
+			value: describeField(Object.getPrototypeOf(this._value)),
+			id: "proto"
+		};
+	};
+
 	ObjectNode.prototype.forEachField = function forEachField(fn) {
 		forEach(this._value, function(name, value, id) {
 			fn(name, describeField(value), id);
