@@ -58,7 +58,7 @@ window.jdls = window.jdls || {};
 		return '' +
 			'  "' + node.id() + '" [label=<\n' +
 			'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
-			'      <th><td port="title" bgcolor="#24677F"><font color="white">' + escapeHtml(node.title()) + '</font></td></th>\n' +
+			'      <th><td port="title" bgcolor="#00668F"><font color="white" point-size="11">' + escapeHtml(node.title()) + '</font></td></th>\n' +
 			fields() +
 			prototype() +
 			'    </table>\n' +
@@ -67,16 +67,16 @@ window.jdls = window.jdls || {};
 		function fields() {
 			var oddRow = true;
 			return node.properties().map(function(property) {
-				var color = oddRow ? "#43A9CC" : "white";
+				var color = oddRow ? "#F0F0F0" : "white";// "#9ED3E5";
 				oddRow = !oddRow;
-				var result = '      <tr><td port="' + property.id + '" bgcolor="' + color + '">' + escapeHtml(property.name) + ': ' + escapeHtml(property.value) + '</td></tr>\n';
+				var result = '      <tr><td port="' + property.id + '" bgcolor="' + color + '"><font color="#999999">' + escapeHtml(property.name) + ': ' + escapeHtml(property.value) + '</font></td></tr>\n';
 				return result;
 			}).join("");
 		}
 
 		function prototype() {
 			var proto = node.prototype();
-			return '      <tr><td port="' + proto.id + '" bgcolor="#3994B2">' + escapeHtml(proto.name) + ': ' + escapeHtml(proto.value) + '</td></tr>\n';
+			return '      <tr><td port="' + proto.id + '" bgcolor="#0082B6"><font color="white">' + escapeHtml(proto.name) + ': ' + escapeHtml(proto.value) + '</font></td></tr>\n';
 		}
 	};
 
