@@ -70,11 +70,6 @@ window.jdls = window.jdls || {};
 	};
 
 	details.nodeToViz = function nodeToViz(node) {
-
-//			'label = "' + '<title>' + escape(node.title()) + fields() + '"\n' +
-//			'shape = "record"' +
-//			'];\n';
-
 		return '' +
 			'  "' + node.id() + '" [label=<\n' +
 			'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
@@ -102,19 +97,6 @@ window.jdls = window.jdls || {};
 
 	details.edgeToViz = function edgeToViz(edge) {
 		return '"' + edge.from.id() + '":' + edge.fromField + ' -> "' + edge.to.id() + '":title [];';
-	};
-
-	var escapeViz = details.escapeViz = function escapeViz(name) {
-		return name.
-			replace(/\\/g, '\\\\').
-			replace(/\{/g, "\\{").
-			replace(/\}/g, "\\}").
-			replace(/</g, "\\<").
-			replace(/>/g, "\\>").
-			replace(/\|/g, '\\|').
-			replace(/\"/g, '\\"').
-			replace(/\n/g, '\\n').
-			replace(/\t/g, ' ');
 	};
 
 	var escapeHtml = details.escapeHtml = function escapeHtml(html) {

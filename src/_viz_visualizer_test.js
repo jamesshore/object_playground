@@ -16,17 +16,6 @@
 			details = jdls.viz.details;
 		});
 
-		it("escapes viz strings", function() {
-			var esc = details.escapeViz;
-			expect(esc("<<>>")).to.equal("\\<\\<\\>\\>");
-			expect(esc("{{}}")).to.equal("\\{\\{\\}\\}");
-			expect(esc("||")).to.equal("\\|\\|");
-			expect(esc('""')).to.equal('\\"\\"');
-			expect(esc("\\\\")).to.equal("\\\\\\\\");
-			expect(esc("\n\n")).to.equal("\\n\\n");
-			expect(esc("\t\t")).to.equal("  ");
-		});
-
 		it("escapes HTML strings", function() {
 			var esc = details.escapeHtml;
 			expect(esc("&&")).to.equal("&amp;&amp;");
