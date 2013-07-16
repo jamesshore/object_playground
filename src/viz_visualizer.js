@@ -32,7 +32,7 @@ window.jdls = window.jdls || {};
 			'  edge [];\n' +
 			nodes() +
 			edges() +
-		'}\n';
+			'}\n';
 
 		function nodes() {
 			return graph.nodes().map(function(node) {
@@ -48,23 +48,11 @@ window.jdls = window.jdls || {};
 	};
 
 	details.nodeToViz = function nodeToViz(node) {
-		return header() + labelLine() + shape() + footer();
-
-		function header() {
-			return '"' + node.id() + '" [';
-		}
-
-		function labelLine() {
-			return '\nlabel = "' + '<title>' + escape(node.title()) + fields() + '"';
-		}
-
-		function shape() {
-			return '\nshape = "record"';
-		}
-
-		function footer() {
-			return '];\n';
-		}
+		return '' +
+			'"' + node.id() + '" [\n' +
+			'label = "' + '<title>' + escape(node.title()) + fields() + '"\n' +
+			'shape = "record"' +
+			'];\n';
 
 		function fields() {
 			var result = "";
