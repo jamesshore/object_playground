@@ -32,7 +32,7 @@
 			expect(details.nodeToViz(node)).to.equal(
 					'  "' + node.id() + '" [label=<\n' +
 					'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
-					'      <th><td port="title" bgcolor="#00668F"><font color="white" point-size="11">name {Object}</font></td></th>\n' +
+					'      <th><td port="title" bgcolor="#00668F"><font color="white" point-size="11">name</font></td></th>\n' +
 					'      <tr><td port="f0" bgcolor="#E3E3E3" align="left" balign="left">&nbsp;<font color="#333333">a:</font> <font color="#666666">1</font>&nbsp;</td></tr>\n' +
 					'      <tr><td port="f1" bgcolor="#FDFDFD" align="left" balign="left">&nbsp;<font color="#333333">b:</font> <font color="#666666">2</font>&nbsp;</td></tr>\n' +
 					'      <tr><td port="f2" bgcolor="#E3E3E3" align="left" balign="left">&nbsp;<font color="#333333">c:</font> <font color="#666666">3</font>&nbsp;</td></tr>\n' +

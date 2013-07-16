@@ -71,14 +71,14 @@
 				userCode.value = "this.a = [];";
 				showBuiltins.checked = true;
 				evaluate.click();
-				expect(graph.innerHTML).to.contain("Array {Object}");
+				expect(graph.innerHTML).to.contain("Array()");
 			});
 
 			it("respects 'show all functions' checkbox", function() {
 				userCode.value = "this.a = function a() {};";
 				showAllFunctions.checked = true;
 				evaluate.click();
-				expect(graph.innerHTML).to.contain("a() {Function}");
+				expect(graph.innerHTML).to.contain("constructor");
 			});
 		});
 

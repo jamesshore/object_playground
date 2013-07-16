@@ -120,11 +120,6 @@
 			});
 		});
 
-		it("title is just name + type", function() {
-			var node = newNode("name", {});
-			expect(node.title()).to.equal("name {Object}");
-		});
-
 		describe("equals", function() {
 			it("is equal when objects have same identity, regardless of name", function() {
 				var object = {};

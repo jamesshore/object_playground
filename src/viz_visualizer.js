@@ -73,7 +73,7 @@ window.jdls = window.jdls || {};
 		return '' +
 			'  "' + node.id() + '" [label=<\n' +
 			'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
-			'      <th><td port="title" bgcolor="' + TITLE_BACKGROUND_COLOR + '"><font color="' + TITLE_FONT_COLOR + '" point-size="' + TITLE_FONT_POINTS +'">' + escapeHtml(node.title()) + '</font></td></th>\n' +
+			'      <th><td port="title" bgcolor="' + TITLE_BACKGROUND_COLOR + '"><font color="' + TITLE_FONT_COLOR + '" point-size="' + TITLE_FONT_POINTS +'">' + escapeHtml(node.name()) + '</font></td></th>\n' +
 			fields() +
 			prototype() +
 			'    </table>\n' +

@@ -33,10 +33,6 @@ window.jdls = window.jdls || {};
 		return this._value;
 	};
 
-	ObjectNode.prototype.title = function title() {
-		return this.name() + " {" + this.type() + "}";
-	};
-
 	ObjectNode.prototype.properties = function properties() {
 		var self = this;
 		return getProperties(self._value).map(function(name, index) {
