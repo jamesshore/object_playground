@@ -90,9 +90,9 @@
 				expect(node.type()).to.equal("TheConstructor");
 			});
 
-			it("is root when object has no prototype", function() {
+			it("is null when object has no prototype", function() {
 				var node = newNode("name", Object.create(null));
-				expect(node.type()).to.equal("<root>");
+				expect(node.type()).to.equal("<null>");
 			});
 
 			it("is anonymous when constructor has no name", function() {
