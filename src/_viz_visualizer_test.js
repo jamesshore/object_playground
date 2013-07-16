@@ -59,7 +59,7 @@
 				'  ];\n' +
 				'  node [\n' +
 				'    fontsize = "12"\n' +
-				'    shape = "ellipse"\n' +
+				'    shape = "plaintext"\n' +
 				'  ];\n' +
 				'  edge [];\n' +
 				details.nodeToViz(fromNode) +

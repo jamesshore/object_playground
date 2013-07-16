@@ -20,19 +20,19 @@ window.jdls = window.jdls || {};
 	};
 
 	details.graphToViz = function graphToViz(graph) {
-		return header() + nodes() + edges() + footer();
-
-		function header() {
-			return 'digraph g {\n' +
-					'  graph [\n' +
-					'    rankdir = "LR"\n' +
-					'  ];\n' +
-					'  node [\n' +
-					'    fontsize = "12"\n' +
-					'    shape = "ellipse"\n' +
-					'  ];\n' +
-					'  edge [];\n';
-		}
+		return '' +
+			'digraph g {\n' +
+			'  graph [\n' +
+			'    rankdir = "LR"\n' +
+			'  ];\n' +
+			'  node [\n' +
+			'    fontsize = "12"\n' +
+			'    shape = "plaintext"\n' +   // 'plaintext' is misnamed; it enables HTML-like formatting
+			'  ];\n' +
+			'  edge [];\n' +
+			nodes() +
+			edges() +
+		'}\n';
 
 		function nodes() {
 			return graph.nodes().map(function(node) {
@@ -44,10 +44,6 @@ window.jdls = window.jdls || {};
 			return graph.edges().map(function(edge) {
 				return details.edgeToViz(edge);
 			}).join("");
-		}
-
-		function footer() {
-			return '}\n';
 		}
 	};
 
