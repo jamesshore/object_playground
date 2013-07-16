@@ -27,6 +27,16 @@
 			expect(esc("\t\t")).to.equal("  ");
 		});
 
+		it("escapes HTML strings", function() {
+			var esc = details.escapeHtml;
+			expect(esc("&&")).to.equal("&amp;&amp;");
+			expect(esc("<<>>")).to.equal("&lt;&lt;&gt;&gt;");
+			expect(esc('""')).to.equal("&quot;&quot;");
+			expect(esc("''")).to.equal("&#039;&#039;");
+			expect(esc("\n\n")).to.equal("<br /><br />");
+			expect(esc("\t\t")).to.equal("    ");
+		});
+
 		it("converts nodes", function() {
 			var node = new jdls.ObjectNode("name", { a: 1 });
 
