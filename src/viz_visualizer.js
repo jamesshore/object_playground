@@ -1,4 +1,5 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
+/*global Viz */
 
 window.jdls = window.jdls || {};
 
@@ -13,20 +14,25 @@ window.jdls = window.jdls || {};
 		return details.vizToSvg(details.graphToViz(new jdls.ObjectGraph(rootName, object, options)));
 	};
 
-	details.graphToViz = function graphToViz(graph) {
-		var header =
-			'digraph g {\n' +
-			'  graph [\n' +
-			'    rankdir = "LR"\n' +
-			'  ];\n' +
-			'  node [\n' +
-			'    fontsize = "12"\n' +
-			'    shape = "ellipse"\n' +
-			'  ];\n' +
-			'  edge [];\n';
-		var footer = '}\n';
+	details.vizToSvg = function vizToSvg(vizCode) {
+		/*jshint newcap:false */
+		return Viz(vizCode, "svg");
+	};
 
-		return header + nodes() + edges() + footer;
+	details.graphToViz = function graphToViz(graph) {
+		return header() + nodes() + edges() + footer();
+
+		function header() {
+			return 'digraph g {\n' +
+					'  graph [\n' +
+					'    rankdir = "LR"\n' +
+					'  ];\n' +
+					'  node [\n' +
+					'    fontsize = "12"\n' +
+					'    shape = "ellipse"\n' +
+					'  ];\n' +
+					'  edge [];\n';
+		}
 
 		function nodes() {
 			return graph.nodes().map(function(node) {
@@ -39,12 +45,10 @@ window.jdls = window.jdls || {};
 				return details.edgeToViz(edge);
 			}).join("");
 		}
-	};
 
-	details.vizToSvg = function vizToSvg(vizCode) {
-		/*jshint newcap:false */
-		/*global Viz */
-		return Viz(vizCode, "svg");
+		function footer() {
+			return '}\n';
+		}
 	};
 
 	details.nodeToViz = function nodeToViz(node) {
