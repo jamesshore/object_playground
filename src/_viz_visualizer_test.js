@@ -16,8 +16,8 @@
 			details = jdls.viz.details;
 		});
 
-		it("escapes strings (multiple times)", function() {
-			var esc = details.escape;
+		it("escapes viz strings", function() {
+			var esc = details.escapeViz;
 			expect(esc("<<>>")).to.equal("\\<\\<\\>\\>");
 			expect(esc("{{}}")).to.equal("\\{\\{\\}\\}");
 			expect(esc("||")).to.equal("\\|\\|");
@@ -31,9 +31,16 @@
 			var node = new jdls.ObjectNode("name", { a: 1 });
 
 			expect(details.nodeToViz(node)).to.equal(
-				'"' + node.id() + '" [\n' +
-				'label = "<title>name \\{Object\\}| <f0> a: 1| <proto> \\<prototype\\>: Object"\n' +
-				'shape = "record"];\n'
+					'  "' + node.id() + '" [label=<\n' +
+					'    <table>\n' +
+					'      <th><td>name {Object}</td></th>\n' +
+					'      <tr><td port="f0">a: 1</td></tr>\n' +
+					'      <tr><td port="proto">&lt;prototype&gt;: Object</td></tr>\n' +
+					'    </table>\n' +
+					'  >];\n'
+//				'"' + node.id() + '" [\n' +
+//				'label = "<title>name \\{Object\\}| <f0> a: 1| <proto> \\<prototype\\>: Object"\n' +
+//				'shape = "record"];\n'
 			);
 		});
 
@@ -62,6 +69,7 @@
 				'    shape = "plaintext"\n' +
 				'  ];\n' +
 				'  edge [];\n' +
+				'  \n' +
 				details.nodeToViz(fromNode) +
 				details.nodeToViz(toNode) +
 				details.edgeToViz(edge) +

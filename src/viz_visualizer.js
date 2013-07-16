@@ -30,6 +30,7 @@ window.jdls = window.jdls || {};
 			'    shape = "plaintext"\n' +   // 'plaintext' is misnamed; it enables HTML-like formatting
 			'  ];\n' +
 			'  edge [];\n' +
+			'  \n' +
 			nodes() +
 			edges() +
 			'}\n';
@@ -48,16 +49,25 @@ window.jdls = window.jdls || {};
 	};
 
 	details.nodeToViz = function nodeToViz(node) {
+
+//			'label = "' + '<title>' + escape(node.title()) + fields() + '"\n' +
+//			'shape = "record"' +
+//			'];\n';
+
 		return '' +
-			'"' + node.id() + '" [\n' +
-			'label = "' + '<title>' + escape(node.title()) + fields() + '"\n' +
-			'shape = "record"' +
-			'];\n';
+			'  "' + node.id() + '" [label=<\n' +
+			'    <table>\n' +
+			'      <th><td>' + escapeHtml(node.title()) + '</td></th>\n' +
+			fields() +
+			'    </table>\n' +
+			'  >];\n';
 
 		function fields() {
 			var result = "";
 			node.forEachField(function(name, value, id) {
-				result += '| <' + id + '> ' + escape(name) + ': ' + escape(value);
+				result += '      <tr><td port="' + id + '">' + escapeHtml(name) + ': ' + escapeHtml(value) + '</td></tr>\n';
+
+//				result += '| <' + id + '> ' + escape(name) + ': ' + escape(value);
 			});
 			return result;
 		}
@@ -67,7 +77,7 @@ window.jdls = window.jdls || {};
 		return '"' + edge.from.id() + '":' + edge.fromField + ' -> "' + edge.to.id() + '":title [];';
 	};
 
-	var escape = details.escape = function escape(name) {
+	var escapeViz = details.escapeViz = function escapeViz(name) {
 		return name.
 			replace(/\\/g, '\\\\').
 			replace(/\{/g, "\\{").
@@ -78,6 +88,15 @@ window.jdls = window.jdls || {};
 			replace(/\"/g, '\\"').
 			replace(/\n/g, '\\n').
 			replace(/\t/g, ' ');
+	};
+
+	var escapeHtml = details.escapeHtml = function escapeHtml(html) {
+		return html.
+			replace(/&/g, "&amp;").
+			replace(/</g, "&lt;").
+			replace(/>/g, "&gt;").
+			replace(/"/g, "&quot;").
+			replace(/'/g, "&#039;");
 	};
 
 }());
