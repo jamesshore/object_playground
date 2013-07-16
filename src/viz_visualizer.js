@@ -52,16 +52,22 @@ window.jdls = window.jdls || {};
 	};
 
 	details.nodeToViz = function nodeToViz(node) {
-		var header = '"' + node.id() + '" [';
-		var labelLine = '\n' + label();
-		var shape = '\nshape = "record"';
-		var footer = '];\n';
+		return header() + labelLine() + shape() + footer();
 
-		return header + labelLine + shape + footer;
+		function header() {
+			return '"' + node.id() + '" [';
+		}
 
-		function label() {
-			var title = '<title>' + escape(node.title());
-			return 'label = "' + title + fields() + '"';
+		function labelLine() {
+			return '\nlabel = "' + '<title>' + escape(node.title()) + fields() + '"';
+		}
+
+		function shape() {
+			return '\nshape = "record"';
+		}
+
+		function footer() {
+			return '];\n';
 		}
 
 		function fields() {
