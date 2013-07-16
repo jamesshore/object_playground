@@ -37,15 +37,17 @@
 			expect(esc("\t\t")).to.equal("    ");
 		});
 
-		it("converts nodes", function() {
-			var node = new jdls.ObjectNode("name", { a: 1 });
+		it("converts nodes (with alternating property colors)", function() {
+			var node = new jdls.ObjectNode("name", { a: 1, b: 2, c: 3 });
 
 			expect(details.nodeToViz(node)).to.equal(
 					'  "' + node.id() + '" [label=<\n' +
 					'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
 					'      <th><td port="title" bgcolor="#24677F"><font color="white">name {Object}</font></td></th>\n' +
 					'      <tr><td port="f0" bgcolor="#43A9CC">a: 1</td></tr>\n' +
-					'      <tr><td port="proto" bgcolor="#43A9CC">&lt;prototype&gt;: Object</td></tr>\n' +
+					'      <tr><td port="f1" bgcolor="white">b: 2</td></tr>\n' +
+					'      <tr><td port="f2" bgcolor="#43A9CC">c: 3</td></tr>\n' +
+					'      <tr><td port="proto" bgcolor="white">&lt;prototype&gt;: Object</td></tr>\n' +
 					'    </table>\n' +
 					'  >];\n'
 //				'"' + node.id() + '" [\n' +

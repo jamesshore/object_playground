@@ -65,8 +65,11 @@ window.jdls = window.jdls || {};
 
 		function fields() {
 			var result = "";
+			var oddRow = true;
 			node.forEachField(function(name, value, id) {
-				result += '      <tr><td port="' + id + '" bgcolor="#43A9CC">' + escapeHtml(name) + ': ' + escapeHtml(value) + '</td></tr>\n';
+				var color = oddRow ? "#43A9CC" : "white";
+				result += '      <tr><td port="' + id + '" bgcolor="' + color + '">' + escapeHtml(name) + ': ' + escapeHtml(value) + '</td></tr>\n';
+				oddRow = !oddRow;
 
 //				result += '| <' + id + '> ' + escape(name) + ': ' + escape(value);
 			});
