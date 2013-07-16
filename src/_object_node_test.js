@@ -141,30 +141,27 @@
 			});
 		});
 
-		describe("fields", function() {
-			function fields(object) {
+		describe("properties", function() {
+			function properties(object) {
 				var node = newNode("name", object);
-				var result = node.properties();
-				result.push(node.prototype());
-				return result;
+				return node.properties();
 			}
 
 			function conversionOf(variable) {
 				var object = { name: variable };
-				return fields(object)[0].value;
+				return properties(object)[0].value;
 			}
 
-			it("provides each field and the prototype", function() {
+			it("provides each property", function() {
 				var object = {
 					a: 1,
 					b: 2,
 					c: 3
 				};
-				expect(fields(object)).to.eql([
+				expect(properties(object)).to.eql([
 					{ name: "a", value: "1", id: "f0" },
 					{ name: "b", value: "2", id: "f1" },
-					{ name: "c", value: "3", id: "f2" },
-					{ name: "<prototype>", value: "Object.prototype", id: "proto" }
+					{ name: "c", value: "3", id: "f2" }
 				]);
 			});
 
@@ -198,12 +195,17 @@
 			it("handles 'Function' special case", function() {
 				expect(conversionOf(Function.prototype)).to.equal("Function");
 			});
+		});
 
-			it("converts the prototype in the same way as other fields", function() {
+		describe("prototype", function() {
+			function prototype(object) {
+				var node = newNode("name", object);
+				return node.prototype();
+			}
+
+			it("converts the same way as fields", function() {
 				function MyClass() {}
-				expect(fields(new MyClass())).to.eql([
-					{ name: "<prototype>", value: "MyClass.prototype", id: "proto" }
-				]);
+				expect(prototype(new MyClass())).to.eql({ name: "<prototype>", value: "MyClass.prototype", id: "proto" });
 			});
 		});
 
