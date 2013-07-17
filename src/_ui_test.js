@@ -98,6 +98,22 @@
 					Object.getOwnPropertyNames = patchedMethod;
 				}
 			});
+
+			it("displays error div if Int32Array not present", function() {
+				/*global Int32Array:true */
+				// simulate IE 9 behavior
+				var patchedClass = Int32Array;
+				try {
+					Int32Array = undefined;
+					initialize();
+					expect(preload.style.display).to.equal("none");
+					expect(error.style.display).to.equal("block");
+					expect(content.style.display).to.equal("none");
+				}
+				finally {
+					Int32Array = patchedClass;
+				}
+			});
 		});
 
 		describe("options", function() {

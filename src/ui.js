@@ -32,7 +32,8 @@ window.jdls = window.jdls || {};
 			replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
 			populateSampleButtons();
 			handleEvaluateButton();
-			showInterface();
+			if (!Int32Array) showError();
+			else showInterface();
 		}
 		catch (ex) {
 			showError();
