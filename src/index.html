@@ -46,6 +46,17 @@
         </div>
     </div>
 
+    <div id="playgroundError" style="display: none;">
+        <div class="content">
+            <div class="content_box">
+                <div class="main">
+                    <h1>Unable to Load Object Visualizer</h1>
+                    <p>Your browser doesn’t support the JavaScript functions required. The latest versions of Chrome, Firefox, and Safari are known to work, and Internet Explorer 10 does too. Try one of them instead.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="playgroundContent" style="display: none;">
         <ul id="samples" class="tab_navigation col-1-5 objects">
             <!-- This list is automatically populated by the JavaScript code -->
@@ -100,9 +111,10 @@
 <script type="text/javascript" src="ui.js?2013-07-17"></script>
 
 <script>
-    window.addEventListener("load", function() {
+    window.onload = function() {
         jdls.ui.initialize({
             preloadDiv: document.getElementById("playgroundPreload"),
+            errorDiv: document.getElementById("playgroundError"),
             contentDiv: document.getElementById("playgroundContent"),
             samplesList: document.getElementById("samples"),
             userCodeTextArea: document.getElementById("usercode"),
@@ -111,7 +123,7 @@
             showAllFunctionsCheckbox: document.getElementById("functions"),
             graphDiv: document.getElementById("graph")
         });
-    });
+    };
 </script>
 
 <!-- Google Analytics -->

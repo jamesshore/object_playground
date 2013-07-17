@@ -95,6 +95,7 @@
 		return {
 			jdls: true,
 
+			console: false,
 			mocha: false,
 			describe: false,
 			it: false,

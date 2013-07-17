@@ -8,6 +8,7 @@ window.jdls = window.jdls || {};
 
 	var exports = window.jdls.ui = {};
 	var preload;
+	var error;
 	var content;
 	var samples;
 	var userCode;
@@ -18,6 +19,7 @@ window.jdls = window.jdls || {};
 
 	exports.initialize = function initialize(elements) {
 		preload = elements.preloadDiv;
+		error = elements.errorDiv;
 		content = elements.contentDiv;
 		samples = elements.samplesList;
 		userCode = elements.userCodeTextArea;
@@ -26,10 +28,15 @@ window.jdls = window.jdls || {};
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
-		replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
-		populateSampleButtons();
-		handleEvaluateButton();
-		unhideInterface();
+		try {
+			replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
+			populateSampleButtons();
+			handleEvaluateButton();
+			showInterface();
+		}
+		catch (ex) {
+			showError();
+		}
 	};
 
 	function populateSampleButtons() {
@@ -55,9 +62,16 @@ window.jdls = window.jdls || {};
 		});
 	}
 
-	function unhideInterface() {
+	function showInterface() {
 		preload.style.display = "none";
+		error.style.display = "none";
 		content.style.display = "block";
+	}
+
+	function showError() {
+		preload.style.display = "none";
+		error.style.display = "block";
+		content.style.display = "none";
 	}
 
 	function replaceUserCode(sample) {
