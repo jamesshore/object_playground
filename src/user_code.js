@@ -30,7 +30,7 @@ window.jdls = window.jdls || {};
 		'this.g = { h: "baz" };\n'
 	};
 
-	samples.classical = { name: "Classical Class", code: 'function MyClass() {}\n' +
+	samples.classical = { name: "Basic Class", code: 'function MyClass() {}\n' +
 		'MyClass.prototype.method = function method() {};\n' +
 		'this.instance = new MyClass();'
 	};
@@ -50,7 +50,7 @@ window.jdls = window.jdls || {};
 		'this.instance = new Child();'
 	};
 
-	samples.resig = { name: "John Resig",
+	samples.resig = { name: "John Resig’s Inheritance",
 		code: '// This example contributed by Dave Woldrich -- thanks!\n' +
 		'\n' +
 		'/* Simple JavaScript Inheritance\n' +
@@ -140,16 +140,10 @@ window.jdls = window.jdls || {};
 		'this.instance = new Ninja(true);\n'
 	};
 
-//	samples.sugar = { name: "",
-//		code: "TBD"
-// }
-
-	samples.inception = { name: "Inception!", code: samples.classical.code + "\n" +
-		'this.instance = new jdls.ObjectGraph("root", this.instance);'
-	};
-
-	samples.deeper = { name: "We Must Go Deeper", code: 'this.jdls = jdls;\n' +
-		'this.deeper = jdls.usercode.evaluate(jdls.usercode.samples.inception.code);'
+	samples.inception = { name: "Inception!", code: '// Can you figure out what this sample is doing?\n' +
+	'\n' +
+	'this.jdls = jdls;\n' +
+	'this.inception = new jdls.ObjectGraph("root", jdls);\n'
 	};
 
 	exports.DEFAULT_SAMPLE = samples.instructions;
