@@ -38,7 +38,7 @@ window.jdls = window.jdls || {};
 		Object.getOwnPropertyNames(jdls.usercode.samples).forEach(function(name) {
 			var sample = jdls.usercode.samples[name];
 			var li = document.createElement("li");
-			li.innerHTML = "<input type='submit' value='" + sample.name + "'></input>";
+			li.innerHTML = "<a>" + sample.name + "</a>";
 			var button = li.firstChild;
 
 			//TODO: untested

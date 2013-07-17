@@ -2,37 +2,81 @@
 <html>
 <head>
     <title>Object Playground: The JavaScript Object Visualizer</title>
-
+    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache">
-
+    
+    <link rel="stylesheet" type="text/css" href="site.css">
+    <link rel="stylesheet" href="http://use.typekit.net/c/8f1cc5/alwyn-new-rounded-web:i4:i7:n3:n4:n6:n7.Vx3:F:2,Vx7:F:2,Vx0:F:2,Vx2:F:2,Vx4:F:2,Vx6:F:2/d?3bb2a6e53c9684ffdc9a9bf21f5b2a62e0aa097ce99d70af0d47c9d0f7c52285ff7da4dbf8b1bf829bda3f6c96a0d68ddb46c47df226d2640ac33565eca0a973bfb2c2f15180392c436b762e123c18a86cf94fae845a6de3cff027ac94f31f78b39d5ee15c2ea2be9536568637b0a587d7f86af72c66d70ba694949d4f22c1c7b51ab7304c93ad072b3e807c468180e1d2">
+    
     <script type="text/javascript" src="viz/viz.js"></script>
-
     <script type="text/javascript" src="object_node.js"></script>
     <script type="text/javascript" src="object_graph.js"></script>
     <script type="text/javascript" src="viz_visualizer.js"></script>
     <script type="text/javascript" src="user_code.js"></script>
     <script type="text/javascript" src="ui.js"></script>
+
 </head>
 <body>
 
-<h1>Object Playground</h1>
+<div id="header">
+    <a href="https://github.com/jamesshore/object_playground"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+</div>
 
-<p>A project from <a href="http://www.letscodejavascript.com">Let's Code: Test-Driven JavaScript</a>, a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.</p>
+<div id="intro" class="dark_bg">
+    <div class="wrapper">
+        <h1>Let’s Code Javascript Presents: Object Playground</h1>
+        <p class="intro">As a thank you to my Kickstarter supporters and current subscribers<br>I am celebrating our 1 year anniversary with Object Playground.<br>I hope you enjoy this exciting new way to experiment with and visualize<br>how objects work within JavaScript.</p>
+    </div>
+    <div class="wrapper video">
+        <div id="episode_wrapper"><img src="http://media.letscodejavascript.com/video/lessons_learned/ll12.jpg"/></div>
+    </div>
+</div>
 
-<p><strong>Think this page is ugly? Contribute the style sheet!</strong> <a href="https://github.com/jamesshore/object_playground">GitHub Here.</a>
+<div class="wrapper superwide">
+    <ul class="tab_navigation">
+        <li class="col-1-1 banner"><span class="active">Lets get to work viewing objects</span></li>
+    </ul>
+    <div class="divider line">
+        <h2>Choose an object type below to get started!</h2>
+    </div> 
+    <ul id="samples" class="tab_navigation col-1-5 objects"><!-- This list is automatically populated by the JavaScript code --></ul>
+</div>
 
-<p><em>Browser Support:</em> Object Playground is confirmed to work on the latest version of Firefox, IE, Safari, and Chrome. It does not work on IE 8 or IE 9.</p>
+<div class="wrapper superwide">
+    <div id="content">
+        <div class="content_box">
+            <div class="main codearea">
+                <div class="col-3-4">
+                    <textarea id="usercode"></textarea>
+                </div>
+                <div class="col-1-4">
+                    <div class="aside">
+                        <br><label><input id="builtins" type="checkbox"> Show built-in objects</label>
+                        <br><label><input id="functions" type="checkbox"> Show all functions</label>
+                    </div>
+                    <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
+                </div>
+            </div>
+            <div class="additional">
+                <div id="graph"></div>
+            </div>
+        </div>
+    </div>
+    <div class="divider dot"></div>
+</div>
 
-<p><strong>Try these buttons!</strong></p>
+<div id="footer">
+    <div class="divider line">
+        <p>A project from <a href="http://www.letscodejavascript.com">Let's Code JavaScript</a> 
+    </div>
+    <p>Let's Code JavaScript is a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.</p>          
+    <p>Browser Support: Object Playground is confirmed to work on the latest version of Firefox, IE, Safari, and Chrome. It does not work on IE 8 or IE 9.</p>
+    <p>Site designed by Phill Shaffer. Design based on Primate</p>
+    <div class="divider dot"></div>
+</div>
 
-<ul id="samples"><!-- This list is automatically populated by the JavaScript code --></ul>
-<textarea id="usercode" cols="80" rows="10"></textarea>
-<br><label><input id="builtins" type="checkbox"> Show built-in objects</label>
-<br><label><input id="functions" type="checkbox"> Show all functions</label>
-<br><input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Magic!</strong>
-<p>
-<div id="graph"></div>
+
 
 <!-- Object Playground -->
 <script>
