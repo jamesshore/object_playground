@@ -32,7 +32,7 @@ window.jdls = window.jdls || {};
 		'function Child() {\n' +
 		'  Parent.call(this);\n' +
 		'}\n' +
-		'Child.prototype = new Parent();\n' +
+		'Child.prototype = Object.create(Parent.prototype);\n' +
 		'Child.prototype.constructor = Child;\n' +
 		'Child.prototype.method = function method() {\n' +
 		'  Parent.prototype.method.call(this);\n' +
