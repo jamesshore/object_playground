@@ -69,60 +69,22 @@
 		});
 
 		describe("type", function() {
-			it("is based on prototype's constructor name", function() {
-				var proto = {
-					constructor: function TheConstructor() {}
-				};
-
+			it("is same as prototype's name", function() {
+				var proto = function foo() {};
 				var object = Object.create(proto);
-				object.constructor = function NotThisOne() {};
-
 				var node = newNode("name", object);
-				expect(node.type()).to.equal("TheConstructor");
+				expect(node.type()).to.equal("foo()");
 			});
 
-			it("works even when prototype's constructor is inherited", function() {
-				var grandfather = {
-					constructor: function TheConstructor() {}
-				};
-				var proto = Object.create(grandfather);
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("TheConstructor");
+			it("is anonymous when prototype doesn't have a name", function() {
+				var object = Object.create({});
+				var node = newNode("name", object);
+				expect(node.type()).to.equal("<anon>");
 			});
 
 			it("is null when object has no prototype", function() {
 				var node = newNode("name", Object.create(null));
 				expect(node.type()).to.equal("<null>");
-			});
-
-			it("is anonymous when constructor has no name", function() {
-				var proto = {
-					constructor: function() {}
-				};
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-
-			it("is anonymous when prototype has no constructor", function() {
-				var proto = Object.create(null);
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-
-			it("is anonymous when prototype constructor is not a function", function() {
-				var proto = {
-					constructor: "malformed constructor"
-				};
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-
-			it("is anonymous when prototype constructor is null", function() {
-				var proto = {
-					constructor: null
-				};
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
 			});
 		});
 
@@ -189,7 +151,7 @@
 			});
 
 			it("converts objects to their types when they don't have a name", function() {
-				expect(conversionOf({})).to.equal("{Object}");
+				expect(conversionOf({})).to.equal("{Object.prototype}");
 			});
 
 			it("handles 'Function' special case", function() {

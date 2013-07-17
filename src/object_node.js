@@ -75,8 +75,7 @@ window.jdls = window.jdls || {};
 	function objectType(object) {
 		var prototype = Object.getPrototypeOf(object);
 		if (prototype === null) return "<null>";
-		if (prototype.constructor === undefined || prototype.constructor === null) return "<anon>";
-		return functionName(prototype.constructor);
+		return objectName("<anon>", prototype);
 	}
 
 	function functionName(func) {
