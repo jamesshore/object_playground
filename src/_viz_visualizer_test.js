@@ -36,7 +36,7 @@
 					'      <tr><td port="f0" bgcolor="#E3E3E3" align="left" balign="left">&nbsp;<font color="#333333">a:</font> <font color="#666666">1</font>&nbsp;</td></tr>\n' +
 					'      <tr><td port="f1" bgcolor="#FDFDFD" align="left" balign="left">&nbsp;<font color="#333333">b:</font> <font color="#666666">2</font>&nbsp;</td></tr>\n' +
 					'      <tr><td port="f2" bgcolor="#E3E3E3" align="left" balign="left">&nbsp;<font color="#333333">c:</font> <font color="#666666">3</font>&nbsp;</td></tr>\n' +
-					'      <tr><td port="proto" bgcolor="#0082B6"><font color="white">&lt;prototype&gt;: Object.prototype</font></td></tr>\n' +
+					'      <tr><td port="proto" bgcolor="#0082B6"><font color="white">Object.prototype</font></td></tr>\n' +
 					'    </table>\n' +
 					'  >];\n'
 //				'"' + node.id() + '" [\n' +

@@ -91,7 +91,7 @@ window.jdls = window.jdls || {};
 
 		function prototype() {
 			var proto = node.prototype();
-			return '      <tr><td port="' + proto.id + '" bgcolor="' + PROTOTYPE_BACKGROUND_COLOR + '"><font color="' + PROTOTYPE_FONT_COLOR + '">' + escapeHtml(proto.name) + ': ' + escapeHtml(proto.value) + '</font></td></tr>\n';
+			return '      <tr><td port="' + proto.id + '" bgcolor="' + PROTOTYPE_BACKGROUND_COLOR + '"><font color="' + PROTOTYPE_FONT_COLOR + '">' + escapeHtml(proto.value) + '</font></td></tr>\n';
 		}
 	};
 
