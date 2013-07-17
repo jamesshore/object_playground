@@ -165,9 +165,21 @@
 				return node.prototype();
 			}
 
-			it("converts the same way as fields", function() {
+			function conversionOf(object) {
+				return prototype(object).value;
+			}
+
+			it("converts objects without a prototype to 'null'", function() {
+				expect(conversionOf(Object.create(null))).to.equal("null");
+			});
+
+			it("converts prototypes to their name if they have one", function() {
 				function MyClass() {}
-				expect(prototype(new MyClass())).to.eql({ name: "<prototype>", value: "MyClass.prototype", id: "proto" });
+				expect(conversionOf(new MyClass())).to.equal("MyClass.prototype");
+			});
+
+			it("converts prototypes without a name to 'xxx.<prototype>'", function() {
+				expect(conversionOf(Object.create({}))).to.equal("name.<prototype>");
 			});
 		});
 

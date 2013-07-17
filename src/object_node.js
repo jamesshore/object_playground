@@ -45,9 +45,15 @@ window.jdls = window.jdls || {};
 	};
 
 	ObjectNode.prototype.prototype = function prototype() {
+		var value;
+
+		var proto = Object.getPrototypeOf(this._value);
+		if (proto === null) value = "null";
+		else value = objectName(this._name + ".<prototype>", Object.getPrototypeOf(this._value));
+
 		return {
 			name: "<prototype>",
-			value: describeField(Object.getPrototypeOf(this._value)),
+			value: value,
 			id: "proto"
 		};
 	};
