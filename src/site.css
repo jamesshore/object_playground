@@ -102,8 +102,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 body {
-  background: #ededed url("/v3/images/tile_light.gif");
-  font-family: alwyn-new-rounded-web, Arial;
+  background: #ededed url("images/tile_light.gif");
+  font-family: helvetica, arial, sans-serif;
 }
 
 a {
@@ -112,7 +112,7 @@ a {
 
 h1 {
   font-size: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: inherit;
 }
 
@@ -168,7 +168,7 @@ input[type='submit'] {
     position: relative;
     width:  720px;
     height: 405px;
-    margin: 20px auto 40px;
+    margin: 10px auto 30px;
 }
 
 .wrapper.wide {
@@ -191,9 +191,9 @@ input[type='submit'] {
   -webkit-box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
-  background: #4c4c4e url("/v3/images/tile_dark.gif");
+  background: #4c4c4e url("images/tile_dark.gif");
   width: 100%;
-  padding: 30px 0;
+  padding: 10px 0;
 }
 
 .dark_bg .divider {
@@ -205,13 +205,20 @@ input[type='submit'] {
 
 .dark_bg h1 {
   color: white;
+  line-break: 30px;
+  margin-top: 10px;
+}
+
+.dark_bg p.presents {
+    margin-top: 5px;
+    font-size: 12px;
 }
 
 #content {
   margin: 20px 0;
 }
 
-#intro h1 {
+#intro h1, #intro p {
   text-align: center;
 }
 
@@ -223,41 +230,18 @@ input[type='submit'] {
   font-weight: 100;
 }
 
-.button {
-	font-size:20px;
-	font-family:Arial;
-	font-weight:normal;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
-	border:1px solid #83c41a;
-	padding:12px 28px;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #b8e356), color-stop(100%, #a5cc52) );
-	background:-moz-linear-gradient( center top, #b8e356 5%, #a5cc52 100% );
-	background:-ms-linear-gradient( top, #b8e356 5%, #a5cc52 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52');
-	background-color:#b8e356;
-	color:#ffffff;
-	display:inline-block;
-	text-shadow:1px 1px 0px #86ae47;
-    width: 100%;
-    cursor: pointer;
+.signup_form input[type='submit'], .tab_navigation li a, .tab_navigation li span, .content_box, .signup_form input[type='submit'] {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
-.button:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #a5cc52), color-stop(100%, #b8e356) );
-	background:-moz-linear-gradient( center top, #a5cc52 5%, #b8e356 100% );
-	background:-ms-linear-gradient( top, #a5cc52 5%, #b8e356 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a5cc52', endColorstr='#b8e356');
-	background-color:#a5cc52;
-}
-
-.button:active {
-	position:relative;
-	top:1px;
-}
-
-.button, .tab_navigation li a, .tab_navigation li span {
+.signup_form input[type='submit'], .tab_navigation li a, .tab_navigation li span {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -266,13 +250,31 @@ input[type='submit'] {
   font-weight: 600;
 }
 
+
+.signup_form input[type='submit'] {
+  text-align: center;
+  font-size: 20px;
+  padding: 16px;
+  background: #9eb75b;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+  border: 0;
+}
+
+.signup_form input[type='submit']:hover {
+  background: #839b44;
+}
+
+
+
 .divider {
   border-bottom: 1px solid #d9d9d9;
   -webkit-box-shadow: 0 1px 0 0 white;
   -moz-box-shadow: 0 1px 0 0 white;
   box-shadow: 0 1px 0 0 white;
   text-align: center;
-  background: url("/v3/images/content_divider.gif") no-repeat 49.5% 0;
+  background: url("images/content_divider.gif") no-repeat 49.5% 0;
   padding: 40px 0 0;
   height: 0;
   margin: 0 0 50px;
@@ -280,7 +282,7 @@ input[type='submit'] {
 
 .divider h2 {
   color: #868686;
-  background: #ededed url("/v3/images/tile_light.gif");
+  background: #ededed url("images/tile_light.gif");
   padding: 0 10px;
   display: inline-block;
   font-weight: 100;
@@ -291,7 +293,7 @@ input[type='submit'] {
 .divider p {
   display: inline-block;
   padding: 0 10px;
-  background: #ededed url("/v3/images/tile_light.gif");
+  background: #ededed url("images/tile_light.gif");
   position: relative;
   top: -8px;
 }
@@ -313,32 +315,14 @@ input[type='submit'] {
   top: -22px;
 }
 
-#header {
-  height: 155px;
-  width: 100%;
-  background: white url("images/header_logo.gif") 50% 10px no-repeat;
-  padding: 10px 0;
+a.logo {
+  height: 110px;
+  width: 50px;
+  background: url("images/logo.png");
   position: relative;
-}
-
-#header #home_link {
-  width: 61px;
-  height: 127px;
+  margin: auto;
   display: block;
-  text-indent: -9999px;
-  margin: 0 auto 10px;
-}
 
-#header .left {
-  position: absolute;
-  top: 20px;
-  left: 1.5%;
-}
-
-#header .right {
-  position: absolute;
-  top: 20px;
-  right: 1.5%;
 }
 
 #footer {
@@ -376,11 +360,16 @@ input[type='submit'] {
 .content_box .main.codearea .aside {
     margin-bottom: 20px; 
     padding: 10px; 
-    height: 178px;
+    height: 172px;
     border: solid 1px #bbbbbb;
 }
 
-.content_box .main, .content_box .additional {
+.main.codearea .aside table tr td {
+    vertical-align: text-top;
+    padding: 5px;
+}
+
+.content_box .main {
   padding: 0px 45px;
 }
 
@@ -427,9 +416,9 @@ input[type='submit'] {
     padding-top: 20px;
 }
 
-.content_box .additional {
+.content_box .graph {
   border-top: 1px solid #cccccc;
-  padding: 20px 45px;
+  padding: 20px 0px;
   margin-top: 40px;
 }
 
@@ -439,12 +428,8 @@ input[type='submit'] {
     margin-left: auto;
 }
 
-.tab_navigation.banner {
-    margin-bottom: 50px;
-}
-
 .tab_navigation.objects {
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .tab_navigation li {
@@ -453,7 +438,6 @@ input[type='submit'] {
 
 .tab_navigation li a, .tab_navigation li span {
   position: relative;
-  height: 48px;
   color: #00668f;
   background: white;
   text-shadow: none;
@@ -469,14 +453,17 @@ input[type='submit'] {
 .tab_navigation li a {
     font-size: 14px;
     line-height: 18px;
+    padding: 14px 5px;
     top: -20px;
     cursor: pointer;
 }
 
 .tab_navigation li span {
     font-size: 18px;
+    height: 48px;
     line-height: 22px;
-    top: -45px;
+    top: -25px;
+    margin-top: 0px;
 }
 
 .tab_navigation li a:hover {
