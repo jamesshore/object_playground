@@ -37,6 +37,8 @@ window.jdls = window.jdls || {};
 	function populateSampleButtons() {
 		Object.getOwnPropertyNames(jdls.usercode.samples).forEach(function(name) {
 			var sample = jdls.usercode.samples[name];
+
+			failFastIfSampleNameMustBeEscaped(sample.name);
 			var li = document.createElement("li");
 			li.innerHTML = "<a>" + sample.name + "</a>";
 			var button = li.firstChild;
@@ -71,6 +73,16 @@ window.jdls = window.jdls || {};
 
 	function inspect(string) {
    return "<pre>" + string.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>";
- }
+  }
+
+	function failFastIfSampleNameMustBeEscaped(name) {
+		if (contains(["<", ">", '"', "&"])) throw new Error("Sample name [" + name + "] includes text that must be HTML-escaped; that's not implemented yet.");
+
+		function contains(forbiddenChars) {
+			return forbiddenChars.some(function(char) {
+				return name.indexOf(char) !== -1;
+			});
+		}
+	}
 
 }());
