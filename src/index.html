@@ -30,38 +30,47 @@
     </div>
 </div>
 
+
 <div class="wrapper superwide">
     <ul class="tab_navigation">
         <li class="col-1-1 banner"><span class="active">Explore and Visualize</span></li>
     </ul>
-    <!--
-    <div class="divider line">
-        <h2>Choose an object type below to get started!</h2>
-    </div>
-    -->
-    <ul id="samples" class="tab_navigation col-1-5 objects"><!-- This list is automatically populated by the JavaScript code --></ul>
-</div>
 
-<div class="wrapper superwide">
-    <div id="content">
-        <div class="content_box">
-            <div class="main codearea">
-                <div class="col-3-4">
-                    <textarea id="usercode"></textarea>
+    <div id="playgroundPreload">
+        <div class="content">
+            <div class="content_box">
+                <div class="main">
+                    <h1>Loading...</h1>
                 </div>
-                <div class="col-1-4">
-                    <div class="aside">
-                        <br><label><input id="builtins" type="checkbox"> Show standard objects</label>
-                        <br><label><input id="functions" type="checkbox"> Show all functions</label>
-                    </div>
-                    <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
-                </div>
-            </div>
-            <div class="additional">
-                <div id="graph"></div>
             </div>
         </div>
     </div>
+
+    <div id="playgroundContent" style="display: none;">
+        <ul id="samples" class="tab_navigation col-1-5 objects">
+            <!-- This list is automatically populated by the JavaScript code -->
+        </ul>
+        <div id="content">
+            <div class="content_box">
+                <div class="main codearea">
+                    <div class="col-3-4">
+                        <textarea id="usercode"></textarea>
+                    </div>
+                    <div class="col-1-4">
+                        <div class="aside">
+                            <br><label><input id="builtins" type="checkbox"> Show standard objects</label>
+                            <br><label><input id="functions" type="checkbox"> Show all functions</label>
+                        </div>
+                        <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
+                    </div>
+                </div>
+                <div class="additional">
+                    <div id="graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="divider dot"></div>
 </div>
 
@@ -93,6 +102,8 @@
 <script>
     window.addEventListener("load", function() {
         jdls.ui.initialize({
+            preloadDiv: document.getElementById("playgroundPreload"),
+            contentDiv: document.getElementById("playgroundContent"),
             samplesList: document.getElementById("samples"),
             userCodeTextArea: document.getElementById("usercode"),
             evaluateButton: document.getElementById("evaluate"),

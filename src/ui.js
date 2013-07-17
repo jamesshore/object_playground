@@ -7,6 +7,8 @@ window.jdls = window.jdls || {};
 	"use strict";
 
 	var exports = window.jdls.ui = {};
+	var preload;
+	var content;
 	var samples;
 	var userCode;
 	var evaluate;
@@ -15,6 +17,8 @@ window.jdls = window.jdls || {};
 	var graph;
 
 	exports.initialize = function initialize(elements) {
+		preload = elements.preloadDiv;
+		content = elements.contentDiv;
 		samples = elements.samplesList;
 		userCode = elements.userCodeTextArea;
 		evaluate = elements.evaluateButton;
@@ -22,17 +26,11 @@ window.jdls = window.jdls || {};
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
-		populateSampleButtons();
 		replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
-
-		addEventHandlers();
+		populateSampleButtons();
+		handleEvaluateButton();
+		unhideInterface();
 	};
-
-	function addEventHandlers() {
-		evaluate.addEventListener("click", function() {
-			renderUserCode();
-		});
-	}
 
 	function populateSampleButtons() {
 		Object.getOwnPropertyNames(jdls.usercode.samples).forEach(function(name) {
@@ -49,6 +47,17 @@ window.jdls = window.jdls || {};
 
 			samples.appendChild(li);
 		});
+	}
+
+	function handleEvaluateButton() {
+		evaluate.addEventListener("click", function() {
+			renderUserCode();
+		});
+	}
+
+	function unhideInterface() {
+		preload.style.display = "none";
+		content.style.display = "block";
 	}
 
 	function replaceUserCode(sample) {
