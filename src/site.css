@@ -348,7 +348,7 @@ a.logo {
   overflow: hidden;
   *zoom: 1;
   background: white;
-  padding: 40px 0 30px;
+  padding: 40px 0 0px;
 }
 
 .content_box .main.codearea {
@@ -407,18 +407,18 @@ a.logo {
 
 .content_box #graph {
     overflow: auto;
+		padding: 20px 0px 40px 0px;
 }
 
 .content_box #graph svg {
     display: block;
     margin-right: auto;
     margin-left: auto;
-    padding-top: 20px;
 }
 
-.content_box .graph {
+.content_box .wrapper.superwide.graph {
   border-top: 1px solid #cccccc;
-  padding: 20px 0px;
+  padding: 20px 0px 0px 0px;
   margin-top: 40px;
 }
 
