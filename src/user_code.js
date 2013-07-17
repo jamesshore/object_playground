@@ -16,9 +16,18 @@ window.jdls = window.jdls || {};
 		return context;
 	};
 
-	samples.simple = { name: "Simple Object", code: '// Try turning on the "Show built-in objects" option and re-evaluating.\n' +
+	samples.instructions = { name: "Instructions", code: '// Enter JavaScript code in this box and then click the "Evaluate" button.\n' +
+		'// Any variable you assign to "this" will be graphed below.\n' +
+		'// Try the presets above for more examples!\n' +
 		'\n' +
-		'this.value = "Hi"\n'
+		'// Example:\n' +
+		'this.a = undefined;\n' +
+		'this.b = null;\n' +
+		'this.c = true;\n' +
+		'this.d = "foo";\n' +
+		'this.e = 3.14159;\n' +
+		'this.f = function bar() {};\n' +
+		'this.g = { h: "baz" };\n'
 	};
 
 	samples.classical = { name: "Classical Class", code: 'function MyClass() {}\n' +
@@ -143,6 +152,6 @@ window.jdls = window.jdls || {};
 		'this.deeper = jdls.usercode.evaluate(jdls.usercode.samples.inception.code);'
 	};
 
-	exports.DEFAULT_SAMPLE = samples.classical;
+	exports.DEFAULT_SAMPLE = samples.instructions;
 
 }());
