@@ -41,7 +41,6 @@ window.jdls = window.jdls || {};
 			li.innerHTML = "<a>" + sample.name + "</a>";
 			var button = li.firstChild;
 
-			//TODO: untested
 			button.addEventListener("click", function() {
 				replaceUserCode(sample);
 			});

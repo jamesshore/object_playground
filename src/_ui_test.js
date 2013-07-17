@@ -40,6 +40,8 @@
 			document.body.removeChild(samples);
 			document.body.removeChild(userCode);
 			document.body.removeChild(evaluate);
+			document.body.removeChild(showBuiltins);
+			document.body.removeChild(showAllFunctions);
 			document.body.removeChild(graph);
 		});
 
@@ -54,8 +56,6 @@
 				expect(samples.innerHTML).to.contain(defaultSample.name);
 				//TODO: escape button names
 			});
-
-			// TODO: test sample buttons' event handler
 
 			it("puts default user code into text area", function() {
 				expect(userCode.value).to.equal(defaultSample.code);
@@ -83,11 +83,24 @@
 		});
 
 		describe("interactivity", function() {
-			it("re-draws graph when button clicked", function() {
+			it("re-draws graph when evaluate button clicked", function() {
 				userCode.value = "this.test_marker = 1;";
 				evaluate.click();
 				expect(graph.innerHTML).to.contain("test_marker");
 			});
+
+			it("populates text area and re-evaluates when sample button clicked", function() {
+				userCode.value = "this.test_marker = 1;";
+				evaluate.click();
+
+				var firstSample = jdls.usercode.samples[Object.getOwnPropertyNames(jdls.usercode.samples)[0]];
+				var firstSampleButton = samples.firstElementChild.firstElementChild;
+
+				firstSampleButton.click();
+				expect(userCode.value).to.equal(firstSample.code);
+				expect(graph.innerHTML).to.not.contain("test_marker");
+			});
+
 
 			it("displays exception when bad code entered", function() {
 				userCode.value = "asdf";
