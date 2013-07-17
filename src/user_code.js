@@ -30,24 +30,43 @@ window.jdls = window.jdls || {};
 		'this.g = { h: "baz" };\n'
 	};
 
-	samples.classical = { name: "Basic Class", code: 'function MyClass() {}\n' +
+	samples.classical = { name: "Basic Class", code: '// Constructor\n' +
+		'function MyClass() {\n' +
+		'  this.a = 42;\n' +
+		'}\n' +
+		'\n' +
+		'// Method\n' +
 		'MyClass.prototype.method = function method() {};\n' +
-		'this.instance = new MyClass();'
+		'\n' +
+		'// Instantiate\n' +
+		'this.instance = new MyClass();\n'
 	};
 
-	samples.inheritance = { name: "Classical Inheritance", code: 'function Parent() {}\n' +
+	samples.inheritance = { name: "Classical Inheritance", code: '// Parent class constructor\n' +
+		'function Parent() {\n' +
+		'  this.a = 42;\n' +
+		'}\n' +
+		'\n' +
+		'// Parent class method\n' +
 		'Parent.prototype.method = function method() {};\n' +
 		'\n' +
+		'// Child class constructor\n' +
 		'function Child() {\n' +
 		'  Parent.call(this);\n' +
+		'  this.b = 3.14159\n' +
 		'}\n' +
+		'\n' +
+		'// Inherit from the parent class\n' +
 		'Child.prototype = Object.create(Parent.prototype);\n' +
 		'Child.prototype.constructor = Child;\n' +
+		'\n' +
+		'// Child class method\n' +
 		'Child.prototype.method = function method() {\n' +
 		'  Parent.prototype.method.call(this);\n' +
 		'};\n' +
 		'\n' +
-		'this.instance = new Child();'
+		'// Instantiate\n' +
+		'this.instance = new Child();\n'
 	};
 
 	samples.resig = { name: "John Resig’s Inheritance",
