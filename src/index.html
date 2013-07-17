@@ -7,14 +7,6 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     
     <link rel="stylesheet" type="text/css" href="site.css">
-    
-    <script type="text/javascript" src="viz/viz.js"></script>
-    <script type="text/javascript" src="object_node.js"></script>
-    <script type="text/javascript" src="object_graph.js"></script>
-    <script type="text/javascript" src="viz_visualizer.js"></script>
-    <script type="text/javascript" src="user_code.js"></script>
-    <script type="text/javascript" src="ui.js"></script>
-
 </head>
 <body>
 
@@ -82,21 +74,32 @@
     <div class="divider dot"></div>
 </div>
 
-
-
 <!-- Object Playground -->
+
+<!-- This script does the heavy-lifting of rendering SVG. -->
+<script type="text/javascript" src="viz/viz.js"></script>
+
+<!--
+    This code controls the UI and generates the object graph.
+    I've left it unminified so you can easily explore it. (It's small enough.)
+    For tests and more, see https://github.com/jamesshore/object_playground .
+-->
+<script type="text/javascript" src="object_node.js?1"></script>
+<script type="text/javascript" src="object_graph.js?1"></script>
+<script type="text/javascript" src="viz_visualizer.js?1"></script>
+<script type="text/javascript" src="user_code.js?1"></script>
+<script type="text/javascript" src="ui.js?1"></script>
+
 <script>
     window.addEventListener("load", function() {
-        var elements = {
+        jdls.ui.initialize({
             samplesList: document.getElementById("samples"),
             userCodeTextArea: document.getElementById("usercode"),
             evaluateButton: document.getElementById("evaluate"),
             showBuiltinsCheckbox: document.getElementById("builtins"),
             showAllFunctionsCheckbox: document.getElementById("functions"),
             graphDiv: document.getElementById("graph")
-        };
-
-        jdls.ui.initialize(elements);
+        });
     });
 </script>
 
