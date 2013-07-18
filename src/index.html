@@ -10,20 +10,11 @@
 </head>
 <body>
 
-<div id="header">
-    <a href="https://github.com/jamesshore/object_playground"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
-</div>
-
 <div id="intro" class="dark_bg">
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <div class="wrapper">
-        <h1>
-            Let’s Code JavaScript Presents:
-            <br>The Definitive Guide to Object-Oriented JavaScript
-        </h1>
-        <p class="intro">
-            A tool for exploring object-oriented programming in JavaScript
-            <br>Produced by James Shore, creator of <a href="http://www.letscodejavascript.com">Let’s Code: Test-Driven JavaScript</a>
-        </p>
+        <a class="logo" href="http://www.letscodejavascript.com"></a>
+        <p class="presents">presents</P>
     </div>
     <div class="wrapper video">
         <img src="http://media.letscodejavascript.com/video/lessons_learned/ll12.jpg"/>
@@ -33,13 +24,13 @@
 
 <div class="wrapper superwide">
     <ul class="tab_navigation">
-        <li class="col-1-1 banner"><span class="active">Visualize and Explore</span></li>
+        <li class="col-1-1"><span class="active">Visualize and Explore</span></li>
     </ul>
 
     <div id="playgroundPreload">
         <div class="content">
             <div class="content_box">
-                <div class="main">
+                <div class="notification">
                     <h1>Loading...</h1>
                 </div>
             </div>
@@ -49,7 +40,7 @@
     <div id="playgroundError" style="display: none;">
         <div class="content">
             <div class="content_box">
-                <div class="main">
+                <div class="notification">
                     <h1>Unable to Load Object Visualizer</h1>
                     <p>Your browser doesn’t support the JavaScript functions required. The latest versions of Chrome, Firefox, and Safari are known to work, and Internet Explorer 10 does too. Try one of them instead.</p>
                 </div>
@@ -61,7 +52,7 @@
         <ul id="samples" class="tab_navigation col-1-5 objects">
             <!-- This list is automatically populated by the JavaScript code -->
         </ul>
-        <div id="content">
+        <div class="content">
             <div class="content_box">
                 <div class="main codearea">
                     <div class="col-3-4">
@@ -69,13 +60,23 @@
                     </div>
                     <div class="col-1-4">
                         <div class="aside">
-                            <br><label><input id="builtins" type="checkbox"> Show standard objects</label>
-                            <br><label><input id="functions" type="checkbox"> Show all functions</label>
+                            <table>
+                                <tr>
+                                    <td><input id="builtins" type="checkbox"></td>
+                                    <td><label>Show standard objects</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="functions" type="checkbox"></td>
+                                    <td><label>Show all functions</label></td>
+                                </tr>
+                            </table>
                         </div>
-                        <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
+                        <div class="signup_form">
+                            <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
+                        </div>
                     </div>
                 </div>
-                <div class="additional">
+                <div class="wrapper superwide graph">
                     <div id="graph"></div>
                 </div>
             </div>
