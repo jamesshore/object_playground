@@ -69,7 +69,7 @@ window.jdls = window.jdls || {};
 		'this.instance = new Child();\n'
 	};
 
-	samples.resig = { name: "John Resig’s Inheritance",
+	samples.resig = { name: "Resig Inheritance",
 		code: '// This example contributed by Dave Woldrich -- thanks!\n' +
 		'\n' +
 		'/* Simple JavaScript Inheritance\n' +
