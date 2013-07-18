@@ -411,6 +411,10 @@ a.logo {
 	padding: 0px 45px 15px 45px;
 }
 
+.content_box #disqus_thread {
+	padding: 0px 0px 25px 0px;
+}
+
 .content_box h2 {
   line-height: 33px;
 }
