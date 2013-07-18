@@ -122,6 +122,13 @@ h2 {
   text-shadow: 0px 1px 0px white;
 }
 
+h2.highlight {
+  text-align: center;
+  color: #9eb75b;
+  font-weight: 100;
+  margin-bottom: 20px;
+}
+
 h3 {
   font-size: 16px;
   margin-top: 20px;
@@ -351,6 +358,33 @@ a.logo {
   padding: 40px 0 0px;
 }
 
+.content_box h2 {
+  line-height: 33px;
+	font-siz
+}
+
+.content_box h2 {
+  line-height: 33px;
+}
+
+.content_box h3 {
+  font-size: 20px;
+  line-height: 22px;
+  margin-bottom: 22px;
+  color: #4c4c4e;
+}
+.content_box p {
+  margin-bottom: 22px;
+  line-height: 22px;
+}
+.content_box p a {
+  color: #839b44;
+  font-weight: 400;
+}
+.content_box p a:hover {
+  text-decoration: underline;
+}
+
 .content_box .main.codearea {
     min-height: 200px; 
     min-width: 100%; 
@@ -371,6 +405,10 @@ a.logo {
 
 .content_box .main {
   padding: 0px 45px;
+}
+
+.content_box .notification {
+	padding: 0px 45px 15px 45px;
 }
 
 .content_box h2 {
