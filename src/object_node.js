@@ -1,4 +1,4 @@
-// Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+// Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 
 window.jdls = window.jdls || {};
 
@@ -33,14 +33,29 @@ window.jdls = window.jdls || {};
 		return this._value;
 	};
 
-	ObjectNode.prototype.title = function title() {
-		return this.name() + " {" + this.type() + "}";
+	ObjectNode.prototype.properties = function properties() {
+		var self = this;
+		return getProperties(self._value).map(function(name, index) {
+			return {
+				name: name,
+				value: describeField(self._value[name]),
+				id: "f" + index
+			};
+		});
 	};
 
-	ObjectNode.prototype.forEachField = function forEachField(fn) {
-		forEach(this._value, function(name, value, id) {
-			fn(name, describeField(value), id);
-		});
+	ObjectNode.prototype.prototype = function prototype() {
+		var value;
+
+		var proto = Object.getPrototypeOf(this._value);
+		if (proto === null) value = "null";
+		else value = objectName(this._name + ".<prototype>", Object.getPrototypeOf(this._value));
+
+		return {
+			name: "<prototype>",
+			value: value,
+			id: "proto"
+		};
 	};
 
 	ObjectNode.prototype.forEachSubNode = function forEachSubNode(fn) {
@@ -57,17 +72,16 @@ window.jdls = window.jdls || {};
 	};
 
 	function objectName(fallbackName, object) {
-		if (object === Function.prototype) return "Function";
+		if (object === Function.prototype) return "Function.prototype";
 		if (typeof object === "function") return functionName(object) + "()";
-		if (hasOwnProperty(object, "constructor")) return functionName(object.constructor);
+		if (hasOwnProperty(object, "constructor") && (object.constructor.prototype === object)) return functionName(object.constructor) + ".prototype";
 		return fallbackName;
 	}
 
 	function objectType(object) {
 		var prototype = Object.getPrototypeOf(object);
-		if (prototype === null) return "<root>";
-		if (prototype.constructor === undefined || prototype.constructor === null) return "<anon>";
-		return functionName(prototype.constructor);
+		if (prototype === null) return "<null>";
+		return objectName("<anon>", prototype);
 	}
 
 	function functionName(func) {
@@ -80,7 +94,7 @@ window.jdls = window.jdls || {};
 
 	function describeField(value) {
 		if (value === null) return "null";
-		if (value === Function.prototype) return "Function";
+		if (value === Function.prototype) return "Function.prototype";
 
 		switch (typeof value) {
 			case "string": return '"' + value + '"';

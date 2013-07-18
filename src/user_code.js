@@ -16,32 +16,60 @@ window.jdls = window.jdls || {};
 		return context;
 	};
 
-	samples.simple = { name: "Simple Object", code: '// Try turning on the "Show built-in objects" option and re-evaluating.\n' +
+	samples.instructions = { name: "Instructions", code: '// Enter JavaScript code in this box and then click the "Evaluate" button.\n' +
+		'// Any variable you assign to "this" will be graphed below.\n' +
+		'// Try the presets above for more examples!\n' +
 		'\n' +
-		'this.value = "Hi"\n'
+		'// Example:\n' +
+		'this.a = undefined;\n' +
+		'this.b = null;\n' +
+		'this.c = true;\n' +
+		'this.d = "foo";\n' +
+		'this.e = 3.14159;\n' +
+		'this.f = function bar() {};\n' +
+		'this.g = { h: "baz" };\n'
 	};
 
-	samples.classical = { name: "Classical Class", code: 'function MyClass() {}\n' +
+	samples.classical = { name: "Basic Class", code: '// Constructor\n' +
+		'function MyClass() {\n' +
+		'  this.a = 42;\n' +
+		'}\n' +
+		'\n' +
+		'// Method\n' +
 		'MyClass.prototype.method = function method() {};\n' +
-		'this.instance = new MyClass();'
+		'\n' +
+		'// Instantiate\n' +
+		'this.instance = new MyClass();\n'
 	};
 
-	samples.inheritance = { name: "Classical Inheritance", code: 'function Parent() {}\n' +
+	samples.inheritance = { name: "Classical Inheritance", code: '// Parent class constructor\n' +
+		'function Parent() {\n' +
+		'  this.a = 42;\n' +
+		'}\n' +
+		'\n' +
+		'// Parent class method\n' +
 		'Parent.prototype.method = function method() {};\n' +
 		'\n' +
+		'// Child class constructor\n' +
 		'function Child() {\n' +
 		'  Parent.call(this);\n' +
+		'  this.b = 3.14159\n' +
 		'}\n' +
-		'Child.prototype = new Parent();\n' +
+		'\n' +
+		'// Inherit from the parent class\n' +
+		'Child.prototype = Object.create(Parent.prototype);\n' +
 		'Child.prototype.constructor = Child;\n' +
+		'\n' +
+		'// Child class method\n' +
 		'Child.prototype.method = function method() {\n' +
 		'  Parent.prototype.method.call(this);\n' +
 		'};\n' +
 		'\n' +
-		'this.instance = new Child();'
+		'// Instantiate\n' +
+		'this.instance = new Child();\n'
 	};
 
-	samples.resig = { name: "John Resig",
+	samples.resig = { name: "John Resig’s Inheritance",
 		code: '// This example contributed by Dave Woldrich -- thanks!\n' +
 		'\n' +
 		'/* Simple JavaScript Inheritance\n' +
@@ -131,18 +159,12 @@ window.jdls = window.jdls || {};
 		'this.instance = new Ninja(true);\n'
 	};
 
-//	samples.sugar = { name: "",
-//		code: "TBD"
-// }
-
-	samples.inception = { name: "Inception!", code: samples.classical.code + "\n" +
-		'this.instance = new jdls.ObjectGraph("root", this.instance);'
+	samples.inception = { name: "Inception!", code: '// Can you figure out what this sample is doing?\n' +
+	'\n' +
+	'this.jdls = jdls;\n' +
+	'this.inception = new jdls.ObjectGraph("root", jdls);\n'
 	};
 
-	samples.deeper = { name: "We Must Go Deeper", code: 'this.jdls = jdls;\n' +
-		'this.deeper = jdls.usercode.evaluate(jdls.usercode.samples.inception.code);'
-	};
-
-	exports.DEFAULT_SAMPLE = samples.classical;
+	exports.DEFAULT_SAMPLE = samples.instructions;
 
 }());

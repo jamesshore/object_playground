@@ -26,18 +26,23 @@
 			});
 		});
 
-		describe("sample", function() {
+		describe("samples", function() {
 			function check(sample) {
-				evaluate(sample.code);
-				// check fails if evaluate() throws exception
+				try {
+					evaluate(sample.code);
+				}
+				catch (ex) {
+					dump("Error while compiling " + sample.name);
+					throw ex;
+				}
 			}
 
-			it("classical compiles", function() {
-				check(samples.classical);
-			});
-
-			it("inception compiles", function() {
-				check(samples.inception);
+			it("all compile", function() {
+				/*jshint forin:false */
+				for (var sampleName in samples) {
+					var sample = samples[sampleName];
+					check(sample);
+				}
 			});
 		});
 

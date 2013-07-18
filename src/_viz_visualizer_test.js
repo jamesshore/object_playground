@@ -16,24 +16,32 @@
 			details = jdls.viz.details;
 		});
 
-		it("escapes strings (multiple times)", function() {
-			var esc = details.escape;
-			expect(esc("<<>>")).to.equal("\\<\\<\\>\\>");
-			expect(esc("{{}}")).to.equal("\\{\\{\\}\\}");
-			expect(esc("||")).to.equal("\\|\\|");
-			expect(esc('""')).to.equal('\\"\\"');
-			expect(esc("\\\\")).to.equal("\\\\\\\\");
-			expect(esc("\n\n")).to.equal("\\n\\n");
-			expect(esc("\t\t")).to.equal("  ");
+		it("escapes HTML strings", function() {
+			var esc = details.escapeHtml;
+			expect(esc("&&")).to.equal("&amp;&amp;");
+			expect(esc("<<>>")).to.equal("&lt;&lt;&gt;&gt;");
+			expect(esc('""')).to.equal("&quot;&quot;");
+			expect(esc("''")).to.equal("&#039;&#039;");
+			expect(esc("\n\n")).to.equal("<br /><br />");
+			expect(esc("\t\t")).to.equal("    ");
 		});
 
-		it("converts nodes", function() {
-			var node = new jdls.ObjectNode("name", { a: 1 });
+		it("converts nodes (with alternating property colors)", function() {
+			var node = new jdls.ObjectNode("name", { a: 1, b: 2, c: 3 });
 
 			expect(details.nodeToViz(node)).to.equal(
-				'"' + node.id() + '" [\n' +
-				'label = "<title>name \\{Object\\}| <f0> a: 1| <proto> \\<prototype\\>: Object"\n' +
-				'shape = "record"];\n'
+					'  "' + node.id() + '" [label=<\n' +
+					'    <table border="0" cellborder="0" cellpadding="3" cellspacing="0">\n' +
+					'      <th><td port="title" bgcolor="#00668F"><font color="white" point-size="11">name</font></td></th>\n' +
+					'      <tr><td port="f0" bgcolor="#E3E3E3" align="left" balign="left">&nbsp;<font color="#333333">a:</font> <font color="#666666">1</font>&nbsp;</td></tr>\n' +
+					'      <tr><td port="f1" bgcolor="#FDFDFD" align="left" balign="left">&nbsp;<font color="#333333">b:</font> <font color="#666666">2</font>&nbsp;</td></tr>\n' +
+					'      <tr><td port="f2" bgcolor="#E3E3E3" align="left" balign="left">&nbsp;<font color="#333333">c:</font> <font color="#666666">3</font>&nbsp;</td></tr>\n' +
+					'      <tr><td port="proto" bgcolor="#0082B6"><font color="white">Object.prototype</font></td></tr>\n' +
+					'    </table>\n' +
+					'  >];\n'
+//				'"' + node.id() + '" [\n' +
+//				'label = "<title>name \\{Object\\}| <f0> a: 1| <proto> \\<prototype\\>: Object"\n' +
+//				'shape = "record"];\n'
 			);
 		});
 
@@ -58,10 +66,15 @@
 				'    rankdir = "LR"\n' +
 				'  ];\n' +
 				'  node [\n' +
-				'    fontsize = "12"\n' +
-				'    shape = "ellipse"\n' +
+				'    fontname = "Helvetica"\n' +
+				'    fontsize = "10"\n' +
+				'    shape = "plaintext"\n' +
 				'  ];\n' +
-				'  edge [];\n' +
+				'  edge [\n' +
+				'    color = "#555555"\n' +
+				'    arrowsize = "0.8"\n' +
+				'  ];\n' +
+				'  \n' +
 				details.nodeToViz(fromNode) +
 				details.nodeToViz(toNode) +
 				details.edgeToViz(edge) +

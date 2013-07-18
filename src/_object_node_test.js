@@ -1,4 +1,4 @@
-// Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+// Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 
 (function() {
 	"use strict";
@@ -41,15 +41,13 @@
 
 			it("handles 'Function' special case", function() {
 				var node = newNode("name", Function.prototype);
-				expect(node.name()).to.equal("Function");
+				expect(node.name()).to.equal("Function.prototype");
 			});
 
 			it("uses constructor name when present", function() {
-				var object = {
-					constructor: function TheConstructor() {}
-				};
-				var node = newNode("name", object);
-				expect(node.name()).to.equal("TheConstructor");
+				function TheConstructor() {}
+				var node = newNode("name", TheConstructor.prototype);
+				expect(node.name()).to.equal("TheConstructor.prototype");
 			});
 
 			it("does not use inherited constructor name", function() {
@@ -60,69 +58,34 @@
 				var node = newNode("name", object);
 				expect(node.name()).to.equal("name");
 			});
+
+			it("does not use constructor name when constructor's prototype property points elsewhere", function() {
+				var object = {
+					constructor: function TheConstructor() {}
+				};
+				var node = newNode("name", object);
+				expect(node.name()).to.equal("name");
+			});
 		});
 
 		describe("type", function() {
-			it("is based on prototype's constructor name", function() {
-				var proto = {
-					constructor: function TheConstructor() {}
-				};
-
+			it("is same as prototype's name", function() {
+				var proto = function foo() {};
 				var object = Object.create(proto);
-				object.constructor = function NotThisOne() {};
-
 				var node = newNode("name", object);
-				expect(node.type()).to.equal("TheConstructor");
+				expect(node.type()).to.equal("foo()");
 			});
 
-			it("works even when prototype's constructor is inherited", function() {
-				var grandfather = {
-					constructor: function TheConstructor() {}
-				};
-				var proto = Object.create(grandfather);
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("TheConstructor");
+			it("is anonymous when prototype doesn't have a name", function() {
+				var object = Object.create({});
+				var node = newNode("name", object);
+				expect(node.type()).to.equal("<anon>");
 			});
 
-			it("is root when object has no prototype", function() {
+			it("is null when object has no prototype", function() {
 				var node = newNode("name", Object.create(null));
-				expect(node.type()).to.equal("<root>");
+				expect(node.type()).to.equal("<null>");
 			});
-
-			it("is anonymous when constructor has no name", function() {
-				var proto = {
-					constructor: function() {}
-				};
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-
-			it("is anonymous when prototype has no constructor", function() {
-				var proto = Object.create(null);
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-
-			it("is anonymous when prototype constructor is not a function", function() {
-				var proto = {
-					constructor: "malformed constructor"
-				};
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-
-			it("is anonymous when prototype constructor is null", function() {
-				var proto = {
-					constructor: null
-				};
-				var node = newNode("name", Object.create(proto));
-				expect(node.type()).to.equal("<anon>");
-			});
-		});
-
-		it("title is just name + type", function() {
-			var node = newNode("name", {});
-			expect(node.title()).to.equal("name {Object}");
 		});
 
 		describe("equals", function() {
@@ -140,32 +103,27 @@
 			});
 		});
 
-		describe("fields", function() {
-			function fields(object) {
-				var result = [];
+		describe("properties", function() {
+			function properties(object) {
 				var node = newNode("name", object);
-				node.forEachField(function(name, value, id) {
-					result.push({ name: name, value: value, id: id });
-				});
-				return result;
+				return node.properties();
 			}
 
 			function conversionOf(variable) {
 				var object = { name: variable };
-				return fields(object)[0].value;
+				return properties(object)[0].value;
 			}
 
-			it("provides each field and the prototype", function() {
+			it("provides each property", function() {
 				var object = {
 					a: 1,
 					b: 2,
 					c: 3
 				};
-				expect(fields(object)).to.eql([
+				expect(properties(object)).to.eql([
 					{ name: "a", value: "1", id: "f0" },
 					{ name: "b", value: "2", id: "f1" },
-					{ name: "c", value: "3", id: "f2" },
-					{ name: "<prototype>", value: "Object", id: "proto" }
+					{ name: "c", value: "3", id: "f2" }
 				]);
 			});
 
@@ -189,24 +147,39 @@
 
 			it("converts objects to their names when they have one", function() {
 				function MyClass() {}
-				expect(conversionOf(MyClass.prototype)).to.equal("MyClass");
+				expect(conversionOf(MyClass.prototype)).to.equal("MyClass.prototype");
 			});
 
 			it("converts objects to their types when they don't have a name", function() {
-				expect(conversionOf({})).to.equal("{Object}");
+				expect(conversionOf({})).to.equal("{Object.prototype}");
 			});
 
 			it("handles 'Function' special case", function() {
-				expect(conversionOf(Function.prototype)).to.equal("Function");
+				expect(conversionOf(Function.prototype)).to.equal("Function.prototype");
+			});
+		});
+
+		describe("prototype", function() {
+			function prototype(object) {
+				var node = newNode("name", object);
+				return node.prototype();
+			}
+
+			function conversionOf(object) {
+				return prototype(object).value;
+			}
+
+			it("converts objects without a prototype to 'null'", function() {
+				expect(conversionOf(Object.create(null))).to.equal("null");
 			});
 
-			it("converts the prototype in the same way as other fields", function() {
-				var proto = {
-					constructor: function MyClass() {}
-				};
-				expect(fields(Object.create(proto))).to.eql([
-					{ name: "<prototype>", value: "MyClass", id: "proto" }
-				]);
+			it("converts prototypes to their name if they have one", function() {
+				function MyClass() {}
+				expect(conversionOf(new MyClass())).to.equal("MyClass.prototype");
+			});
+
+			it("converts prototypes without a name to 'xxx.<prototype>'", function() {
+				expect(conversionOf(Object.create({}))).to.equal("name.<prototype>");
 			});
 		});
 
@@ -221,17 +194,15 @@
 			}
 
 			it("provides each function and object, and the prototype", function() {
-				var proto = {
-					constructor: function MyClass() {}
-				};
-				var object = Object.create(proto);
+				function MyClass() {}
+				var object = new MyClass();
 				object.a = function aFunction() {};
 				object.b = Array.prototype;
 
 				expect(subNodes(object)).to.eql([
 					"aFunction()",
-					"Array",
-					"MyClass"
+					"Array.prototype",
+					"MyClass.prototype"
 				]);
 			});
 
@@ -244,7 +215,7 @@
 					e: null
 				};
 				expect(subNodes(object)).to.eql([
-					"Object"
+					"Object.prototype"
 				]);
 			});
 

@@ -7,6 +7,9 @@ window.jdls = window.jdls || {};
 	"use strict";
 
 	var exports = window.jdls.ui = {};
+	var preload;
+	var error;
+	var content;
 	var samples;
 	var userCode;
 	var evaluate;
@@ -15,6 +18,9 @@ window.jdls = window.jdls || {};
 	var graph;
 
 	exports.initialize = function initialize(elements) {
+		preload = elements.preloadDiv;
+		error = elements.errorDiv;
+		content = elements.contentDiv;
 		samples = elements.samplesList;
 		userCode = elements.userCodeTextArea;
 		evaluate = elements.evaluateButton;
@@ -22,32 +28,51 @@ window.jdls = window.jdls || {};
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
-		populateSampleButtons();
-		replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
-
-		addEventHandlers();
+		try {
+			replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
+			populateSampleButtons();
+			handleEvaluateButton();
+			if (!Int32Array) showError();
+			else showInterface();
+		}
+		catch (ex) {
+			showError();
+		}
 	};
-
-	function addEventHandlers() {
-		evaluate.addEventListener("click", function() {
-			renderUserCode();
-		});
-	}
 
 	function populateSampleButtons() {
 		Object.getOwnPropertyNames(jdls.usercode.samples).forEach(function(name) {
 			var sample = jdls.usercode.samples[name];
+
+			failFastIfSampleNameMustBeEscaped(sample.name);
 			var li = document.createElement("li");
-			li.innerHTML = "<input type='submit' value='" + sample.name + "'></input>";
+			li.innerHTML = "<a>" + sample.name + "</a>";
 			var button = li.firstChild;
 
-			//TODO: untested
 			button.addEventListener("click", function() {
 				replaceUserCode(sample);
 			});
 
 			samples.appendChild(li);
 		});
+	}
+
+	function handleEvaluateButton() {
+		evaluate.addEventListener("click", function() {
+			renderUserCode();
+		});
+	}
+
+	function showInterface() {
+		preload.style.display = "none";
+		error.style.display = "none";
+		content.style.display = "block";
+	}
+
+	function showError() {
+		preload.style.display = "none";
+		error.style.display = "block";
+		content.style.display = "none";
 	}
 
 	function replaceUserCode(sample) {
@@ -72,6 +97,16 @@ window.jdls = window.jdls || {};
 
 	function inspect(string) {
    return "<pre>" + string.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;") + "</pre>";
- }
+  }
+
+	function failFastIfSampleNameMustBeEscaped(name) {
+		if (contains(["<", ">", '"', "&"])) throw new Error("Sample name [" + name + "] includes text that must be HTML-escaped; that's not implemented yet.");
+
+		function contains(forbiddenChars) {
+			return forbiddenChars.some(function(char) {
+				return name.indexOf(char) !== -1;
+			});
+		}
+	}
 
 }());

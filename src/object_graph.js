@@ -78,7 +78,7 @@ window.jdls = window.jdls || {};
 		var matchingNodes = self._nodes.filter(function(element) {
 			return element.equals(node);
 		});
-		if (matchingNodes.length > 1) throw new Error("Node [" + node.title() + "] was stored multiple times; that should be impossible");
+		if (matchingNodes.length > 1) throw new Error("Node [" + node.name() + "] was stored multiple times; that should be impossible");
 		return matchingNodes[0];
 	}
 

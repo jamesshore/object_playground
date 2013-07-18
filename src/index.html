@@ -1,53 +1,155 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Object Playground: The JavaScript Object Visualizer</title>
-
+    <title>Object Playground: The Definitive Guide to OOP JavaScript</title>
+    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache">
-
-    <script type="text/javascript" src="viz/viz.js"></script>
-
-    <script type="text/javascript" src="object_node.js"></script>
-    <script type="text/javascript" src="object_graph.js"></script>
-    <script type="text/javascript" src="viz_visualizer.js"></script>
-    <script type="text/javascript" src="user_code.js"></script>
-    <script type="text/javascript" src="ui.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="site.css">
 </head>
 <body>
 
-<h1>Object Playground</h1>
+<div id="intro" class="dark_bg">
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <div class="wrapper">
+        <a class="logo" href="http://www.letscodejavascript.com"></a>
+        <p class="presents">presents</P>
+    </div>
+    <div class="wrapper video">
+        <iframe width="720" height="405" src="//www.youtube.com/embed/PMfcsYzj-9M" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
 
-<p>A project from <a href="http://www.letscodejavascript.com">Let's Code: Test-Driven JavaScript</a>, a screencast series focused on professional, rigorous JavaScript development. Created by James Shore.</p>
 
-<p><strong>Think this page is ugly? Contribute the style sheet!</strong> <a href="https://github.com/jamesshore/object_playground">GitHub Here.</a>
+<div class="wrapper superwide">
+    <ul class="tab_navigation">
+        <li class="col-1-1"><span class="active">Visualize and Explore</span></li>
+    </ul>
 
-<p><em>Browser Support:</em> Object Playground is confirmed to work on the latest version of Firefox, IE, Safari, and Chrome. It does not work on IE 8 or IE 9.</p>
+    <div id="playgroundPreload">
+        <div class="content">
+            <div class="content_box">
+                <div class="notification">
+                    <h2 class="highlight">Loading...</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<p><strong>Try these buttons!</strong></p>
+    <div id="playgroundError" style="display: none;">
+        <div class="content">
+            <div class="content_box">
+                <div class="notification">
+                    <h2 class="highlight">Unable to Load Object Visualizer</h2>
+                    <p>Your browser doesn’t support the JavaScript functions required. The latest versions of Chrome, Firefox, and Safari are known to work, and Internet Explorer 10 does too. Try one of them instead.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<ul id="samples"><!-- This list is automatically populated by the JavaScript code --></ul>
-<textarea id="usercode" cols="80" rows="10"></textarea>
-<br><label><input id="builtins" type="checkbox"> Show built-in objects</label>
-<br><label><input id="functions" type="checkbox"> Show all functions</label>
-<br><input type="submit" id="evaluate" value="Evaluate"> <strong>&larr; Magic!</strong>
-<p>
-<div id="graph"></div>
+    <div id="playgroundContent" style="display: none;">
+        <ul id="samples" class="tab_navigation col-1-5 objects">
+            <!-- This list is automatically populated by the JavaScript code -->
+        </ul>
+        <div class="content">
+            <div class="content_box">
+                <div class="main codearea">
+                    <div class="col-3-4">
+                        <textarea id="usercode"></textarea>
+                    </div>
+                    <div class="col-1-4">
+                        <div class="aside">
+                            <table>
+                                <tr>
+                                    <td><input id="builtins" type="checkbox"></td>
+                                    <td><label>Show standard objects</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input id="functions" type="checkbox"></td>
+                                    <td><label>Show all functions</label></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="signup_form">
+                            <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
+                        </div>
+                    </div>
+                </div>
+                <div class="wrapper superwide graph">
+                    <div id="graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider dot"></div>
+
+<div class="wrapper superwide">
+    <div class="content">
+        <div class="content_box">
+            <div class="main">
+                <div id="disqus_thread"></div>
+                    <script type="text/javascript">
+                        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                        var disqus_shortname = 'letscodejavascript'; // required: replace example with your forum shortname
+                        var disqus_url = 'http://www.letscodejavascript.com/v1/comments/ll12.html';
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider dot"></div>
+
+<div id="footer">
+    <div class="divider line">
+        <p>A project from <a href="http://www.letscodejavascript.com">Let’s Code: Test-Driven JavaScript</a>
+    </div>
+    <p><a href="http://www.letscodejavascript.com">Let's Code JavaScript</a> is a screencast series focused on rigorous, professional web development. Created by James Shore.</p>
+    <p>Site designed by <a href="http://linkedin.com/in/phillshaffer">Phill Shaffer</a>. Based on original design by <a href="http://primate.co.uk/">Primate</a>.</p>
+    <div class="divider dot"></div>
+</div>
 
 <!-- Object Playground -->
+
+<!-- This script does the heavy-lifting of rendering SVG. -->
+<script type="text/javascript" src="viz/viz.js"></script>
+
+<!--
+    This code controls the UI and generates the object graph.
+    I've left it unminified so you can easily explore it. (It's small enough.)
+    For tests and more, see https://github.com/jamesshore/object_playground .
+-->
+<script type="text/javascript" src="object_node.js?2013-07-17"></script>
+<script type="text/javascript" src="object_graph.js?2013-07-17"></script>
+<script type="text/javascript" src="viz_visualizer.js?2013-07-17"></script>
+<script type="text/javascript" src="user_code.js?2013-07-17"></script>
+<script type="text/javascript" src="ui.js?2013-07-17"></script>
+
 <script>
-    window.addEventListener("load", function() {
-        var elements = {
+    window.onload = function() {
+        jdls.ui.initialize({
+            preloadDiv: document.getElementById("playgroundPreload"),
+            errorDiv: document.getElementById("playgroundError"),
+            contentDiv: document.getElementById("playgroundContent"),
             samplesList: document.getElementById("samples"),
             userCodeTextArea: document.getElementById("usercode"),
             evaluateButton: document.getElementById("evaluate"),
             showBuiltinsCheckbox: document.getElementById("builtins"),
             showAllFunctionsCheckbox: document.getElementById("functions"),
             graphDiv: document.getElementById("graph")
-        };
-
-        jdls.ui.initialize(elements);
-    });
+        });
+    };
 </script>
 
 <!-- Google Analytics -->
@@ -59,7 +161,7 @@
 
   ga('create', 'UA-40614638-1', 'objectplayground.com');
   ga('send', 'pageview');
-
 </script>
+
 </body>
 </html>
