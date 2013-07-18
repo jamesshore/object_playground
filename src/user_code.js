@@ -159,10 +159,13 @@ window.jdls = window.jdls || {};
 		'this.instance = new Ninja(true);\n'
 	};
 
-	samples.inception = { name: "Inception!", code: '// Can you figure out what this sample is doing?\n' +
-	'\n' +
-	'this.jdls = jdls;\n' +
-	'this.inception = new jdls.ObjectGraph("root", jdls);\n'
+	samples.inception = { name: "Inception!", code: 'this.jdls = jdls;\n' +
+		'\n' +
+		'// Can you figure out what the following line does?\n' +
+		'// Caution: It\'s commented out because some people have\n' +
+		'// reported their browser crashes when this line runs. D\'oh!\n' +
+		'\n' +
+		'// this.inception = new jdls.ObjectGraph("root", jdls);\n'
 	};
 
 	exports.DEFAULT_SAMPLE = samples.instructions;
