@@ -16,6 +16,6 @@ foreach $line (@lines) {
 	$line =~ s/\'/\\'/g;
 };
 
-$output = join "' + \n'", @lines;
+$output = join "' + \n\t'", @lines;
 print "\n\nOUTPUT:\n";
 print "'$output'\n";
