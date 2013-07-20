@@ -82,7 +82,7 @@ window.jdls = window.jdls || {};
 		function fields() {
 			var oddRow = true;
 			return node.properties().map(function(property) {
-				var color = oddRow ? PROPERTY_BACKGROUND_COLOR : PROPERTY_ALT_BACKGROUND_COLOR;// "#9ED3E5";
+				var color = oddRow ? PROPERTY_BACKGROUND_COLOR : PROPERTY_ALT_BACKGROUND_COLOR;
 				oddRow = !oddRow;
 				var result = '      <tr><td port="' + property.id + '" bgcolor="' + color + '" align="left" balign="left">&nbsp;<font color="' + PROPERTY_NAME_FONT_COLOR + '">' + escapeHtml(property.name) + ':</font> <font color="' + PROPERTY_VALUE_FONT_COLOR + '">' + escapeHtml(property.value) + '</font>&nbsp;</td></tr>\n';
 				return result;
