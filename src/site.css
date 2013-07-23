@@ -165,7 +165,9 @@ input[type='submit'] {
 .wrapper {
   width: 830px;
   margin: auto;
+  position: relative;
 }
+
 .wrapper.narrow {
   width: 730px;
   margin: auto;
@@ -175,7 +177,7 @@ input[type='submit'] {
     position: relative;
     width:  720px;
     height: 405px;
-    margin: 10px auto 40px;
+    margin: 20px auto 40px;
 }
 
 .wrapper.wide {
@@ -194,13 +196,69 @@ input[type='submit'] {
     padding-left: 0px;
 }
 
+.wrapper.banner {
+    width: 100%;
+    padding:  5px 0px;
+    height: 135px;
+}
+
+a.logo {
+  height: 110px;
+  width: 50px;
+  background: url("images/logo.png");
+  position: relative;
+  display: block;
+}
+
+#banner1 a.logo {
+  margin: auto;
+}
+
+#banner1.wrapper.banner p.presents {
+    margin-top: 0px;
+    font-size: 12px;
+}
+
+#banner2.wrapper.banner {
+    background: #7dc4dc;
+}
+
+#banner2 a.logo {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+#banner2 a.title {
+    position: absolute;
+    top: 15px;
+    left: 150px;
+    color: #fff;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 500;
+}
+
+#banner2 p.message {
+    position: absolute;
+    top: 80px;
+    left: 150px;
+    text-align: left;
+}
+
+#banner2 a.button {
+    position: absolute;
+    top: 50px;
+    right: 5px;
+    width: 150px;
+}
+
 .dark_bg {
   -webkit-box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
   background: #4c4c4e url("images/tile_dark.gif");
   width: 100%;
-  padding: 10px 0;
+  padding: 0px 0px 10px 0px;
 }
 
 .dark_bg .divider {
@@ -214,11 +272,6 @@ input[type='submit'] {
   color: white;
   line-break: 30px;
   margin-top: 10px;
-}
-
-.dark_bg p.presents {
-    margin-top: 5px;
-    font-size: 12px;
 }
 
 #content {
@@ -237,7 +290,7 @@ input[type='submit'] {
   font-weight: 100;
 }
 
-.signup_form input[type='submit'], .tab_navigation li a, .tab_navigation li span, .content_box, .signup_form input[type='submit'] {
+.button, .tab_navigation li a, .tab_navigation li span, .content_box, .signup_form input[type='submit'] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -248,7 +301,7 @@ input[type='submit'] {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
-.signup_form input[type='submit'], .tab_navigation li a, .tab_navigation li span {
+.button, .tab_navigation li a, .tab_navigation li span {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -258,7 +311,7 @@ input[type='submit'] {
 }
 
 
-.signup_form input[type='submit'] {
+.button {
   text-align: center;
   font-size: 20px;
   padding: 16px;
@@ -269,7 +322,7 @@ input[type='submit'] {
   border: 0;
 }
 
-.signup_form input[type='submit']:hover {
+.button:hover {
   background: #839b44;
 }
 
@@ -322,15 +375,7 @@ input[type='submit'] {
   top: -22px;
 }
 
-a.logo {
-  height: 110px;
-  width: 50px;
-  background: url("images/logo.png");
-  position: relative;
-  margin: auto;
-  display: block;
 
-}
 
 #footer {
   height: auto;
