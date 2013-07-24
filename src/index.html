@@ -25,11 +25,26 @@
 <body>
 
 <div id="intro" class="dark_bg">
-    <a href="https://github.com/jamesshore/object_playground"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-    <div class="wrapper">
-        <a class="logo" href="http://www.letscodejavascript.com"></a>
-        <p class="presents">presents</P>
+    <a href="https://github.com/jamesshore/object_playground"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    
+    <div id="banner2" class="wrapper banner" style="display: none;">
+        <div class="wrapper">
+            <div class="col-1-6"><a class="logo" href="http://www.letscodejavascript.com"></a></div>
+            <div class="col-2-3">
+                    <h1 class="title">Get more pro JavaScript screencasts</h1>
+                    <p class="message">Visit Let's Code: Test-Driven JavaScript and start watching today!</p>
+            </div>
+            <div class="col-1-6"><a class="button" href="http://www.letscodejavascript.com">more videos</a></div>
+        </div>
     </div>
+
+    <div id="banner1" class="wrapper banner">
+        <div class="wrapper">
+            <a class="logo" href="http://www.letscodejavascript.com"></a>
+            <p class="presents">presents</p>
+        </div>
+    </div>
+
     <div class="wrapper video">
         <iframe width="720" height="405" src="//www.youtube.com/embed/PMfcsYzj-9M" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -85,9 +100,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="signup_form">
-                            <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
-                        </div>
+                        <input type="submit" id="evaluate" class="button" value="Click to Evaluate">
                     </div>
                 </div>
                 <div class="wrapper superwide graph">
