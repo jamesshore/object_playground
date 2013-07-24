@@ -177,7 +177,7 @@ input[type='submit'] {
     position: relative;
     width:  720px;
     height: 405px;
-    margin: 20px auto 40px;
+    margin: 30px auto 60px;
 }
 
 .wrapper.wide {
@@ -198,20 +198,23 @@ input[type='submit'] {
 
 .wrapper.banner {
     width: 100%;
-    padding:  5px 0px;
-    height: 135px;
+    padding:  10px 0px;
 }
 
 a.logo {
-  height: 110px;
-  width: 50px;
-  background: url("images/logo.png");
   position: relative;
   display: block;
 }
 
+#banner1.wrapper.banner {
+    height: 135px;
+}
+
 #banner1 a.logo {
-  margin: auto;
+    margin: auto;
+    height: 110px;
+    width: 50px;
+    background: url("images/logo.png");
 }
 
 #banner1.wrapper.banner p.presents {
@@ -220,36 +223,34 @@ a.logo {
 }
 
 #banner2.wrapper.banner {
-    background: #7dc4dc;
+    background: #41a9cc;
+    height: 75px;
 }
 
 #banner2 a.logo {
-    margin-top: 8px;
     margin-left: 5px;
+    height: 50px;
+    width: 96px;
+    background: url("images/logohoriz2.png") no-repeat;
 }
 
-#banner2 a.title {
-    position: absolute;
-    top: 15px;
-    left: 150px;
+#banner2 h1.title {
     color: #fff;
-    font-size: 30px;
-    font-style: italic;
-    font-weight: 500;
-}
-
-#banner2 p.message {
-    position: absolute;
-    top: 80px;
-    left: 150px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 8px 0px 2px 20px;
     text-align: left;
 }
 
+#banner2 p.message {
+    text-align: left;
+    margin-left: 20px;
+    color: #e6e6e6;
+}
+
 #banner2 a.button {
-    position: absolute;
-    top: 50px;
-    right: 5px;
     width: 150px;
+    float: right;
 }
 
 .dark_bg {
