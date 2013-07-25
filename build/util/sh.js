@@ -22,19 +22,23 @@
 
 	var run = exports.run = function(oneCommand, successCallback, failureCallback) {
 		var stdout = "";
-		var process = jake.createExec(oneCommand, {printStdout:true, printStderr:true});
-		process.on("stdout", function(data) {
+		var child = jake.createExec(oneCommand);
+		child.on("stdout", function(data) {
+			process.stdout.write(data);
 			stdout += data;
 		});
-		process.on("cmdEnd", function() {
+		child.on("stderr", function(data) {
+			process.stderr.write(data);
+		});
+		child.on("cmdEnd", function() {
 			successCallback(stdout);
 		});
-		process.on("error", function() {
+		child.on("error", function() {
 			failureCallback(stdout);
 		});
 
 		console.log("> " + oneCommand);
-		process.run();
+		child.run();
 	};
 
 }());
