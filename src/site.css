@@ -86,19 +86,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 .col-1-4 {
-    width: 25%;
+  width: 25%;
 }
 
 .col-3-4 {
-    width: 75%;
+  width: 75%;
 }
 
 .col-1-5 li {
-     width: 20%;
+  width: 20%;
  }
 
 .col-1-6 li {
-    width: 16.66%;
+	width: 16.66%;
 }
 
 body {
@@ -136,7 +136,7 @@ h3 {
 
 h4 {
   color: #4c4c4e;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 20px;
 }
 
@@ -174,10 +174,10 @@ input[type='submit'] {
 }
 
 .wrapper.video {
-    position: relative;
-    width:  720px;
-    height: 405px;
-    margin: 30px auto 60px;
+  position: relative;
+  width:  720px;
+  height: 405px;
+  margin: 30px auto 60px;
 }
 
 .wrapper.wide {
@@ -186,19 +186,19 @@ input[type='submit'] {
 }
 
 .wrapper.superwide {
-    width: 100%;
-    padding: 0px 40px;
+  width: 100%;
+  padding: 0px 40px;
 }
 
 .wrapper.superwide .tab_navigation {
-    width: 100%;
-    padding-right: 0px;
-    padding-left: 0px;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 .wrapper.banner {
-    width: 100%;
-    padding:  10px 0px;
+  width: 100%;
+  padding:  10px 0px;
 }
 
 a.logo {
@@ -207,50 +207,51 @@ a.logo {
 }
 
 #banner1.wrapper.banner {
-    height: 135px;
+  height: 135px;
 }
 
 #banner1 a.logo {
-    margin: auto;
-    height: 110px;
-    width: 50px;
-    background: url("images/logo.png");
+  margin: auto;
+  height: 110px;
+  width: 50px;
+  background: url("images/logo.png");
 }
 
 #banner1.wrapper.banner p.presents {
-    margin-top: 0px;
-    font-size: 12px;
+  margin-top: 0px;
+  font-size: 12px;
+	text-align: center;
 }
 
 #banner2.wrapper.banner {
-    background: #41a9cc;
-    height: 75px;
+  background: #41a9cc;
+  height: 75px;
 }
 
 #banner2 a.logo {
-    margin-left: 5px;
-    height: 50px;
-    width: 96px;
-    background: url("images/logohoriz2.png") no-repeat;
+  margin-left: 5px;
+  height: 50px;
+  width: 96px;
+  background: url("images/logohoriz2.png") no-repeat;
 }
 
-#banner2 h1.title {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 8px 0px 2px 20px;
-    text-align: left;
+#banner2 h1 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 9px 0px 2px 20px;
+  text-align: left;
 }
 
-#banner2 p.message {
-    text-align: left;
-    margin-left: 20px;
-    color: #e6e6e6;
+#banner2 h4 {
+  margin-left: 20px;
+	line-height: 20px;
+  color: #e6e6e6;
 }
 
 #banner2 a.button {
-    width: 150px;
-    float: right;
+  width: 150px;
+  float: right;
 }
 
 .dark_bg {
@@ -260,36 +261,7 @@ a.logo {
   background: #4c4c4e url("images/tile_dark.gif");
   width: 100%;
   padding: 0px 0px 10px 0px;
-}
-
-.dark_bg .divider {
-  border-bottom: 1px solid #4c4c4e;
-  -webkit-box-shadow: 0 1px 0 0 #1a1a1a;
-  -moz-box-shadow: 0 1px 0 0 #1a1a1a;
-  box-shadow: 0 1px 0 0 #1a1a1a;
-}
-
-.dark_bg h1 {
-  color: white;
-  line-break: 30px;
-  margin-top: 10px;
-}
-
-#content {
-  margin: 20px 0;
-}
-
-#intro h1, #intro p {
-  text-align: center;
-}
-
-.intro {
-  color: #999999;
-  text-align: center;
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 100;
-}
+} 
 
 .button, .tab_navigation li a, .tab_navigation li span, .content_box, .signup_form input[type='submit'] {
   -webkit-border-radius: 5px;
@@ -311,7 +283,6 @@ a.logo {
   font-weight: 600;
 }
 
-
 .button {
   text-align: center;
   font-size: 20px;
@@ -326,8 +297,6 @@ a.logo {
 .button:hover {
   background: #839b44;
 }
-
-
 
 .divider {
   border-bottom: 1px solid #d9d9d9;
@@ -375,8 +344,6 @@ a.logo {
 .divider.line h2 {
   top: -22px;
 }
-
-
 
 #footer {
   height: auto;
@@ -432,21 +399,21 @@ a.logo {
 }
 
 .content_box .main.codearea {
-    min-height: 200px; 
-    min-width: 100%; 
-    display: inline-block;
+  min-height: 200px; 
+  min-width: 100%; 
+  display: inline-block;
 }
 
 .content_box .main.codearea .aside {
-    margin-bottom: 20px; 
-    padding: 10px; 
-    height: 172px;
-    border: solid 1px #bbbbbb;
+  margin-bottom: 20px; 
+  padding: 10px; 
+  height: 172px;
+  border: solid 1px #bbbbbb;
 }
 
 .main.codearea .aside table tr td {
-    vertical-align: text-top;
-    padding: 5px;
+  vertical-align: text-top;
+  padding: 5px;
 }
 
 .content_box .main {
@@ -487,21 +454,21 @@ a.logo {
 }
 
 .content_box textarea {
-    width: 100%;
-    min-height: 250px;
-    resize: vertical;
-    overflow: auto;
+  width: 100%;
+  min-height: 250px;
+  resize: vertical;
+  overflow: auto;
 }
 
 .content_box #graph {
-    overflow: auto;
-		padding: 20px 0px 40px 0px;
+  overflow: auto;
+	padding: 20px 0px 40px 0px;
 }
 
 .content_box #graph svg {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .content_box .wrapper.superwide.graph {
@@ -511,13 +478,13 @@ a.logo {
 }
 
 .tab_navigation {
-    width: 730px;
-    margin-right: auto;
-    margin-left: auto;
+  width: 730px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .tab_navigation.objects {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .tab_navigation li {
@@ -539,19 +506,19 @@ a.logo {
 }
 
 .tab_navigation li a {
-    font-size: 14px;
-    line-height: 18px;
-    padding: 14px 5px;
-    top: -20px;
-    cursor: pointer;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 14px 5px;
+  top: -20px;
+  cursor: pointer;
 }
 
 .tab_navigation li span {
-    font-size: 18px;
-    height: 48px;
-    line-height: 22px;
-    top: -25px;
-    margin-top: 0px;
+  font-size: 18px;
+  height: 48px;
+  line-height: 22px;
+  top: -25px;
+  margin-top: 0px;
 }
 
 .tab_navigation li a:hover {
@@ -561,9 +528,9 @@ a.logo {
 }
 
 .tab_navigation li a.active, .tab_navigation li a.active:hover, .tab_navigation li span.active, .tab_navigation li span.active:hover {
-    background: #41a9cc;
-    color: #00668f;
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
+  background: #41a9cc;
+  color: #00668f;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
 }
 
 .tab_navigation li a.active:after, .tab_navigation li a.active:hover:after, .tab_navigation li span.active:after, .tab_navigation li span.active:hover:after {
