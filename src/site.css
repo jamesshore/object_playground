@@ -471,6 +471,10 @@ a.logo {
   margin-left: auto;
 }
 
+.content_box #graph pre {
+	padding-left: 40px;
+}
+
 .content_box .wrapper.superwide.graph {
   border-top: 1px solid #cccccc;
   padding: 20px 0px 0px 0px;
