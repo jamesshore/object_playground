@@ -23,13 +23,18 @@ window.jdls = window.jdls || {};
 		error = elements.errorDiv;
 		content = elements.contentDiv;
 		samples = elements.samplesList;
-		userCode = elements.userCodeTextArea;
+		userCode = elements.userCodeDiv;
 		evaluate = elements.evaluateButton;
 		builtins = elements.showBuiltinsCheckbox;
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
-		cm = CodeMirror.fromTextArea(userCode);
+		exports.cm = cm = new CodeMirror(userCode, {
+			mode: 'javascript',
+			lineNumbers: true,
+			matchBrackets: true,
+			autoCloseBrackets: true
+		});
 
 		try {
 			setUserCode(jdls.usercode.DEFAULT_SAMPLE);
@@ -70,6 +75,7 @@ window.jdls = window.jdls || {};
 		preload.style.display = "none";
 		error.style.display = "none";
 		content.style.display = "block";
+		cm.refresh();
 	}
 
 	function showError() {

@@ -79,7 +79,7 @@
             <div class="content_box">
                 <div class="main codearea">
                     <div class="col-3-4">
-                        <textarea id="usercode"></textarea>
+                        <div id="usercode"></div>
                     </div>
                     <div class="col-1-4">
                         <div class="aside">
@@ -146,6 +146,9 @@
 <!-- This script does the heavy-lifting of rendering SVG. -->
 <script type="text/javascript" src="viz/viz.js"></script>
 <script type="text/javascript" src="CodeMirror/codemirror.js"></script>
+<script type="text/javascript" src="CodeMirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="CodeMirror/addon/edit/closebrackets.js"></script>
+<script type="text/javascript" src="CodeMirror/addon/edit/matchbrackets.js"></script>
 
 <!--
     This code controls the UI and generates the object graph.
@@ -165,7 +168,7 @@
             errorDiv: document.getElementById("playgroundError"),
             contentDiv: document.getElementById("playgroundContent"),
             samplesList: document.getElementById("samples"),
-            userCodeTextArea: document.getElementById("usercode"),
+            userCodeDiv: document.getElementById("usercode"),
             evaluateButton: document.getElementById("evaluate"),
             showBuiltinsCheckbox: document.getElementById("builtins"),
             showAllFunctionsCheckbox: document.getElementById("functions"),

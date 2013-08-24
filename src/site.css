@@ -547,3 +547,11 @@ a.logo {
   border-top: 20px solid #41a9cc;
   margin: 0 auto;
 }
+
+.CodeMirror {
+  border: solid 1px #bbbbbb;
+}
+
+.CodeMirror * {
+  box-sizing: content-box;
+}
