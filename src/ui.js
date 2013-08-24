@@ -16,6 +16,7 @@ window.jdls = window.jdls || {};
 	var builtins;
 	var functions;
 	var graph;
+	var cm;
 
 	exports.initialize = function initialize(elements) {
 		preload = elements.preloadDiv;
@@ -28,8 +29,10 @@ window.jdls = window.jdls || {};
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
+		cm = CodeMirror.fromTextArea(userCode);
+
 		try {
-			replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
+			setUserCode(jdls.usercode.DEFAULT_SAMPLE);
 			populateSampleButtons();
 			handleEvaluateButton();
 			if (!Int32Array) showError();
@@ -50,7 +53,7 @@ window.jdls = window.jdls || {};
 			var button = li.firstChild;
 
 			button.addEventListener("click", function() {
-				replaceUserCode(sample);
+				setUserCode(sample);
 			});
 
 			samples.appendChild(li);
@@ -75,14 +78,19 @@ window.jdls = window.jdls || {};
 		content.style.display = "none";
 	}
 
-	function replaceUserCode(sample) {
-		userCode.value = sample.code;
+	function setUserCode(sample) {
+		cm.setValue(sample.code);
+		// userCode.value = sample.code;
 		renderUserCode();
+	}
+
+	function getUserCode () {
+		return cm.getValue();
 	}
 
 	function renderUserCode() {
 		try {
-			var objectToRender = jdls.usercode.evaluate(userCode.value);
+			var objectToRender = jdls.usercode.evaluate(getUserCode());
 			var options = {
 				builtins: builtins.checked,
 				allFunctions: functions.checked
