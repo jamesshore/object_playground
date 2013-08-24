@@ -7,7 +7,7 @@
 		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
 		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
 		"IE 10.0 (Windows)",
-		"Firefox 22.0 (Mac)",
+		"Firefox 23.0 (Mac)",
 		"Chrome 29.0 (Mac)",
 		"Safari 6.0 (Mac)",
 		"Safari 6.0 (iOS)"
