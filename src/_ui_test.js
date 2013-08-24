@@ -14,8 +14,6 @@
 		var evaluate;
 		var graph;
 
-		var cm;
-
 		beforeEach(function() {
 			document.body.innerHTML +=
 				"<div id='loading'>Loading</div>" +
@@ -56,7 +54,6 @@
 				graphDiv: graph
 			});
 
-			cm = jdls.ui.cm;
 		}
 
 		afterEach(function() {

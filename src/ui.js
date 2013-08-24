@@ -1,6 +1,8 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
 
 window.jdls = window.jdls || {};
+// codemirror object has to be attached to window object separately because of Inception! example :(
+window.cm = window.cm || {};
 
 // The main user interface.
 (function() {
@@ -16,7 +18,6 @@ window.jdls = window.jdls || {};
 	var builtins;
 	var functions;
 	var graph;
-	var cm;
 
 	exports.initialize = function initialize(elements) {
 		preload = elements.preloadDiv;
@@ -29,7 +30,7 @@ window.jdls = window.jdls || {};
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
-		exports.cm = cm = new CodeMirror(userCode, {
+		window.cm = new CodeMirror(userCode, {
 			mode: 'javascript',
 			lineNumbers: true,
 			matchBrackets: true,
