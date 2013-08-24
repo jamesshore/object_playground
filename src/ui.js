@@ -34,7 +34,8 @@ window.cm = window.cm || {};
 			mode: 'javascript',
 			lineNumbers: true,
 			matchBrackets: true,
-			autoCloseBrackets: true
+			autoCloseBrackets: true,
+			tabSize: 2
 		});
 
 		try {
