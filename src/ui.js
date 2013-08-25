@@ -36,7 +36,8 @@ window.cm = window.cm || {};
 			lineNumbers: true,
 			matchBrackets: true,
 			autoCloseBrackets: true,
-			tabSize: 2
+			tabSize: 2,
+			viewportMargin: Infinity
 		});
 
 		try {
