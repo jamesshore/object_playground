@@ -32,6 +32,7 @@ window.cm = window.cm || {};
 
 		window.cm = new CodeMirror(userCode, {
 			mode: 'javascript',
+			lineWrapping: true,
 			lineNumbers: true,
 			matchBrackets: true,
 			autoCloseBrackets: true,
