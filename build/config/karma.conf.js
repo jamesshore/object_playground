@@ -12,6 +12,7 @@ files = [
   MOCHA_ADAPTER,
   'node_modules/expect.js/expect.js',
 	'src/viz/viz.js',
+  'src/CodeMirror/codemirror.js',
   'src/*.js'
 ];
 

@@ -20,7 +20,7 @@
 				"<div id='error'>Error</div>" +
 				"<div id='content'>" +
 					"<ul id='samples'></ul>" +
-					"<textarea id='userCode'></textarea>" +
+					"<div id='userCode'></div>" +
 					"<input id='evaluate' type='submit'>" +
 					"<input id='builtins' type='checkbox'>" +
 					"<input id='functions' type='checkbox'>" +
@@ -38,6 +38,7 @@
 			graph = document.getElementById("graph");
 
 			initialize();
+
 		});
 
 		function initialize() {
@@ -46,12 +47,13 @@
 				errorDiv: error,
 				contentDiv: content,
 				samplesList: samples,
-				userCodeTextArea: userCode,
+				userCodeDiv: userCode,
 				evaluateButton: evaluate,
 				showBuiltinsCheckbox: showBuiltins,
 				showAllFunctionsCheckbox: showAllFunctions,
 				graphDiv: graph
 			});
+
 		}
 
 		afterEach(function() {
@@ -76,8 +78,12 @@
 				expect(samples.innerHTML).to.contain(defaultSample.name);
 			});
 
+			it("integrates CodeMirror input area sucessfully", function() {
+				expect(userCode.firstElementChild.innerHTML).to.contain("CodeMirror-scroll");
+			});
+
 			it("puts default user code into text area", function() {
-				expect(userCode.value).to.equal(defaultSample.code);
+				expect(cm.getValue()).to.equal(defaultSample.code);
 			});
 
 			it("draws graph", function() {
@@ -118,14 +124,14 @@
 
 		describe("options", function() {
 			it("respects 'show builtins' checkbox", function() {
-				userCode.value = "this.a = [];";
+				cm.setValue("this.a = [];");
 				showBuiltins.checked = true;
 				evaluate.click();
 				expect(graph.innerHTML).to.contain("Array()");
 			});
 
 			it("respects 'show all functions' checkbox", function() {
-				userCode.value = "this.a = function a() {};";
+				cm.setValue("this.a = function a() {};");
 				showAllFunctions.checked = true;
 				evaluate.click();
 				expect(graph.innerHTML).to.contain("constructor");
@@ -134,26 +140,26 @@
 
 		describe("interactivity", function() {
 			it("re-draws graph when evaluate button clicked", function() {
-				userCode.value = "this.test_marker = 1;";
+				cm.setValue("this.test_marker = 1;");
 				evaluate.click();
 				expect(graph.innerHTML).to.contain("test_marker");
 			});
 
 			it("populates text area and re-evaluates when sample button clicked", function() {
-				userCode.value = "this.test_marker = 1;";
+				cm.setValue("this.test_marker = 1;");
 				evaluate.click();
 
 				var firstSample = jdls.usercode.samples[Object.getOwnPropertyNames(jdls.usercode.samples)[0]];
 				var firstSampleButton = samples.firstElementChild.firstElementChild;
 
 				firstSampleButton.click();
-				expect(userCode.value).to.equal(firstSample.code);
+				expect(cm.getValue()).to.equal(firstSample.code);
 				expect(graph.innerHTML).to.not.contain("test_marker");
 			});
 
 
 			it("displays exception when bad code entered", function() {
-				userCode.value = "asdf";
+				cm.setValue("asdf");
 				evaluate.click();
 				expect(graph.innerHTML).to.contain("<pre>ReferenceError");
 			});

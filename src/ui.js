@@ -1,6 +1,8 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
 
 window.jdls = window.jdls || {};
+// codemirror object has to be attached to window object separately because of Inception! example :(
+window.cm = window.cm || {};
 
 // The main user interface.
 (function() {
@@ -22,14 +24,24 @@ window.jdls = window.jdls || {};
 		error = elements.errorDiv;
 		content = elements.contentDiv;
 		samples = elements.samplesList;
-		userCode = elements.userCodeTextArea;
+		userCode = elements.userCodeDiv;
 		evaluate = elements.evaluateButton;
 		builtins = elements.showBuiltinsCheckbox;
 		functions = elements.showAllFunctionsCheckbox;
 		graph = elements.graphDiv;
 
+		window.cm = new CodeMirror(userCode, {
+			mode: 'javascript',
+			lineWrapping: true,
+			lineNumbers: true,
+			matchBrackets: true,
+			autoCloseBrackets: true,
+			tabSize: 2,
+			viewportMargin: Infinity
+		});
+
 		try {
-			replaceUserCode(jdls.usercode.DEFAULT_SAMPLE);
+			setUserCode(jdls.usercode.DEFAULT_SAMPLE);
 			populateSampleButtons();
 			handleEvaluateButton();
 			if (!Int32Array) showError();
@@ -50,7 +62,7 @@ window.jdls = window.jdls || {};
 			var button = li.firstChild;
 
 			button.addEventListener("click", function() {
-				replaceUserCode(sample);
+				setUserCode(sample);
 			});
 
 			samples.appendChild(li);
@@ -67,6 +79,7 @@ window.jdls = window.jdls || {};
 		preload.style.display = "none";
 		error.style.display = "none";
 		content.style.display = "block";
+		cm.refresh();
 	}
 
 	function showError() {
@@ -75,14 +88,19 @@ window.jdls = window.jdls || {};
 		content.style.display = "none";
 	}
 
-	function replaceUserCode(sample) {
-		userCode.value = sample.code;
+	function setUserCode(sample) {
+		cm.setValue(sample.code);
+		// userCode.value = sample.code;
 		renderUserCode();
+	}
+
+	function getUserCode () {
+		return cm.getValue();
 	}
 
 	function renderUserCode() {
 		try {
-			var objectToRender = jdls.usercode.evaluate(userCode.value);
+			var objectToRender = jdls.usercode.evaluate(getUserCode());
 			var options = {
 				builtins: builtins.checked,
 				allFunctions: functions.checked
