@@ -1,7 +1,7 @@
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
+a, abbr, acronym, address, big, cite,
+del, dfn, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
@@ -442,6 +442,7 @@ a.logo {
 .content_box p {
   margin-bottom: 22px;
   line-height: 22px;
+	color: #4c4c4e
 }
 
 .content_box p a {

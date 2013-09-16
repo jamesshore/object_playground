@@ -131,6 +131,254 @@
 
 <div class="divider dot"></div>
 
+<div class="wrapper superwide">
+    <div class="content">
+        <div class="content_box">
+            <div class="main">
+                <h2 class="highlight">Transcript</h1>
+
+                <p>If you hang around the JavaScript world long enough, you’ll come across a bunch of different recipes for object-oriented programming. The standard way, so much as there <em>can</em> be a standard way, is this.</p>
+
+                <p>And <em>this</em> is the recipe for inheritance.</p>
+
+                <p>That’s the standard. But why this? Why this… mess? And why does it work?</p>
+
+                <p>Hi, everyone. My name is James Shore and this is <cite>Let’s Code: Test-Driven JavaScript</cite>. I’m here with my Lessons Learned on object-oriented programming in JavaScript. I’m recording this on June 1st, 2013.</p>
+
+                <p>In today’s episode, we’re going to build up these recipes from first principles. We’ll start with a review of object fundamentals, then look at how functions work in JavaScript. Next, we’ll cover prototypes and inheritance, then polymorphism and method overriding. We’ll discuss classes and instantiation in the prototypal model, then see how these concepts map to the classical model most people use. Finally, we’ll delve into the inner workings of the <code>instanceof</code> keyword, before closing with a look at future directions, a tool for exploring these concepts further, and my recommendations.</p>
+
+                <p>This is a big topic and we’re going to cover a lot of ground. Be sure to take advantage of the pause and rewind buttons in your video player. You can use the timestamps here to jump to sections of interest.</p>
+
+
+                <h3>1. Object Fundamentals</h3>
+
+                <p>Let’s start with the basics. These are the common JavaScript types—these are everything you can actually type into your source code. However, most of these are not actually primitive types. The only things that are really primitives are strings, numbers, and booleans; a couple of ways of saying “can’t find it,” and objects. Everything else—functions, arrays, and regular expressions, as well as all the other objects you use in your program—those are all variant kinds of objects.</p>
+
+                <p>So, what is an object? Well, it is a set of name/value pairs. In other languages, you might call it a dictionary, or a hash, or maybe an associative array, but fundamentally, it’s key/value pairs. You can use any number of keys with any name, as long as it’s a string, and each string can be associated with any value. Those values can be of any type: any of our basic primitive types, as well as any object type, including functions, and of course, objects themselves.</p>
+
+                <p>An important thing to note about objects is that, although primitives are passed by value, objects are passed by reference. Let’s see what that means.</p>
+
+                <p>So if we have two variables, named <code>number1</code> and <code>number2</code>, and we assign a value to <code>number1</code>—let’s say 3.14 etcetera—and then we copy that variable into <code>number2</code>, those two values are not connected. So if we change <code>number2</code>, <code>number1</code> is unaffected.</p>
+
+                <p>Objects, on the other hand, are stored by reference. What that means is that if you assign an object to one of these variables and then we copy that object into a new variable, we’re not copying the object. There’s still only one object. What we’re doing is copying the reference. The pointer. The arrow. So if we change <code>object2</code>, <code>object1</code> gets changed as well. <code>object2.a</code> is 42, but also, <code>object1.a</code> is 42.</p>
+
+                <p>One last thing before we’re done with the basics.</p>
+
+                <p>If you ask for a property that isn’t found in an object, you’ll get <code>undefined</code> as your result back. Now, you can assign <code>undefined</code> to any property you want. That doesn’t actually delete the property. If for some reason you want to get the property out of the object entirely, you have to use the <code>delete</code> keyword. Now honestly, in practice, the distinction is usually not that important.</p>
+
+
+                <h3>2. Functions &amp; Methods</h3>
+
+                <p>I mentioned earlier that functions are just regular kinds of objects, and that’s true. When you define a function, JavaScript creates an object for you that has three properties already defined: the name, which is the name of the function; the length, which is the number of arguments; and a prototype, which I’ll explain later.</p>
+
+                <p>Because functions are just regular objects, you can do everything with them that you can do with a normal object. You can assign properties to them; you can assign them to different variables; and when you do, they’re passed by reference, so you can run that function from its new location by just saying the variable name and parentheses.</p>
+
+                <p>When you put a function inside of an object, it’s typically called a “method.” You can run methods just like you run any other function by saying <code>object.methodname</code> and then parentheses.</p>
+
+                <p>When you do that, JavaScript will set the <code>this</code> keyword to the object that you used. So if you say <code>myObject.get()</code>, <code>this</code> will be set to <code>myObject</code>. Then when the function returns, <code>this</code> will be set back to whatever value it had before.</p>
+
+                <p>The <code>this</code> keyword is JavaScript’s biggest gotcha. It depends on the <em>object</em>, not where the function was defined, and this can cause a lot of problems.</p>
+
+                <p>So, if we have <code>myMethod</code> which returns <code>this.val</code>, and we call <code>object1.get()</code>, we’ll get a 42 back. If we call <code>object2.get()</code>, <code>this</code> will be set to <code>object2</code> and we’ll get 3.14159 back. If we just call <code>myMethod()</code> directly, <code>this</code> won’t be set to anything in particular. It could be undefined if we’re using strict mode; it could be the global object; it’s really hard to tell for sure.</p>
+
+                <p>So you have to be really careful when you’re using <code>this</code>. If possible, I really recommend that use strict mode whenever you can because that will force <code>this</code> to be undefined. It won’t prevent mistakes relating to <code>this</code>, but it will help you catch them more quickly.</p>
+
+                <p>If you have a case where you need <code>this</code> to be a particular value, you can force it by using either <code>call()</code>, <code>apply()</code>, or <code>bind()</code>. Now the details of those functions are outside the scope of this episode, but let me show you an example of one of them.</p>
+
+                <p>If we say <code>myMethod.call()</code>, then that will run the <code>myMethod</code> function and force the <code>this</code> value to whatever we said. So <code>myMethod.call(object1)</code> will set <code>this</code> to <code>object1</code>.</p>
+
+
+                <h3>3. Prototypal Inheritance</h3>
+
+                <p>Okay, that’s the basics. Let’s get into some of the more complicated stuff.</p>
+
+                <p>It’s pretty rare that you’re going to be defining all of your object from scratch. You’ll typically have some sort of repeated pattern. For example, in this case, <code>object1</code>, <code>object2</code>, and <code>object3</code> are all using the same function. And rather than define them all separately like that, which would be a maintenance nightmare in the long run, what you can do is use something called “prototypes.”</p>
+
+                <p>The way this works is that you can define a single object, and then have other objects inherit from it, or “extend” it. The way you do that is by calling <code>Object.create()</code>.</p>
+
+                <p>So if I have a parent object with a function and a value, I can create a new object (which I’ve called <code>child</code>) by saying <code>Object.create(child)</code>. You can do anything with this child object that you do with any other object. You can add values to it or even extend it with another child.</p>
+
+                <p>Now the cool part is what happens when we start to use these objects.</p>
+
+                <p>The base object is just like before. Let’s say we say <code>parent.get()</code>. Well, <code>this</code> is going to be set to <code>parent</code>, and then JavaScript will look for <code>get</code> on that object. And when it finds it, it’ll call the function, which will say <code>return this.val</code>, which will cause JavaScript to look for <code>val</code> on <code>parent</code>. So that’s pretty normal.</p>
+
+                <p>But here’s the cool part. If we call <code>child.get()</code>, then <code>this</code> is set to <code>child</code>. JavaScript will look for <code>get</code> on <code>child</code>, but it won’t find it. So it will look at the prototype—it will go up the prototype chain—and look at <code>parent</code>, and it will find <code>get</code> there. When it finds that function, it will try to <code>return this.val</code>, which means it will go back to <code>child</code>, look for <code>val</code>, and find it. So <code>child.get()</code> will return 3.14 rather than 42, even though it’s using the function that was defined in <code>parent</code>.</p>
+
+                <p>JavaScript will go as far up the prototype chain as it needs to go in order to find a property. So if we said <code>grandchild.get()</code>, then JavaScript will look for <code>get</code> on the grandchild. It won’t find it, so it will go up to the prototype and look for <code>get</code> on <code>child</code>. It won’t find it there, so it will go to <code>parent</code>, look for <code>get</code> there, and find it. It will call the function, try to <code>return this.val</code>, so again it will go back to <code>grandchild</code>, look for <code>val</code>. It won’t find it, so it will go up to <code>child</code>, look for <code>val</code>, find it there, and return 3.14159.</p>
+
+                <p>This is the fundamentals of inheritance in JavaScript. Now, if you’ve seen other ways of talking about objects in JavaScript, they might have focused on classes or something else first. But this right here—this <em>prototype-based inheritance</em>—is fundamentally how JavaScript works. Actually, JavaScript doesn’t have any other form of inheritance other than this prototypal inheritance I’m showing you here.</p>
+
+                <p>There’s one more wrinkle I want to share, and that is that every single object has a prototype, except for the base object, and any objects you create yourself to explicitly not have prototypes. Here’s what they look like.</p>
+
+                <p>By default, objects that you create have <code>Object.prototype</code> as their prototype, and functions have <code>Function.prototype</code> as their prototype. Notice that this is where those <code>call()</code>, <code>apply()</code>, and <code>bind()</code> methods I was talking about earlier come from.</p>
+
+                <p>Now, this is way too much detail to show in most of these visualizations, so what I’m going to do is just use <code>[[Object]]</code> and <code>[[Function]]</code> to refer to those prototypes from here on out.</p>
+
+
+                <h3>4. Polymorphism &amp; Method Overriding</h3>
+
+                <p>Once you have objects in a prototype chain, you might find that you want children to behave differently from their parent, even when the same method name is called. This is called “polymorphism.” Polymorphism means, “the same name, but different behaviors.” Now, technically, you can have polymorphism without inheritance, but we’re not going to get into that right now.</p>
+
+                <p>It’s easy to do polymorphism in JavaScript; you just use the same property name, but assign a different method. So if we wanted to have a <code>firmAnswer</code> object that answered something differently—or answered in a different way—we’d just say <code>firmAnswer.get</code> and assign the function. In this case, what we’re going to do is we’re going to return the same value and return “!!” at the end.</p>
+
+                <p>So if we say <code>answer.get()</code>, that will give us “42” back, but if we say <code>firmAnswer.get()</code>, that will say <em>“42!!”</em> back. Anyway, you get the idea.</p>
+
+                <p>This relationship is actually a little easier to see if we don’t have the function visualizations in there, so I’m going to stop showing them for now.</p>
+
+                <p>Now you’ll notice here that our <code>fn2</code> is looking at <code>this.val</code> and our <code>fn1</code> is looking at <code>this.val</code>. That’s a bit of duplicated logic. It’s not too bad here, but in more complicated programs, you find that that sort of logic is very difficult to maintain. So typically, what we’re going to want to do, is call <code>fn1</code> from <code>fn2</code>.</p>
+
+                <p>Unfortunately, that’s not quite as easy as it might seem. The obvious answer is to just call <code>fn1</code>… to just say <code>answer.get()</code>. That doesn’t work. It returns the wrong answer. It’s going to return 42. Do you know why? If you don’t, pause the video for a moment and see if you can figure it out.</p>
+
+                <p>Okay, here’s why.</p>
+
+                <p>When we call <code>firmAnswer.get()</code>, <code>this</code> is set to <code>firmAnswer</code> and JavaScript looks for the <code>get</code> property. It finds it and it runs <code>fn2</code>. That runs <code>answer.get()</code>, which is going to set <code>this</code> to <code>answer</code>, and then look for the <code>get</code> property on <code>answer</code>. When it finds it, it will run <code>fn1</code> and try to <code>return this.val</code>. But because <code>this</code> is set to <code>answer</code>, when it looks for <code>this.val</code>, it will find it on the <code>answer</code> object and return 42 rather than 3.14159, which is what we expect.</p>
+
+                <p>So, in order for this to work properly, we need to use the <code>call</code> function. We need to say <code>answer.get.call(this)</code>. See if you can figure out why this would work.</p>
+
+                <p>Okay, here’s how it works.</p>
+
+                <p>When we call <code>firmAnswer.get()</code>, <code>this</code> is set to <code>firmAnswer</code>… it looks for <code>get</code>… finds it… runs <code>fn2</code>… and now it says <code>answer.get.call(this)</code>. That sets <code>this</code> to, well, the same <code>this</code> again. But then it runs <code>answer.get()</code> directly, which tries to <code>return this.val</code>, which looks for <code>val</code> on <code>firmAnswer</code>, finds it, and returns the correct answer.</p>
+
+
+                <h3>5. Classes &amp; Instantiation</h3>
+
+                <p>You can organize your JavaScript objects any way you like, but a really common way of organizing it is to separate your methods from your data.</p>
+
+                <p>For example, we have this <code>answer</code> object which, when you ask it to <code>get</code> the value, returns the value that it has stored.</p>
+
+                <p>Well, it’s pretty typical to want to have multiple copies of this object, so typically what people will do is they will put the function in a prototype—which we’ll call <code>AnswerPrototype</code>—and then they’ll have multiple objects extend that prototype to give us special values.</p>
+
+                <p>So we see here that <code>lifeAnswer</code> has the value of 42, because it’s the answer to Life, the Universe, and Everything, and <code>dessertAnswer</code> has the value of pi, for, well, obvious reasons.</p>
+
+                <p>If you want to specialize that answer, as we did with <code>firmAnswer</code> before, you can do the same thing. We have our <code>FirmAnswerPrototype</code> add its <code>fn2</code>—the one that puts “!!” on the end—that extends <code>AnswerPrototype</code>. And then we have our <code>luckyAnswer</code> and <code>magicAnswer</code> extend that.</p>
+
+                <p>When you use this approach to organize your objects, the prototypes are typically called “classes,” and the objects—the objects that extend them—are typically called “instances.” A class that extends another class is called a “subclass.”</p>
+
+                <p>Creating an instance is called “instantiation,” and you’ll notice that there’s a two-step process for that. First, you create the object by extending the prototype, and then second, you initialize its data. (Remember, instances are usually about the data and the prototypes are about the methods—the classes are about the methods.) So we extend and then we initialize.</p>
+
+                <p>The problem with this is that this initialization logic is duplicated every time we create a new object. In this simple example, it’s not such as big deal, but in real programs, the initialization logic is usually pretty complicated. So we don’t want to duplicate it everywhere. That would be a big maintenance problem.</p>
+
+                <p>It also violates encapsulation. One of the nice things about object-oriented programming is that it allows you to decide how your data is going to be stored in a way that nobody else has to worry about. You just provide access to that data through your methods and then, if you want to change the way data is stored, then you just do it. You update <em>your</em> methods—your object’s methods—but you don’t have to update all the rest of the program.</p>
+
+                <p>But here, because all our instances are accessing <code>val</code> directly, we can’t change the way <code>val</code> is stored without having to change all of our instances.</p>
+
+                <p>So what’s really common is to use some sort of initialization function. In this case, I’m going to call it <code>constructor()</code>. This is a common method that is used to initialize your objects.</p>
+
+                <p>Here’s how this works. Let’s say that we want to create a new instance for <code>magicAnswer</code>. We’ll extend <code>FirmAnswerPrototype</code> and then we’ll say <code>magicAnswer.constructor(3)</code>. That will set <code>this</code> to <code>magicAnswer</code> and it will look for the <code>constructor</code> property. It won’t find it on <code>magicAnswer</code>, so it will look at the prototype. It won’t find it there, so it will look at the prototype of <code>FirmAnswerPrototype</code>. It will find <code>constructor</code> there and then run <code>fn0(value)</code>. <code>fn0</code> is going to set <code>this._val</code> to <code>value</code>. So it goes to <code>this</code>, sets the value, and there we go.</p>
+
+                <p>Note that I’ve changed <code>_val</code> to have an underscore in front. This is a common convention in JavaScript to say that a property is private. In other words, you shouldn’t access or change this property. Now, nothing in JavaScript is going to enforce that it doesn’t get changed, but that’s the polite thing to do. And if you follow that rule, that means we  can change <code>AnswerPrototype</code> without breaking any of the rest of our code: without changing the way <code>FirmAnswerPrototype</code> has to be programmed or any of our instances.</p>
+
+                <p>So that is a complete view of prototypal inheritance in JavaScript. It is a little bit different than what I showed you at the beginning, though, so we’re not quite done yet. But you could do all object-oriented programming in JavaScript using this model.</p>
+
+
+                <h3>6. The Classical Model</h3>
+
+                <p>Now, let’s look at the classical model. This is going to build on everything we’ve done up until now.</p>
+
+                <p>To start with, remember how, in the prototypal model, we instantiate an object by creating the object and then running a constructor of some sort? That’s so common that JavaScript has a special keyword just for that. It’s called <code>new</code>.</p>
+
+                <p>However, <code>new</code> is a little bit, well, weird. It doesn’t work the way we’ve seen up until now, and that’s what makes the classical model I’m about to show you different from the prototypal model I’ve been showing you up until now.</p>
+
+                <p>Now, before we get into that, I have to show something a little bit strange about functions. Remember that <code>prototype</code> property I said I’d explain later? Well, I’m going to explain it now. And it is… it’s weird.</p>
+
+                <p>When you define a function, JavaScript creates an object with <code>name</code>, <code>length</code>, and <code>prototype</code> properties. That <code>prototype</code> property actually points to a whole ’nother new object with a <code>constructor</code> property that points <em>back</em> to the function you’ve just created. So whenever you create a function in JavaScript, you’re actually creating two objects: the function object, and then this <code>prototype</code> object that’s just hanging out there.</p>
+
+                <p>I told you it was weird.</p>
+
+                <p>Now look at this closely. Does this look familiar?</p>
+
+                <p>Yeah. It’s a prototype. It is, basically, a class. So every time you define a function in JavaScript, you’re actually defining a constructor that’s associated with a little do-nothing class.</p>
+
+                <p>Now, of course, not every function you define is meant to be a constructor. So the common convention in JavaScript is that, if it’s meant to be a constructor, it starts with a capital letter, and if it’s meant to be just a normal function, then you start it with a lower-case letter.</p>
+
+                <p>Okay, so that’s a little weirdness of functions. Let’s see how this plays out to create the classical model.</p>
+
+                <p>First, let’s go back to our prototypal model. We’ll walk through it step by step.</p>
+
+                <p>So what we’re going to do is we’re going to create a class called <code>AnswerPrototype</code>. We’re going to create a constructor in it. And when we create that constructor, JavaScript is going to define a function object and a prototype object (which we don’t care about; we’re just going to ignore it). We’re also going to create a <code>get</code> function on our <code>AnswerPrototype</code> and we’re going to create a couple of instances: <code>lifeAnswer</code> and <code>dessertAnswer</code>.</p>
+
+                <p>So that’s a basic example using the prototypal model. Now let’s do the exact same thing, but this time using the classical model and the <code>new</code> keyword.</p>
+
+                <p>In the classical model, we define the constructor first. So we’ll create this <code>Answer</code> function. JavaScript will automatically create an object to go along with it with a <code>constructor</code> property that points back to our <code>Answer</code> function. That prototype is our class. It’s going to fulfill the exact same purpose that <code>AnswerPrototype</code> fills in the top example. So we’ll set our <code>get</code> method on <code>AnswerPrototype</code>. Then we can instantiate it by calling <code>new Answer()</code>. We’ll say <code>new Answer(42)</code> and that gives us the right value. That’s going to create a child of <code>Answer.prototype</code> <em>and</em> initialize it by calling the <code>Answer</code> constructor with the value of 42.</p>
+
+                <p>The way it knows to create <code>lifeAnswer</code> with <code>Answer.prototype</code> as its prototype is because JavaScript looks at the <code>prototype</code> property of the constructor when you use the <code>new</code> keyword.</p>
+
+                <p>The same thing happens with <code>dessertAnswer</code>.</p>
+
+                <p>That’s the classical model.</p>
+
+                <p>Now, it gets a little more complicated when we start dealing with subclasses. So let’s take a look at how this would work with a subclass. Let’s add the <code>FirmAnswer</code> class that we looked at in our previous prototypal example.</p>
+
+                <p>Again, we’ll start out by creating a <code>FirmAnswer</code> constructor first. JavaScript will automatically create the <code>FirmAnswer.prototype</code>, but this one we can’t use because we need our <code>FirmAnswer.prototype</code> to extend <code>Answer.prototype</code>—and it doesn’t. So what we’ll do is, we’ll set <code>FirmAnswer.prototype</code> to a new object that we’ll create by extending <code>Answer.prototype</code>. That will cause the old <code>FirmAnswer.prototype</code> to have nothing pointing to it, so it will get collected by the garbage collector.</p>
+
+                <p>Next, we’ll set the <code>constructor</code> property to point back to <code>FirmAnswer</code>. Now, as far as I can tell, this <code>constructor</code> property is not necessary. Everything that’s built into JavaScript will work just fine without it. But we’re going to set it here to be consistent. You could probably get away with not using it, but I have to admit, I haven’t been brave enough to try that, so remove it at your own risk.</p>
+
+                <p>All right, so we have <code>FirmAnswer.prototype</code> with a constructor. Now we need to set our <code>get</code> method on it. Then we can instantiate it as normal. we’ll say <code>new FirmAnswer(7)</code>. That will create our <code>luckyAnswer</code> extending <code>FirmAnswer.prototype</code> and we can do the same thing with <code>magicAnswer</code>.</p>
+
+                <p>Here’s a side-by-side comparison of the two models. I’ve numbered each of the sections so they correspond. So number one in the prototypal model is doing the exact same thing as in the classical model. Go ahead and pause the video here if you’d like to study this further.</p>
+
+
+                <h3>7. instanceof</h3>
+
+                <p>There’s one more detail I’d like to share with you.</p>
+
+                <p>It’s often convenient to know which class was used to instantiate an object. To achieve that purpose, JavaScript has a keyword: <code>instanceof</code>. The way this works is it looks at the prototype of the constructor and compares it to the object. This is actually a little hard to understand unless you see it, so let me just show it to you.</p>
+
+                <p>We can ask if <code>lifeAnswer</code> is an instance of <code>Answer</code>. And intuitively, we know that’s true. But how does JavaScript know? Well, here’s what happens:</p>
+
+                <p>First, it looks at <code>Answer.prototype</code>. Not <code>Answer</code>’s <code>prototype</code>, but <code>Answer</code>’s <code>prototype</code> property. Then it looks at <code>lifeAnswer</code>’s actual prototype. And if those two things are the same object then, yes, it’s an instance.</p>
+
+                <p>So <code>lifeAnswer</code> wouldn’t be an instance of <code>FirmAnswer</code>. <code>FirmAnswer.prototype</code> is over here. <code>lifeAnswer</code>’s actual prototype is up here. They don’t match, so it’s not an <code>instanceof</code>.</p>
+
+                <p>However, there is one caveat to this—one exception to the rule. <code>luckyAnswer</code> <em>is</em> an instance of <code>Answer</code> because JavaScript will go up the prototype chain. So JavaScript will look at <code>Answer.prototype</code>. Then it will look at <code>luckyAnswer</code>’s prototype. That’s not a match, but it will go up the prototype chain and look at <code>Answer.prototype</code> as well. That is a match, so <code>luckyAnswer</code> <em>is</em> an instance of <code>Answer</code>.</p>
+
+
+                <h3>8. Future Directions</h3>
+
+                <p>That’s everything you need to know in order to understand how inheritance works in JavaScript. I do want to share a few more things with you, though.</p>
+
+                <p>First, in the upcoming version of JavaScript, as defined in the EcmaScript 6 specification, there’s going to be a new syntax which makes it easier to do the classical model of inheritance in JavaScript. It’s the <code>class</code> syntax, and I’ve got it shown here on the left.</p>
+
+                <p>Now, as far as I can tell in my research, that yields the exact same underlying object model that classical inheritance does, as I’ve shown here on the right. But it’s going to be much easier to work with.</p>
+
+                <p>If you want to see how that compares to the classical model, I have a side-by-side comparison here. Go ahead and pause the video if you want to study this in depth.</p>
+
+
+                <h3>9. The Definitive Guide</h3>
+
+                <p>I’ve called this episode “The Definitive Guide to Object-Oriented JavaScript,” which was perhaps a little presumptuous of me. It isn’t possible for single tutorial, no matter how long—and I didn’t really want it to be that long—anyway, it’s not possible for a single tutorial to cover absolutely everything there is to know about JavaScript. There’s some stuff I’ve intentionally left out, such as getters and setters, static variables, much more… the details of <code>bind</code> and <code>apply</code>, for example…</p>
+
+                <p>What makes this the definitive guide is <a href="http://www.objectplayground.com">the website</a> I’ve created to accompany this video. This site is an object visualizer. So what you can do is type in JavaScript and it will analyze what you type and display the object map on the screen. So if we wanted to see what a function did, we could just add it here. We could “Show all functions” and see how that function is turned into objects.</p>
+
+                <p>This is a very cool tool. It’s a lot of fun; it’s got a lot of default examples for you to play with. Check it out. This is the best way to really understand how inheritance works in JavaScript and how objects work in JavaScript. Test your understanding by typing in some code here, clicking the evaluate button, and see what comes out. Play with your own ways of making inheritance structures; try your own abstractions; try other people’s abstractions. (I’ve got John Resig’s in here, for example, but you can do much, much more.)</p>
+
+                <p>Anyway, this is the <em>real</em> definitive resource because it actually runs in your real browser. So it will tell you whatever your browser—it will tell you the JavaScript model used by your actual browser. Check it out.</p>
+
+
+                <h3>10. Recommendations</h3>
+
+                <p>To close, here are my recommendations for object-oriented JavaScript in your programs.</p>
+
+                <p>First, use the classical model. I know it’s not very popular, and it’s kind of weird, but it is the standard. Everybody understands it. If you use the classical model, anybody who has the slightest familiarity with object-oriented JavaScript will understand this approach. That can’t be said about any other approach you use.</p>
+
+                <p>It also is the one that’s most likely to have good IDE support if you want to do some sort of automatic syntax checking or refactoring in your IDE, and it’s also the only approach that supports <code>instanceof</code>. You can hack in support for <code>instanceof</code> into the prototypal model, but it’s not very convenient and actually ends up being uglier than the classical model.</p>
+
+                <p>Second, <code>"use strict";</code>. Use the strict mode. It will help prevent situations where <code>this</code> isn’t defined properly.</p>
+
+                <p>Third, use JSHint or some other linter. It will help you catch cases where you forgot to use <code>new</code> or you used it in the wrong spot, as long as you use the convention where a class name starts with a capital letter.</p>
+
+                <p>Fourth, when the EcmaScript 6 <code>class</code> syntax becomes available, go ahead and use it. It might be a while: at the time I record this, it’s not available in any of the popular browsers, and that means it’s going to be a long time before it’s available in IE. But when it is available, go ahead and use it. It’s a nice, elegant syntax. It maps down to the regular classical model, which means it’ll play nice with all your existing stuff.</p>
+
+                <p>And finally, experiment with <a href="http://www.objectplayground.com">Object Playground</a>. I created that site specifically to be a way to learn more about object-oriented JavaScript. You’d be surprised what you can find out about it. For example, go ahead and see whether or not you need that <code>constructor</code> property. What happens when you take it out? Can you find any case where it’s needed, or any case where it’s <em>not</em> needed?</p>
+
+                <p>So that’s what I’ve learned about object-oriented programming in JavaScript. Thanks for watching, everybody, and I’ll catch you next time!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider dot"></div>
+
 <div id="footer">
     <div class="divider line">
         <p>A project from <a href="http://www.letscodejavascript.com">Let’s Code: Test-Driven JavaScript</a>
