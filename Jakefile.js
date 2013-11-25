@@ -7,10 +7,10 @@
 		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
 		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
 		"IE 10.0 (Windows)",
-		"Firefox 23.0 (Mac)",
-		"Chrome 29.0 (Mac)",
-		"Safari 6.0 (Mac)",
-		"Safari 6.0 (iOS)"
+		"Firefox 25.0 (Mac)",
+		"Chrome 31.0 (Mac)",
+		"Safari 6.1 (Mac)",
+		"Safari 7.0 (iOS)"
 	];
 
 	var NODE_VERSION = "v0.10.21";
