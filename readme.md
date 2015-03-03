@@ -46,7 +46,10 @@ Note: At the time of this writing, the source code has not been confirmed to bui
 
 To test manually:
 
-1. Open `src/index.html` in a browser.
+1. Run `./jake.sh run`.
+2. Open `http://localhost:8080` in a browser.
+
+(Or just open `src/index.html` in a browser.)
 
 
 Development and Integration
