@@ -14,7 +14,8 @@
 		"Firefox 36.0.0 (Mac OS X 10.10)",
 		"Chrome 40.0.2214 (Mac OS X 10.10.2)",
 		"Safari 8.0.3 (Mac OS X 10.10.2)",
-		"Mobile Safari 7.0.0 (iOS 7.1)"
+		"Mobile Safari 7.0.0 (iOS 7.1)",
+		"IE 11.0.0 (Windows 7)"
 	];
 
 	var NODE_VERSION = "v0.10.32";

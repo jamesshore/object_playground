@@ -14,6 +14,7 @@ Object Playground has been tested against the browsers listed at the top of `Jak
 * Chrome 40
 * Firefox 36
 * IE 10
+* IE 11
 * Safari 8.0 (Mac)
 * Safari 7.0 (iOS)
 
