@@ -22,7 +22,7 @@ var sh = require("./build/util/sh.js");
 		function afterSuccessfulBuild() {
 			run([
 				"git checkout integration",
-				"git merge master --no-ff --log",
+				"git merge master --no-ff --log=500 -m INTEGRATE: --edit",
 				"git checkout master"
 			], complete);
 		}
