@@ -1,5 +1,5 @@
 .idea/workspace.xml
 .bin
-node_modules/karma/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build
-node_modules/karma/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/builderror.log
+node_modules/karma/node_modules/chokidar/node_modules/fsevents/build/
+node_modules/karma/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/
 node_modules/karma/node_modules/socket.io/node_modules/socket.io-client/lib/vendor/web-socket-js/flash-src/com/hurlant/crypto/rsa/RSAKey.as
