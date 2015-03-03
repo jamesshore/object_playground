@@ -11,11 +11,11 @@ Browser Support
 
 Object Playground has been tested against the browsers listed at the top of `Jakefile.js`. At the time of this writing, the following browsers are known to work. Other modern browsers are likely to work as well.
 
-* Chrome 26
-* Firefox 20
+* Chrome 40
+* Firefox 36
 * IE 10
-* Safari 6.0 (Mac)
-* Safari 6.0 (iOS)
+* Safari 8.0 (Mac)
+* Safari 7.0 (iOS)
 
 The following browsers are known to *not* work:
 
