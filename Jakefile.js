@@ -31,6 +31,11 @@
 		karma.serve(KARMA_CONFIG, complete, fail);
 	}, {async: true});
 
+	desc("Start HTTP server for manual testing");
+	task("run", function() {
+		jake.exec("node ./node_modules/http-server/bin/http-server ./src", { interactive: true }, complete);
+	}, {async: true});
+
 	desc("Lint everything");
 	task("lint", ["nodeVersion"], function () {
 		var passed = lint.validateFileList(nodeFilesToLint(), nodeLintOptions(), {});
