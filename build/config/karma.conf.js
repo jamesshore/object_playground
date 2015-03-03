@@ -16,7 +16,8 @@
 
 	    // list of files / patterns to load in the browser
 	    files: [
-	      'src/client/**/*.js'
+		    'src/viz/viz.js',
+		    'src/*.js'
 	    ],
 
 
@@ -29,7 +30,6 @@
 	    // preprocess matching files before serving them to the browser
 	    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 	    preprocessors: {
-		    'src/client/**/*.js': ['commonjs'],
 	    },
 
 

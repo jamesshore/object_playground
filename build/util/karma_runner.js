@@ -1,32 +1,45 @@
-// Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+// Copyright (c) 2012-2015 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+
+// Helper functions for running Karma
+
 (function() {
 	"use strict";
 
-	var KARMA = "node node_modules/karma/bin/karma";
-	var KARMA_START = KARMA + " start build/config/karma.conf.js";
-	var CONFIG = {};
-
+	var path = require("path");
 	var sh = require("./sh.js");
 	var runner = require("karma/lib/runner");
+	var server = require("karma/lib/server");
 
-	exports.serve = function(success, fail) {
-		sh.run(KARMA_START, success, function() {
+	var KARMA = "node node_modules/karma/bin/karma";
+
+	exports.serve = function(configFile, success, fail) {
+		var command = KARMA + " start " + configFile;
+		sh.run(command, success, function () {
 			fail("Could not start Karma server");
 		});
 	};
 
-	exports.runTests = function(requiredBrowsers, success, fail) {
-		var stdout = new CapturedStdout();
+	exports.runTests = function(options, success, fail) {
+		options.capture = options.capture || [];
+		var config = {
+			configFile: path.resolve(options.configFile),
+			browsers: options.capture,
+			singleRun: options.capture.length > 0
+		};
 
-		runner.run(CONFIG, function(exitCode) {
+		var runKarma = runner.run.bind(runner);
+		if (config.singleRun) runKarma = server.start.bind(server);
+
+		var stdout = new CapturedStdout();
+		runKarma(config, function(exitCode) {
 			stdout.restore();
 
-			if (exitCode) fail("Client tests failed (to start server, run 'jake karma')");
-			var browserMissing = checkRequiredBrowsers(requiredBrowsers, stdout);
-			if (browserMissing && !process.env.loose) fail("Did not test all supported browsers (use 'loose=true' to suppress error)");
-			if (stdout.capturedOutput.indexOf("TOTAL: 0 SUCCESS") !== -1) fail("No tests were run!");
+			if (exitCode) return fail("Client tests failed (did you start the Karma server?)");
+			var browserMissing = checkRequiredBrowsers(options.browsers, stdout);
+			if (browserMissing && options.strict) return fail("Did not test all browsers");
+			if (stdout.capturedOutput.indexOf("TOTAL: 0 SUCCESS") !== -1) return fail("No tests were run!");
 
-			success();
+			return success();
 		});
 	};
 
@@ -40,7 +53,7 @@
 
 	function lookForBrowser(browser, output) {
 		var missing = output.indexOf(browser + ": Executed") === -1;
-		if (missing) console.log(browser + " was not tested!");
+		if (missing) console.log("Warning: " + browser + " was not tested!");
 		return missing;
 	}
 

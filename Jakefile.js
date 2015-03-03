@@ -3,21 +3,22 @@
 (function () {
 	"use strict";
 
-	var TESTED_BROWSERS = [
-		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
-		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
-		"IE 10.0 (Windows)",
-		"Firefox 36.0 (Mac)",
-		"Chrome 40.0 (Mac)",
-		"Safari 8.0 (Mac)",
-		"Safari 7.0 (iOS)"
-	];
-
-	var NODE_VERSION = "v0.10.32";
-
 	var lint = require("./build/util/lint_runner.js");
 	var karma = require("./build/util/karma_runner.js");
 	var version = require("./build/util/version_checker.js");
+
+	var TESTED_BROWSERS = [
+		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
+		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
+		"IE 10.0.0 (Windows 7)",
+		"Firefox 36.0.0 (Mac OS X 10.10)",
+		"Chrome 40.0.2214 (Mac OS X 10.10.2)",
+		"Safari 8.0.3 (Mac OS X 10.10.2)",
+		"Mobile Safari 7.0.0 (iOS 7.1)"
+	];
+
+	var NODE_VERSION = "v0.10.32";
+	var KARMA_CONFIG = "./build/config/karma.conf.js";
 
 	desc("Lint and test");
 	task("default", ["lint", "test"], function() {
@@ -26,7 +27,7 @@
 
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
-		karma.serve(complete, fail);
+		karma.serve(KARMA_CONFIG, complete, fail);
 	}, {async: true});
 
 	desc("Lint everything");
@@ -38,7 +39,11 @@
 
 	desc("Test browser code");
 	task("test", function() {
-		karma.runTests(TESTED_BROWSERS, complete, fail);
+		karma.runTests({
+			configFile: KARMA_CONFIG,
+			browsers: TESTED_BROWSERS,
+			strict: true
+		}, complete, fail);
 	}, {async: true});
 
 //	desc("Ensure installed version of Node is same as known-good version");
