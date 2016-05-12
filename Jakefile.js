@@ -18,7 +18,7 @@
 		"IE 11.0.0 (Windows 7)"
 	];
 
-	var NODE_VERSION = "v0.10.32";
+	var NODE_VERSION = "v4.4.4";
 	var KARMA_CONFIG = "./build/config/karma.conf.js";
 
 	desc("Lint and test");
