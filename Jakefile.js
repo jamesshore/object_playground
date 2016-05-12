@@ -14,7 +14,7 @@
 		"Firefox 46.0.0 (Mac OS X 10.11)",
 		"Chrome 50.0.2661 (Mac OS X 10.11.4)",
 		"Safari 9.1.0 (Mac OS X 10.11.4)",
-		"Mobile Safari 7.0.0 (iOS 7.1)",
+		"Mobile Safari 9.0.0 (iOS 9.3)",
 		"IE 11.0.0 (Windows 7)"
 	];
 
