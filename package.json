@@ -4,11 +4,11 @@
   "description": "A tool for visualizing and experimenting with JavaScript object relationships",
   "devDependencies": {
     "expect.js": "^0.2.0",
+    "http-server": "^0.7.5",
     "jake": "^0.6.4",
     "jshint": "^2.1.2",
-    "karma": "^0.12.31",
+    "karma": "^2.0.0",
     "karma-expect": "^1.1.0",
-    "http-server": "^0.7.5",
     "karma-mocha": "^0.1.10",
     "mocha": "^1.10.0"
   },

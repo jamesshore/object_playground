@@ -1,8 +1,9 @@
 var util = require('util')
 
+var constants = require('../constants')
 var helper = require('../helper')
 
-var BaseReporter = function (formatError, reportSlow, adapter) {
+var BaseReporter = function (formatError, reportSlow, useColors, browserConsoleLogOptions, adapter) {
   this.adapters = [adapter || process.stdout.write.bind(process.stdout)]
 
   this.onRunStart = function () {
@@ -46,9 +47,14 @@ var BaseReporter = function (formatError, reportSlow, adapter) {
 
   this.write = function () {
     var msg = util.format.apply(null, Array.prototype.slice.call(arguments))
-
+    var self = this
     this.adapters.forEach(function (adapter) {
-      adapter(msg)
+      if (!helper.isDefined(adapter.colors)) {
+        adapter.colors = useColors
+      }
+      if (!helper.isDefined(self.EXCLUSIVELY_USE_COLORS) || adapter.colors === self.EXCLUSIVELY_USE_COLORS) {
+        return adapter(msg)
+      }
     })
   }
 
@@ -59,15 +65,20 @@ var BaseReporter = function (formatError, reportSlow, adapter) {
   }
 
   this.onBrowserLog = function (browser, log, type) {
+    if (!browserConsoleLogOptions || !browserConsoleLogOptions.terminal) return
+    type = type.toUpperCase()
+    if (browserConsoleLogOptions.level) {
+      var logPriority = constants.LOG_PRIORITIES.indexOf(browserConsoleLogOptions.level.toUpperCase())
+      if (constants.LOG_PRIORITIES.indexOf(type) > logPriority) return
+    }
     if (!helper.isString(log)) {
       // TODO(vojta): change util to new syntax (config object)
       log = util.inspect(log, false, undefined, this.USE_COLORS)
     }
-
     if (this._browsers && this._browsers.length === 1) {
-      this.writeCommonMsg(util.format(this.LOG_SINGLE_BROWSER, type.toUpperCase(), log))
+      this.writeCommonMsg(util.format(this.LOG_SINGLE_BROWSER, type, log))
     } else {
-      this.writeCommonMsg(util.format(this.LOG_MULTI_BROWSER, browser, type.toUpperCase(), log))
+      this.writeCommonMsg(util.format(this.LOG_MULTI_BROWSER, browser, type, log))
     }
   }
 
@@ -88,7 +99,8 @@ var BaseReporter = function (formatError, reportSlow, adapter) {
     }
   }
 
-  this.specSuccess = this.specSkipped = function () {}
+  this.specSuccess = this.specSkipped = function () {
+  }
 
   this.specFailure = function (browser, result) {
     var specName = result.suite.join(' ') + ' ' + result.description
@@ -112,7 +124,7 @@ var BaseReporter = function (formatError, reportSlow, adapter) {
   }
 
   this.USE_COLORS = false
-
+  this.EXCLUSIVELY_USE_COLORS = undefined
   this.LOG_SINGLE_BROWSER = '%s: %s\n'
   this.LOG_MULTI_BROWSER = '%s %s: %s\n'
 
@@ -130,13 +142,18 @@ var BaseReporter = function (formatError, reportSlow, adapter) {
   this.TOTAL_FAILED = 'TOTAL: %d FAILED, %d SUCCESS\n'
 }
 
-BaseReporter.decoratorFactory = function (formatError, reportSlow) {
+BaseReporter.decoratorFactory = function (formatError, reportSlow, useColors, browserConsoleLogOptions) {
   return function (self) {
-    BaseReporter.call(self, formatError, reportSlow)
+    BaseReporter.call(self, formatError, reportSlow, useColors, browserConsoleLogOptions)
   }
 }
 
-BaseReporter.decoratorFactory.$inject = ['formatError', 'config.reportSlowerThan']
+BaseReporter.decoratorFactory.$inject = [
+  'formatError',
+  'config.reportSlowerThan',
+  'config.colors',
+  'config.browserConsoleLogOptions'
+]
 
 // PUBLISH
 module.exports = BaseReporter

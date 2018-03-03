@@ -130,10 +130,10 @@ var completion = function () {
   }
 
   // just print out the karma-completion.sh
-  var fs = require('fs')
+  var fs = require('graceful-fs')
   var path = require('path')
 
-  fs.readFile(path.resolve(__dirname, '../karma-completion.sh'), 'utf8', function (err, data) {
+  fs.readFile(path.resolve(__dirname, '../scripts/karma-completion.sh'), 'utf8', function (err, data) {
     if (err) return console.error(err)
 
     process.stdout.write(data)
