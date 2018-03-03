@@ -10,7 +10,7 @@
     "karma": "^2.0.0",
     "karma-expect": "^1.1.0",
     "karma-mocha": "^0.1.10",
-    "mocha": "^1.10.0"
+    "mocha": "^5.0.1"
   },
   "scripts": {
     "test": "jake"
