@@ -30,7 +30,7 @@ window.jdls = window.jdls || {};
 		'this.g = { h: "baz" };\n'
 	};
 
-	samples.classical = { name: "Basic Class", code: '// Constructor\n' +
+	samples.es5class = { name: "ES5 Class", code: '// Constructor\n' +
 		'function MyClass() {\n' +
 		'  this.a = 42;\n' +
 		'}\n' +
@@ -42,7 +42,26 @@ window.jdls = window.jdls || {};
 		'this.instance = new MyClass();\n'
 	};
 
-	samples.inheritance = { name: "Classical Inheritance", code: '// Parent class constructor\n' +
+	samples.es6class = { name: "ES6 Class", code: '// This example only works on browsers that support ES6 classes\n' +
+		'\n' +
+		'// Class\n' +
+		'class MyClass {\n' +
+		'\n' +
+		'  // Constructor\n' +
+		'  constructor() {\n' +
+		'    this.a = 42;\n' +
+		'  }\n' +
+		'\n' +
+		'  // Method\n' +
+		'  method() {}\n' +
+		'\n' +
+		'}\n' +
+		'\n' +
+		'// Instantiate\n' +
+		'this.instance = new MyClass();\n'
+	};
+
+	samples.es5inheritance = { name: "ES5 Inheritance", code: '// Parent class constructor\n' +
 		'function Parent() {\n' +
 		'  this.a = 42;\n' +
 		'}\n' +
@@ -69,7 +88,7 @@ window.jdls = window.jdls || {};
 		'this.instance = new Child();\n'
 	};
 
-	samples.es6 = { name: "ES6 Inheritance", code: '// This example only works on browsers that support ES6 classes\n' +
+	samples.es6inheritance = { name: "ES6 Inheritance", code: '// This example only works on browsers that support ES6 classes\n' +
 		'\n' +
 		'// Parent class\n' +
 		'class Parent {\n' +
