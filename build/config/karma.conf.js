@@ -13,6 +13,12 @@
 	    // frameworks to use
 	    frameworks: ['mocha', 'expect'],
 
+		  client: {
+		    // Mocha config options
+	      mocha: {
+	        timeout: '5000',
+	      }
+	    },
 
 	    // list of files / patterns to load in the browser
 	    files: [

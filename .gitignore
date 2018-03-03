@@ -1,5 +1,25 @@
+# Mac OS X
+.DS_Store
+
+# WebStorm
 .idea/workspace.xml
-.bin
-node_modules/karma/node_modules/chokidar/node_modules/fsevents/build/
-node_modules/karma/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/
-node_modules/karma/node_modules/socket.io/node_modules/socket.io-client/lib/vendor/web-socket-js/flash-src/com/hurlant/crypto/rsa/RSAKey.as
+
+# npm
+node_modules/**/.bin/
+
+
+### npm modules' build artifacts ###
+
+# Selenium WebDriverJS & Karma: Optional dependencies that don't build on vanilla Windows
+node_modules/fsevents/
+
+# Socket.IO
+node_modules/uws/build/
+node_modules/uws/build_log.txt
+
+# uws
+node_modules/uws/uws_darwin_57.node
+
+# Karma
+node_modules/karma/static/context.js
+node_modules/karma/static/karma.js

@@ -3,23 +3,28 @@
 (function () {
 	"use strict";
 
-	var lint = require("./build/util/lint_runner.js");
-	var karma = require("./build/util/karma_runner.js");
-	var version = require("./build/util/version_checker.js");
+	var NODE_VERSION = "v8.9.4";
 
 	var TESTED_BROWSERS = [
 		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
 		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
-		"IE 10.0.0 (Windows 7)",
-		"Firefox 46.0.0 (Mac OS X 10.11)",
-		"Chrome 50.0.2661 (Mac OS X 10.11.4)",
-		"Safari 9.1.0 (Mac OS X 10.11.4)",
-		"Mobile Safari 9.0.0 (iOS 9.3)",
-		"IE 11.0.0 (Windows 7)"
+		"IE 11.0.0 (Windows 7.0.0)",
+		"Edge 16.16299.0 (Windows 10.0.0)",
+		"Firefox 58.0.0 (Mac OS X 10.11.0)",
+		"Chrome 64.0.3282 (Mac OS X 10.11.6)",
+		"Safari 11.0.3 (Mac OS X 10.11.6)",
+		"Mobile Safari 10.0.0 (iOS 10.2.0)",
+		"Chrome Mobile WebView 44.0.2403 (Android 6.0.0)"
 	];
 
-	var NODE_VERSION = "v4.4.4";
 	var KARMA_CONFIG = "./build/config/karma.conf.js";
+
+	// Lazy-load dependencies to avoid run-time errors if using wrong version of Node
+	function lint() { return require("./build/util/lint_runner.js"); }
+	function karma() { return require("./build/util/karma_runner.js"); }
+	function version() { return require("./build/util/version_checker.js"); }
+
+	checkNodeVersion();
 
 	desc("Lint and test");
 	task("default", ["lint", "test"], function() {
@@ -28,7 +33,7 @@
 
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
-		karma.serve(KARMA_CONFIG, complete, fail);
+		karma().serve(KARMA_CONFIG, complete, fail);
 	}, {async: true});
 
 	desc("Start HTTP server for manual testing");
@@ -37,26 +42,25 @@
 	}, {async: true});
 
 	desc("Lint everything");
-	task("lint", ["nodeVersion"], function () {
-		var passed = lint.validateFileList(nodeFilesToLint(), nodeLintOptions(), {});
-		passed = lint.validateFileList(browserFilesToLint(), browserLintOptions(), browserLintGlobals()) && passed;
+	task("lint", [], function () {
+		var passed = lint().validateFileList(nodeFilesToLint(), nodeLintOptions(), {});
+		passed = lint().validateFileList(browserFilesToLint(), browserLintOptions(), browserLintGlobals()) && passed;
 		if (!passed) fail("Lint failed");
 	});
 
 	desc("Test browser code");
 	task("test", function() {
-		karma.runTests({
+		karma().runTests({
 			configFile: KARMA_CONFIG,
 			browsers: TESTED_BROWSERS,
-			strict: true
+			strict: !process.env.loose
 		}, complete, fail);
 	}, {async: true});
 
-//	desc("Ensure installed version of Node is same as known-good version");
-	task("nodeVersion", [], function() {
+	function checkNodeVersion() {
 		var installedVersion = process.version;
-		version.check("Node", !process.env.loose, NODE_VERSION, installedVersion, fail);
-	});
+		version().check("Node", !process.env.loose, NODE_VERSION, installedVersion, fail);
+	}
 
 	function nodeFilesToLint() {
 		var files = new jake.FileList();
