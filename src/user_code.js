@@ -120,11 +120,7 @@ window.jdls = window.jdls || {};
 		'}\n' +
 		'\n' +
 		'// Instantiate\n' +
-		'this.instance = new Child();\n' +
-		'\n' +
-		'// Run method (check the log)\n' +
-		'this.instance.method();\n' +
-		'\n'
+		'this.instance = new Child();\n'
 	};
 
 	samples.inception = { name: "Inception!", code: 'this.jdls = jdls;\n' +
