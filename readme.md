@@ -67,6 +67,12 @@ To integrate:
 2. Run `./integrate.sh` (Unix/Mac) or `integrate` (Windows) to test the master branch and merge it into the integration branch.
 
 
+To change code samples:
+
+1. Use `convert_sample.pl` to convert code to JavaScript string.
+2. Modify `src/user_code.js` with new sample.
+
+
 Deploying
 ---------
 
