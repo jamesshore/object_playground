@@ -15,7 +15,6 @@
 		var graph;
 
 		beforeEach(function() {
-			this.timeout(10000);
 			document.body.innerHTML +=
 				"<div id='loading'>Loading</div>" +
 				"<div id='error'>Error</div>" +
