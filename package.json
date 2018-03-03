@@ -1,0 +1,28 @@
+{
+  "name": "12_object_playground",
+  "version": "1.0.0",
+  "description": "A tool for visualizing and experimenting with JavaScript object relationships",
+  "devDependencies": {
+    "expect.js": "^0.2.0",
+    "jake": "^0.6.4",
+    "jshint": "^2.1.2",
+    "karma": "^0.12.31",
+    "karma-expect": "^1.1.0",
+    "http-server": "^0.7.5",
+    "karma-mocha": "^0.1.10",
+    "mocha": "^1.10.0"
+  },
+  "scripts": {
+    "test": "jake"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesshore/object_playground.git"
+  },
+  "author": "James Shore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesshore/object_playground/issues"
+  },
+  "homepage": "http://www.objectplayground.com/"
+}
