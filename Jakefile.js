@@ -52,7 +52,7 @@
 		karma().runTests({
 			configFile: KARMA_CONFIG,
 			browsers: TESTED_BROWSERS,
-			strict: true
+			strict: !process.env.loose
 		}, complete, fail);
 	}, {async: true});
 
