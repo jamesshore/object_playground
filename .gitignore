@@ -18,7 +18,7 @@ node_modules/uws/build/
 node_modules/uws/build_log.txt
 
 # uws
-node_modules/uws/uws_darwin_59.node
+node_modules/uws/uws_darwin_57.node
 
 # Karma
 node_modules/karma/static/context.js
