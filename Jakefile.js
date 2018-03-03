@@ -3,7 +3,7 @@
 (function () {
 	"use strict";
 
-	var NODE_VERSION = "v4.4.4";
+	var NODE_VERSION = "v8.9.4";
 
 	var TESTED_BROWSERS = [
 		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
