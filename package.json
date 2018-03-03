@@ -9,7 +9,7 @@
     "jshint": "^2.1.2",
     "karma": "^2.0.0",
     "karma-expect": "^1.1.0",
-    "karma-mocha": "^0.1.10",
+    "karma-mocha": "^1.3.0",
     "mocha": "^5.0.1"
   },
   "scripts": {
