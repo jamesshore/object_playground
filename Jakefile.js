@@ -8,12 +8,13 @@
 	var TESTED_BROWSERS = [
 		// "IE 8.0 (Windows)",  // DOES NOT WORK -- no SVG support
 		// "IE 9.0 (Windows)",  // DOES NOT WORK -- no Int32Array support and shim causes 'Out of memory' error
-		"IE 10.0.0 (Windows 7)",
-		"Firefox 46.0.0 (Mac OS X 10.11)",
-		"Chrome 50.0.2661 (Mac OS X 10.11.4)",
-		"Safari 9.1.0 (Mac OS X 10.11.4)",
-		"Mobile Safari 9.0.0 (iOS 9.3)",
-		"IE 11.0.0 (Windows 7)"
+		"IE 11.0.0 (Windows 7.0.0)",
+		"Edge 16.16299.0 (Windows 10.0.0)",
+		"Firefox 58.0.0 (Mac OS X 10.11.0)",
+		"Chrome 64.0.3282 (Mac OS X 10.11.6)",
+		"Safari 11.0.3 (Mac OS X 10.11.6)",
+		"Mobile Safari 10.0.0 (iOS 10.2.0)",
+		"Chrome Mobile WebView 44.0.2403 (Android 6.0.0)"
 	];
 
 	var KARMA_CONFIG = "./build/config/karma.conf.js";
