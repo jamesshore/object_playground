@@ -29,7 +29,7 @@ Building and Testing
 
 Before building for the first time:
 
-1. Install [Node.js](http://nodejs.org/download/).
+1. Install [Node.js](http://nodejs.org/download/). Use the version described in Jakefile.js NODE_VERSION variable. (The npm `n` package can help with changing Node versions.)
 2. Download the source code by cloning the git repository: `git clone https://github.com/jamesshore/object_playground`.
 3. All commands must run from the root of the source tree: `cd <directory>`.
 4. To cause the build to fail unless certain browsers are tested, edit `TESTED_BROWSERS` at the top of `Jakefile.js`.
