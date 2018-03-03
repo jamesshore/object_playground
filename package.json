@@ -5,7 +5,7 @@
   "devDependencies": {
     "expect.js": "^0.3.1",
     "http-server": "^0.11.1",
-    "jake": "^0.6.4",
+    "jake": "^8.0.15",
     "jshint": "^2.1.2",
     "karma": "^2.0.0",
     "karma-expect": "^1.1.0",
