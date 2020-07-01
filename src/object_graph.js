@@ -105,7 +105,7 @@ window.jdls = window.jdls || {};
 			value === Date.prototype ||
 			value === RegExp.prototype ||
 			value === Error.prototype ||
-			typeof BigInt !== 'undefined' && value === BigInt.prototype; // jshint ignore:line
+			typeof BigInt !== 'undefined' && value === BigInt.prototype;
 	}
 
 	function isOrdinaryFunction(node, propertyName) {

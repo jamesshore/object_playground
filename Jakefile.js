@@ -77,6 +77,13 @@
 
 	function sharedLintOptions() {
 		return {
+			esversion:6,
+			globals: {
+				BigInt:false
+			},
+			unstable: {
+				bigint:true
+			},
 			bitwise:true,
 			curly:false,
 			eqeqeq:true,

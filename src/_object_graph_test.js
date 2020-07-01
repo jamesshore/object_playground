@@ -109,7 +109,8 @@
 					f: Number.prototype,
 					g: Date.prototype,
 					h: RegExp.prototype,
-					i: Error.prototype
+					i: Error.prototype,
+					j: BigInt.prototype
 				};
 				expect(nodes(object)).to.eql([object]);
 			});

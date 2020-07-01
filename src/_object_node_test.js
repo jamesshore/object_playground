@@ -138,6 +138,13 @@
 				expect(conversionOf(1)).to.equal("1");
 
 				expect(conversionOf("string")).to.equal('"string"');
+
+				expect(conversionOf(0n)).to.equal("0n");
+				expect(conversionOf(1n)).to.equal("1n");
+
+				expect(conversionOf(Symbol())).to.equal("Symbol()");
+				expect(conversionOf(Symbol('description'))).to.equal("Symbol(description)");
+				expect(conversionOf(Symbol.iterator)).to.equal("Symbol(Symbol.iterator)");
 			});
 
 			it("converts functions", function() {
