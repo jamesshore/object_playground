@@ -98,9 +98,11 @@ window.jdls = window.jdls || {};
 
 		switch (typeof value) {
 			case "string": return '"' + value + '"';
+			case "bigint": return value + "n";
 			case "function":
 			case "object":
 				return objectName("{" + objectType(value) + "}", value);
+			case "symbol": return String(value);
 			default: return "" + value;
 		}
 	}
